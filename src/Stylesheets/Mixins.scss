@@ -1,0 +1,30 @@
+/*Mixins utilizables para diseño Responsive
+Tienen una filosfia Movile-First (Se usan para poner estilos particulares para ordenadores
+y que los celulares sean la norma) */
+@mixin breakpoint($point) {
+  @if $point == small-phone {
+    @media all and (min-width: 320px) {
+      @content;
+    }
+  } @else if $point == medium-phone {
+    @media all and (min-width: 480px) {
+      @content;
+    }
+  } @else if $point == small-tablets {
+    @media all and (min-width: 600px) {
+      @content;
+    }
+  } @else if $point == average-tablet {
+    @media all and (min-width: 800px) {
+      @content;
+    }
+  } @else if $point == large-tablet {
+    @media all and (min-width: 1025px) {
+      @content;
+    }
+  } @else if $point == standard-desktop {
+    @media all and (min-width: 1280px) {
+      @content;
+    }
+  }
+} ;

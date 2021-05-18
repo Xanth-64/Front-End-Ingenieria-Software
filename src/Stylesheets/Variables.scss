@@ -1,0 +1,59 @@
+//Fuentes
+@import url("https://fonts.googleapis.com/css2?family=Quando&family=Roboto&family=Stardos+Stencil:wght@700&display=swap");
+
+//Familias de Fuentes
+$font-title: "Stardos Stencil", Georgia, serif;
+$font-subtitle: "Quando", "Trebuchet MS", serif;
+$font-body: "Roboto", Helvetica, sans-serif;
+
+//Tamaños
+$font-very-small: 0.75rem;
+$font-small: 0.875rem;
+$font-normal: 1rem;
+$font-subtitle: 1.5rem;
+$font-title: 2rem;
+//Colores
+//Color Primario
+$primary-color-lighter: #448a8d;
+$primary-color-light: #277276;
+$primary-color-normal: #156064;
+$primary-color-dark: #054b4e;
+$primary-color-darker: #003234;
+
+//Colores Adyacentes
+$adyacent-color1-lighter: #006494;
+$adyacent-color1-light: #005076;
+$adyacent-color1-normal: #003d5b;
+$adyacent-color1-dark: #00293d;
+$adyacent-color1-darker: #000e15;
+
+$adyacent-color2-lighter: #769ec0;
+$adyacent-color2-light: #4979a0;
+$adyacent-color2-normal: #30638e;
+$adyacent-color2-dark: #1b4f7a;
+$adyacent-color2-darker: #0c3a61;
+
+$adyacent-color3-lighter: #01dcfb;
+$adyacent-color3-light: #00a5bc;
+$adyacent-color3-normal: #00798c;
+$adyacent-color3-dark: #006270;
+$adyacent-color3-darker: #004953;
+
+//Colores de Acento
+
+$accent-color1-lighter: #f7a2ae;
+$accent-color1-light: #f17586;
+$accent-color1-normal: #d1495b;
+$accent-color1-dark: #b8263a;
+$accent-color1-darker: #921022;
+
+$accent-color2-lighter: #ffd99b;
+$accent-color2-light: #ffc970;
+$accent-color2-normal: #edae49;
+$accent-color2-dark: #de941d;
+$accent-color2-darker: #aa6e0e;
+
+//Grises y Blancos
+
+$blanco-puro: #ffffff;
+$gris-basico: #fafafa;
