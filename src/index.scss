@@ -1,6 +1,9 @@
 /* Los Estilos Globales Van Aqui*/
 //Importar las Variables Basicas
 @import "./Stylesheets/Variables.scss";
+
+//Importar las Hojas de Estilo Individuales\
+@import "./Stylesheets/Forms.scss";
 body {
   margin: 0;
   box-sizing: border-box;
