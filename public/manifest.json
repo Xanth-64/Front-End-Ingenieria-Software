@@ -3,7 +3,7 @@
   "name": "Avviare: Nido de Emprendedores",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "logoSinQuote.svg",
       "sizes": "64x64 32x32 24x24 16x16 192x192 512x512",
       "type": "image/svg+xml",
       "purpose": "any"
