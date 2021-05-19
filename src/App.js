@@ -1,6 +1,4 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
 import { UsuarioRoute } from "./Componentes/UsuarioRoute";
 import { Principal } from "./Vistas/Principal";
 import { Login } from "./Vistas/Login";
