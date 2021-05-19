@@ -4,41 +4,42 @@ import { FormSesion } from "../Componentes/FormSesion";
 export const Login = () => {
   const labels = [
     {
-      label: "PrimerNombre",
+      label: "Nombre",
       type: "text",
-      required: true,
+      limits: { required: true },
     },
     {
       label: "Apellido",
       type: "text",
-      required: true,
+      limits: { required: true },
     },
-    ,
     {
-      label: "constrasenia",
+      label: "Contraseña",
       type: "password",
-      required: true,
+      limits: { required: true },
     },
     {
-      label: "confirmar contrasenia",
+      label: "Confirmar Contraseña",
       type: "password",
-      required: true,
+      limits: { required: true },
     },
     {
-      label: "descripcion",
-      type: "text",
-      required: true,
+      label: "Correo",
+      type: "email",
+      limits: { required: true },
     },
   ];
-  const submit = (data) => {
+  function submit(data) {
     console.log("YEIII :D");
+    console.log("Mary :3");
     console.log(data);
-  };
+  }
   return (
     <FormSesion
       Inputlabels={labels}
       SubmitFunction={submit}
-      buttonText={"Enviar"}
+      buttonText="Enviar"
+      title="Andrés tiene estilos :v"
     />
   );
 };
