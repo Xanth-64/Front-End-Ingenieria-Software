@@ -4,6 +4,8 @@
 @import "./Stylesheets/Mixins.scss";
 //Importar las Hojas de Estilo Individuales\@import
 @import "./Stylesheets/Forms.scss";
+@import "./Stylesheets/NavBar.scss";
+
 body {
   margin: 0;
   box-sizing: border-box;
