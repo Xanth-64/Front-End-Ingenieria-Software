@@ -90,3 +90,22 @@ div[class*="form-container-select"] {
     font-size: $font-huge;
   }
 }
+
+@include breakpoint(average-tablet) {
+  .form-container-questions {
+    justify-content: space-around;
+    div[class*="form-container-field"] {
+      flex-basis: 45%;
+    }
+    div[class*="form-container-select"] {
+      flex-basis: 45%;
+    }
+  }
+  .form-container-button {
+    justify-content: flex-end;
+    .form-button {
+      width: 25%;
+      margin-right: 10%;
+    }
+  }
+}

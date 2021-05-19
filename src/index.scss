@@ -1,8 +1,8 @@
 /* Los Estilos Globales Van Aqui*/
 //Importar las Variables Basicas
 @import "./Stylesheets/Variables.scss";
-
-//Importar las Hojas de Estilo Individuales\
+@import "./Stylesheets/Mixins.scss";
+//Importar las Hojas de Estilo Individuales\@import
 @import "./Stylesheets/Forms.scss";
 body {
   margin: 0;
