@@ -1,10 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 export const FormSesion = ({
-  SubmitFunction, //funcion de enviar
-  Inputlabels, //Descripcion de los Input
-  buttonText, // Texto del Boton
-  title, //Titulo del Formulario
+  SubmitFunction, // Función de enviar
+  Inputlabels, // Descripción de los Input
+  buttonText, // Texto del Botón
+  title, // TÍtulo del Formulario
 }) => {
   const {
     register,
@@ -44,7 +44,7 @@ export const FormSesion = ({
                         );
                       })}
                     </div>
-                    {errors[value.label] && <span>This field is required</span>}
+                    {errors[value.label] && <span>Este campo es obligatorio</span>}
                   </>
                 );
               default:
@@ -58,7 +58,7 @@ export const FormSesion = ({
                         {...register(value.label, value.limits)}
                       />
                     </div>
-                    {errors[value.label] && <span>This field is required</span>}
+                    {errors[value.label] && <span>Este campo es obligatorio</span>}
                   </>
                 );
             }
