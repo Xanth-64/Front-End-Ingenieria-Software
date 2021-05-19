@@ -28,6 +28,11 @@ export const Login = () => {
       type: "email",
       limits: { required: true },
     },
+    {
+      label: "Genero",
+      inputs: [{ label: "Masculino" }, { label: "Femenino" }],
+      type: "radio",
+    },
   ];
   function submit(data) {
     console.log("YEIII :D");
@@ -38,8 +43,8 @@ export const Login = () => {
     <FormSesion
       Inputlabels={labels}
       SubmitFunction={submit}
-      buttonText="Enviar"
-      title="Andrés tiene estilos :v"
+      buttonText="Entrar"
+      title="Login"
     />
   );
 };

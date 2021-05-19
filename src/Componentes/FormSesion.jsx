@@ -13,7 +13,7 @@ export const FormSesion = ({
     formState: { errors },
   } = useForm();
   return (
-    <div classname="form">
+    <div className="form">
       <form onSubmit={handleSubmit(SubmitFunction)}>
         <div className="form-container-title">
           <h1 className="form-title">{title}</h1>
@@ -22,23 +22,28 @@ export const FormSesion = ({
           {Inputlabels.map((value, index) => {
             let style = `form-container-field-${value.label}`;
             switch (value.type) {
-              case "select":
+              case "radio":
                 return (
                   <>
-                    <select {...register(value.label)}>
+                    <div className="form-container-select-radio">
+                      <h1 className="radioCheckGroupTitle">{value.label}</h1>
                       {value.inputs.map((optionValue, index) => {
                         return (
-                          <div className="form-container-select-radio">
-                            <div className="radioCheckGroup">
-                              <option value={optionValue.label}>
-                                {" "}
-                                {optionValue.label}
-                              </option>
-                            </div>
+                          <div className="radioCheckGroup">
+                            <label
+                              htmlFor={`${value.label}${optionValue.label}`}
+                            >
+                              {optionValue.label}
+                            </label>
+                            <input
+                              type={value.type}
+                              name={value.label}
+                              id={`${value.label}${optionValue.label}`}
+                            />
                           </div>
                         );
                       })}
-                    </select>
+                    </div>
                     {errors[value.label] && <span>This field is required</span>}
                   </>
                 );

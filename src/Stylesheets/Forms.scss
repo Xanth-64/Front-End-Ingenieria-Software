@@ -45,12 +45,16 @@ div[class*="form-container-select"] {
   flex-wrap: wrap;
   display: flex;
   justify-content: center;
+  .radioCheckGroupTitle {
+    width: 55%;
+    font-family: $font-subtitle;
+    font-size: $font-big;
+  }
   .radioCheckGroup {
     width: 55%;
     label {
       font-family: $font-subtitle;
       font-size: $font-body;
-      margin-bottom: 5vh;
     }
   }
 }
@@ -98,7 +102,20 @@ div[class*="form-container-select"] {
       flex-basis: 45%;
     }
     div[class*="form-container-select"] {
-      flex-basis: 45%;
+      display: flex;
+      flex-basis: 100%;
+      justify-content: center;
+      .radioCheckGroupTitle {
+        width: 55%;
+        display: flex;
+        justify-content: center;
+      }
+      .radioCheckGroup {
+        width: 55%;
+        display: flex;
+        justify-content: center;
+        margin: 1rem 0;
+      }
     }
   }
   .form-container-button {
