@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FormSesion } from "../Componentes/FormSesion";
+import { NavBar } from "../Componentes/NavBar";
 
 export const SingUpDriver = () => {
   const labels = [
@@ -54,11 +55,14 @@ export const SingUpDriver = () => {
     console.log(data);
   }
   return (
+    <div>
+      <NavBar />
     <FormSesion
       Inputlabels={labels}
       SubmitFunction={submit}
       buttonText="Crear cuenta"
       title="Creación Driver"
-    />
+      />
+      </div>
   );
 };

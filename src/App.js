@@ -9,13 +9,12 @@ import { SingUpEmprendedor } from "./Vistas/SingUpEmprendedor";
 import { SingUpDriver } from "./Vistas/SingUpDriver";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Test from "./Vistas/Test";
-import { NavBar } from "./Componentes/navBar.jsx";
+import { NavBar } from "./Componentes/NavBar.jsx";
 
 function App() {
   let userData = null;
   return (
     <>
-      <NavBar />
       <Router>
         <Switch>
           <Route exact path="/" component={Principal} />

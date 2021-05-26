@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FormSesion } from "../Componentes/FormSesion";
+import { NavBar } from "../Componentes/NavBar";
 
 export const Login = () => {
   const labels = [
@@ -19,11 +20,14 @@ export const Login = () => {
     console.log(data);
   }
   return (
-    <FormSesion
-      Inputlabels={labels}
-      SubmitFunction={submit}
-      buttonText="Iniciar Sesión"
-      title="Login"
-    />
+    <div>
+      <NavBar />
+      <FormSesion
+        Inputlabels={labels}
+        SubmitFunction={submit}
+        buttonText="Iniciar Sesión"
+        title="Login"
+      />
+    </div>
   );
 };

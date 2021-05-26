@@ -38,13 +38,17 @@ export const FormSesion = ({
                             <input
                               type={value.type}
                               name={value.label}
+                              value={optionValue.label}
                               id={`${value.label}${optionValue.label}`}
+                              {...register(value.label)}
                             />
                           </div>
                         );
                       })}
                     </div>
-                    {errors[value.label] && <span>Este campo es obligatorio</span>}
+                    {errors[value.label] && (
+                      <span>Este campo es obligatorio</span>
+                    )}
                   </>
                 );
               default:
@@ -58,7 +62,9 @@ export const FormSesion = ({
                         {...register(value.label, value.limits)}
                       />
                     </div>
-                    {errors[value.label] && <span>Este campo es obligatorio</span>}
+                    {errors[value.label] && (
+                      <span>Este campo es obligatorio</span>
+                    )}
                   </>
                 );
             }
