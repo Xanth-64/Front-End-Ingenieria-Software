@@ -47,20 +47,53 @@
   background: rgba(0, 165, 188, 0.15);
   border: 3px solid $adyacent-color3-light;
   box-sizing: border-box;
+  text-decoration: none;
+  color: $blanco-puro;
   border-radius: 10px;
+  margin: 3px;
   font-family: $font-subtitle;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
+  padding: 5px;
+  font-size: $font-normal;
   line-height: 22px;
   display: flex;
   align-items: center;
   text-align: center;
-  color: #fefefe;
+  :hover {
+    color: $blanco-puro;
+    text-decoration: none;
+  }
+  :active {
+    color: $blanco-puro;
+  }
+  ::after {
+    color: $blanco-puro;
+    text-decoration: none;
+  }
+  :focus {
+    color: $blanco-puro;
+    text-decoration: none;
+  }
+  ::selection {
+    color: $blanco-puro;
+    text-decoration: none;
+  }
+  :any-link {
+    color: $blanco-puro;
+    text-decoration: none;
+  }
+  :link {
+    color: $blanco-puro;
+    text-decoration: none;
+  }
+  :visited {
+    color: $blanco-puro;
+    text-decoration: none;
+  }
 }
+
 Link.Link {
   text-decoration: none;
-  color: inherit;
+  color: $blanco-puro;
   font-family: inherit;
   font-size: inherit;
   font-style: inherit;

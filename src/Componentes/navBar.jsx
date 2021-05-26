@@ -3,7 +3,7 @@ import { Link, BrowserRouter as Router } from "react-router-dom";
 import lupa from "../Assets/lupa.svg";
 import LogoAvviareSoloBuhito from "../Assets/LogoAvviareSoloBuhito.svg";
 export const NavBar = () => {
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   const searchQuery = (e) => {
     console.log(e);
@@ -40,11 +40,19 @@ export const NavBar = () => {
           </div>
         )}
         {!isLoggedIn && (
-          <div className="login-btn">
-            <Link to="/login" className="Link">
-              {" "}
-              Log in
-            </Link>
+          <div className="flex">
+            <div className="login-btn">
+              <Link to="/login" className="Link">
+                {" "}
+                Log in
+              </Link>
+            </div>
+            <div className="login-btn">
+              <Link to="/login" className="Link">
+                {" "}
+                Sign Up
+              </Link>
+            </div>
           </div>
         )}
       </div>
