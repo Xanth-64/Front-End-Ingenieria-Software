@@ -5,7 +5,7 @@ import LogoAvviareSoloBuhito from "../Assets/LogoAvviareSoloBuhito.svg";
 export const NavBar = () => {
   const isLoggedIn = false;
   const history = useHistory();
-
+  //Redirect fails using Hook
   const searchQuery = (e) => {
     console.log(e);
   };
