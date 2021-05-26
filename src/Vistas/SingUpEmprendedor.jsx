@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FormSesion } from "../Componentes/FormSesion";
+import { NavBar } from "../Componentes/NavBar";
 
 export const SingUpEmprendedor = () => {
   const labels = [
@@ -14,9 +15,9 @@ export const SingUpEmprendedor = () => {
       limits: { required: true },
     },
     {
-        label: "Correo",
-        type: "email",
-        limits: { required: true },
+      label: "Correo",
+      type: "email",
+      limits: { required: true },
     },
     {
       label: "Número de Teléfono",
@@ -39,13 +40,12 @@ export const SingUpEmprendedor = () => {
       limits: { required: true },
     },
     {
-        label: "Usuario en RRSS del emprendimiento",
-        type: "text",
-        limits: { required: false },
+      label: "Usuario en RRSS del emprendimiento",
+      type: "text",
+      limits: { required: false },
     },
 
     // Acá falta carga de imágen + Ubicación
-
   ];
   function submit(data) {
     console.log("YEIII :D");
@@ -53,11 +53,14 @@ export const SingUpEmprendedor = () => {
     console.log(data);
   }
   return (
-    <FormSesion
-      Inputlabels={labels}
-      SubmitFunction={submit}
-      buttonText="Crear cuenta"
-      title="Creación emprendimiento avviare"
-    />
+    <div>
+      <NavBar />
+      <FormSesion
+        Inputlabels={labels}
+        SubmitFunction={submit}
+        buttonText="Crear cuenta"
+        title="Creación emprendimiento avviare"
+      />
+    </div>
   );
 };

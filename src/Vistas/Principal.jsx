@@ -3,7 +3,7 @@ import { Card } from "../Componentes/Card";
 import { ComboSlider } from "../Componentes/ComboSlider";
 import { FormSesion } from "../Componentes/FormSesion";
 import { Publicidad } from "../Componentes/Publicidad";
-
+import { NavBar } from "../Componentes/NavBar";
 export const Principal = () => {
   const data = [
     {
@@ -33,14 +33,17 @@ export const Principal = () => {
   ];
   return (
     <div>
-      <div className="cardContainer-Title">
-        <h1>Combos de la Semana</h1>
-      </div>
-      <div className="mainPage-element">
-        <ComboSlider />
-      </div>
-      <div className="mainPage-element">
-        <Publicidad publicityProducts={data}></Publicidad>
+      <NavBar />
+      <div>
+        <div className="cardContainer-Title">
+          <h1>Combos de la Semana</h1>
+        </div>
+        <div className="mainPage-element">
+          <ComboSlider />
+        </div>
+        <div className="mainPage-element">
+          <Publicidad publicityProducts={data}></Publicidad>
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FormSesion } from "../Componentes/FormSesion";
+import { NavBar } from "../Componentes/NavBar";
 
 export const SingUpUsuarios = () => {
   const labels = [
@@ -40,7 +41,6 @@ export const SingUpUsuarios = () => {
     },
 
     // Acá falta Ubicación (Mapita)
-
   ];
   function submit(data) {
     console.log("YEIII :D");
@@ -48,11 +48,14 @@ export const SingUpUsuarios = () => {
     console.log(data);
   }
   return (
-    <FormSesion
-      Inputlabels={labels}
-      SubmitFunction={submit}
-      buttonText="Crear cuenta"
-      title="Creación usuario avviare"
-    />
+    <div>
+      <NavBar />
+      <FormSesion
+        Inputlabels={labels}
+        SubmitFunction={submit}
+        buttonText="Crear cuenta"
+        title="Creación usuario avviare"
+      />
+    </div>
   );
 };

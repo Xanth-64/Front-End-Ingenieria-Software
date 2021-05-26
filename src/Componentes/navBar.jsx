@@ -1,9 +1,10 @@
 import React from "react";
-import { Link, BrowserRouter as Router } from "react-router-dom";
+import { Link, BrowserRouter as Router, useHistory } from "react-router-dom";
 import lupa from "../Assets/lupa.svg";
 import LogoAvviareSoloBuhito from "../Assets/LogoAvviareSoloBuhito.svg";
 export const NavBar = () => {
   const isLoggedIn = false;
+  const history = useHistory();
 
   const searchQuery = (e) => {
     console.log(e);
@@ -12,12 +13,15 @@ export const NavBar = () => {
     <Router>
       <div className="navBar">
         <div className="Avviare-logo-container">
-          <Link>
+          <Link to="/">
             {" "}
             <img
               src={LogoAvviareSoloBuhito}
               alt="Logo"
               className="Avviare-logo"
+              onClick={() => {
+                history.push("/");
+              }}
             />
           </Link>
         </div>
@@ -37,7 +41,7 @@ export const NavBar = () => {
         {isLoggedIn && (
           <div className="button-container-nav">
             <div className="login-btn">
-              <Link to="/login" clasname="Link">
+              <Link to="/login" replace={true} clasname="Link">
                 Profile
               </Link>
             </div>
@@ -45,14 +49,21 @@ export const NavBar = () => {
         )}
         {!isLoggedIn && (
           <div className="button-container-nav">
-            <div className="login-btn">
-              <Link to="/login" className="Link">
-                {" "}
-                Log in
-              </Link>
+            <div
+              className="login-btn"
+              onClick={() => {
+                history.push("/login");
+              }}
+            >
+              <Link to="/login"> Log in</Link>
             </div>
-            <div className="login-btn">
-              <Link to="/login" className="Link">
+            <div
+              className="login-btn"
+              onClick={() => {
+                history.push("/SignUpBase");
+              }}
+            >
+              <Link to="/SignUpBase" className="Link">
                 {" "}
                 Sign Up
               </Link>

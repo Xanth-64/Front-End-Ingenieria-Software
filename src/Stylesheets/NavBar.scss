@@ -66,6 +66,9 @@
 .searchBar-lupa-img {
   height: 30px;
   width: 30px;
+  &:hover {
+    cursor: pointer;
+  }
 }
 .button-container-nav {
   flex-basis: 100%;
@@ -75,7 +78,7 @@
   justify-content: center;
 }
 .login-btn {
-  background: rgba(0, 165, 188, 0.15);
+  background-color: rgba(0, 165, 188, 0.15);
   border: 3px solid $adyacent-color3-light;
   text-decoration: none;
   color: $blanco-puro;
@@ -87,6 +90,11 @@
   line-height: 22px;
   text-align: center;
   flex-basis: 95%;
+  transition: background-color ease-in-out 1s;
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(0, 165, 188, 0.5);
+  }
   :hover {
     color: $blanco-puro;
     text-decoration: none;
@@ -120,6 +128,25 @@
   }
 }
 
+@include breakpoint(average-tablet) {
+  .login-btn {
+    flex-basis: 35%;
+  }
+}
+@include breakpoint(large-tablet) {
+  .login-btn {
+    flex-basis: 50%;
+  }
+  .Avviare-logo-container {
+    flex-basis: 10%;
+  }
+  .searchBar-container {
+    flex-basis: 65%;
+  }
+  .button-container-nav {
+    flex-basis: 25%;
+  }
+}
 Link.Link {
   text-decoration: none;
   color: $blanco-puro;

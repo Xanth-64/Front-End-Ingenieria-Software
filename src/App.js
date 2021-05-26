@@ -1,6 +1,4 @@
 import React from "react";
-import { userContext } from "./Componentes/userContext";
-import { UsuarioRoute } from "./Componentes/UsuarioRoute";
 import { Principal } from "./Vistas/Principal";
 import { Login } from "./Vistas/Login";
 import { SingUpBase } from "./Vistas/SingUpBase";
@@ -9,13 +7,10 @@ import { SingUpEmprendedor } from "./Vistas/SingUpEmprendedor";
 import { SingUpDriver } from "./Vistas/SingUpDriver";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Test from "./Vistas/Test";
-import { NavBar } from "./Componentes/navBar.jsx";
 
 function App() {
-  let userData = null;
   return (
     <>
-      <NavBar />
       <Router>
         <Switch>
           <Route exact path="/" component={Principal} />
