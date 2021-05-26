@@ -3,7 +3,7 @@ import { Card } from "../Componentes/Card";
 import { ComboSlider } from "../Componentes/ComboSlider";
 import { FormSesion } from "../Componentes/FormSesion";
 import { Publicidad } from "../Componentes/Publicidad";
-import { NavBar } from "../Componentes/NavBar";
+import { NavBar } from "../Componentes/navBar";
 export const Principal = () => {
   const data = [
     {

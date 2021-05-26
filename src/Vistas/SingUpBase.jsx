@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { FormSesion } from "../Componentes/FormSesion";
-import { NavBar } from "../Componentes/NavBar";
+import { NavBar } from "../Componentes/navBar";
 
 export const SingUpBase = () => {
   const history = useHistory();

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FormSesion } from "../Componentes/FormSesion";
-import { NavBar } from "../Componentes/NavBar";
+import { NavBar } from "../Componentes/navBar";
 
 export const SingUpEmprendedor = () => {
   const labels = [

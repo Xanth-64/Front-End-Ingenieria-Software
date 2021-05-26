@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FormSesion } from "../Componentes/FormSesion";
-import { NavBar } from "../Componentes/NavBar";
+import { NavBar } from "../Componentes/navBar";
 
 export const SingUpDriver = () => {
   const labels = [
@@ -15,9 +15,9 @@ export const SingUpDriver = () => {
       limits: { required: true },
     },
     {
-        label: "Correo",
-        type: "email",
-        limits: { required: true },
+      label: "Correo",
+      type: "email",
+      limits: { required: true },
     },
     {
       label: "Número de Teléfono",
@@ -40,14 +40,18 @@ export const SingUpDriver = () => {
       limits: { required: true },
     },
     {
-        label: "Tipo de Transporte",
-        inputs: [{ label: "Automóvil grande" }, { label: "Automóvil pequeño" }, { label: "Motocicleta" }, { label: "Bicicleta" }],
-        type: "radio",
-        limits: { required: true },
+      label: "Tipo de Transporte",
+      inputs: [
+        { label: "Automóvil grande" },
+        { label: "Automóvil pequeño" },
+        { label: "Motocicleta" },
+        { label: "Bicicleta" },
+      ],
+      type: "radio",
+      limits: { required: true },
     },
 
     // Acá falta carga de imágen + Ubicación
-
   ];
   function submit(data) {
     console.log("YEIII :D");
@@ -57,12 +61,12 @@ export const SingUpDriver = () => {
   return (
     <div>
       <NavBar />
-    <FormSesion
-      Inputlabels={labels}
-      SubmitFunction={submit}
-      buttonText="Crear cuenta"
-      title="Creación Driver"
+      <FormSesion
+        Inputlabels={labels}
+        SubmitFunction={submit}
+        buttonText="Crear cuenta"
+        title="Creación Driver"
       />
-      </div>
+    </div>
   );
 };
