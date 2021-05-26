@@ -1,0 +1,68 @@
+.navBar {
+  background-color: $adyacent-color3-dark;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px;
+  overflow: hidden;
+}
+.searchBar-container {
+  background-color: $blanco-puro;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  border: 2px ridge $primary-color-light;
+  overflow: hidden;
+  height: 50%;
+}
+.searchBar-form {
+  background-color: $blanco-puro;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  border: 2px ridge $primary-color-light;
+  overflow: hidden;
+  height: 50%;
+}
+.searchBar {
+  font-family: $font-body;
+  font-size: $font-normal;
+  padding: 0px;
+  margin: 0;
+
+  border: none;
+  background-color: $blanco-puro;
+}
+.Avviare-logo {
+  height: 60px;
+  width: 60px;
+}
+.searchBar-lupa-img {
+  height: 30px;
+  width: 30px;
+}
+.login-btn {
+  background: rgba(0, 165, 188, 0.15);
+  border: 3px solid $adyacent-color3-light;
+  box-sizing: border-box;
+  border-radius: 10px;
+  font-family: $font-subtitle;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #fefefe;
+}
+Link.Link {
+  text-decoration: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+}

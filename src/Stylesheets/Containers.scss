@@ -1,0 +1,27 @@
+.cardContainer {
+  font-family: $font-title;
+  display: inline-block;
+  background: #f6f6f6;
+  box-sizing: border-box;
+  border: 1px solid rgba(107, 112, 115, 0.5);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  padding: 10px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5%;
+  grid-template-rows: 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5%;
+}
+.flex {
+  display: flex;
+}
+.container {
+  display: inline-block;
+}
+.blanco {
+  background: $blanco-puro;
+}
+.gris {
+  background: $gris-basico;
+}

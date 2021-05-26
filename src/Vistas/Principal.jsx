@@ -1,6 +1,15 @@
 import React from "react";
+import { Card } from "../Componentes/Card";
+import { ComboSlider } from "../Componentes/ComboSlider";
 import { FormSesion } from "../Componentes/FormSesion";
 
 export const Principal = () => {
-  return <h1> Hola a todos :D </h1>;
+  return (
+    <div>
+      <h1> Top Combos de la Semana </h1>
+      <div className="cardContainer">
+        <ComboSlider />
+      </div>
+    </div>
+  );
 };
