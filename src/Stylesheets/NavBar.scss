@@ -3,50 +3,80 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0px;
+  padding: 0.5rem 0.2rem;
   overflow: hidden;
+  flex-wrap: wrap;
 }
 .searchBar-container {
-  background-color: $blanco-puro;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  border-radius: 10px;
-  border: 2px ridge $primary-color-light;
+  justify-content: center;
   overflow: hidden;
   height: 50%;
+  flex-basis: 100%;
 }
 .searchBar-form {
   background-color: $blanco-puro;
   display: flex;
+  padding-left: 0.2rem;
   align-items: center;
   justify-content: space-between;
   border-radius: 10px;
   border: 2px ridge $primary-color-light;
   overflow: hidden;
   height: 50%;
+  flex-basis: 80%;
 }
 .searchBar {
   font-family: $font-body;
   font-size: $font-normal;
   padding: 0px;
   margin: 0;
-
-  border: none;
+  outline-width: 0;
+  width: 50%;
+  border: 0px;
+  transition: border-bottom ease-in-out 2s;
+  &:focus {
+    outline-width: 0;
+    width: 50%;
+    border: 0px;
+    border-bottom: $primary-color-dark solid 1px;
+  }
   background-color: $blanco-puro;
+}
+.searchBar-input {
+  flex-basis: 90%;
+}
+.searchBar-lupa {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-basis: 10%;
 }
 .Avviare-logo {
   height: 60px;
   width: 60px;
 }
+.Avviare-logo-container {
+  flex-basis: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .searchBar-lupa-img {
   height: 30px;
   width: 30px;
 }
+.button-container-nav {
+  flex-basis: 100%;
+  display: flex;
+  margin: 0.2rem 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 .login-btn {
   background: rgba(0, 165, 188, 0.15);
   border: 3px solid $adyacent-color3-light;
-  box-sizing: border-box;
   text-decoration: none;
   color: $blanco-puro;
   border-radius: 10px;
@@ -55,9 +85,8 @@
   padding: 5px;
   font-size: $font-normal;
   line-height: 22px;
-  display: flex;
-  align-items: center;
   text-align: center;
+  flex-basis: 95%;
   :hover {
     color: $blanco-puro;
     text-decoration: none;

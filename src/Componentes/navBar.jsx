@@ -11,18 +11,20 @@ export const NavBar = () => {
   return (
     <Router>
       <div className="navBar">
-        <Link>
-          {" "}
-          <img
-            src={LogoAvviareSoloBuhito}
-            alt="Logo"
-            className="Avviare-logo"
-          />
-        </Link>
+        <div className="Avviare-logo-container">
+          <Link>
+            {" "}
+            <img
+              src={LogoAvviareSoloBuhito}
+              alt="Logo"
+              className="Avviare-logo"
+            />
+          </Link>
+        </div>
         <div className="searchBar-container">
           <form onSubmit={searchQuery} className="searchBar-form">
             <input
-              placeholder="search"
+              placeholder="Search"
               type="text"
               name="search"
               className="searchBar searchBar-input"
@@ -33,14 +35,16 @@ export const NavBar = () => {
           </form>
         </div>
         {isLoggedIn && (
-          <div className="login-btn">
-            <Link to="/login" clasname="Link">
-              Profile
-            </Link>
+          <div className="button-container-nav">
+            <div className="login-btn">
+              <Link to="/login" clasname="Link">
+                Profile
+              </Link>
+            </div>
           </div>
         )}
         {!isLoggedIn && (
-          <div className="flex">
+          <div className="button-container-nav">
             <div className="login-btn">
               <Link to="/login" className="Link">
                 {" "}
