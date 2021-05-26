@@ -15,6 +15,16 @@
 }
 .flex {
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.space-around {
+  display: flex;
+  justify-content: space-around;
+}
+.space-evenly {
+  display: flex;
+  justify-content: space-between;
 }
 .container {
   display: inline-block;
@@ -24,4 +34,8 @@
 }
 .gris {
   background: $gris-basico;
+}
+.combo-image {
+  height: 150px;
+  width: 150px;
 }

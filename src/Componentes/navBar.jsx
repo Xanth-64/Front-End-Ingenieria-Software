@@ -34,7 +34,7 @@ export const NavBar = () => {
         </div>
         {isLoggedIn && (
           <div className="login-btn">
-            <Link to="/profile" clasname="Link">
+            <Link to="/login" clasname="Link">
               Profile
             </Link>
           </div>

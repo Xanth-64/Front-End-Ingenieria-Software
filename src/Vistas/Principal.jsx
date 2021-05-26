@@ -7,7 +7,7 @@ export const Principal = () => {
   return (
     <div>
       <h1> Top Combos de la Semana </h1>
-      <div className="cardContainer">
+      <div>
         <ComboSlider />
       </div>
     </div>
