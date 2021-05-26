@@ -1,7 +1,7 @@
 export const Publicidad = (props) => {
   return (
     <div className="publicidad-card-container">
-      <div className="publicidad-card-Title">
+      <div className="cardContainer-Title">
         <h1>Ofertas de la Semana</h1>
       </div>
       <div className="publicidad-card-productContainer">

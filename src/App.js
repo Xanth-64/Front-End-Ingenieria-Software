@@ -9,7 +9,7 @@ import { SingUpEmprendedor } from "./Vistas/SingUpEmprendedor";
 import { SingUpDriver } from "./Vistas/SingUpDriver";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Test from "./Vistas/Test";
-import { NavBar } from "./Componentes/NavBar";
+import { NavBar } from "./Componentes/navBar.jsx";
 
 function App() {
   let userData = null;
@@ -20,14 +20,14 @@ function App() {
         <Switch>
           <Route exact path="/" component={Principal} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/SingUpBase" component={SingUpBase} />
-          <Route exact path="/SingUpUsuarios" component={SingUpUsuarios} />
+          <Route exact path="/SignUpBase" component={SingUpBase} />
+          <Route exact path="/SignUpUsuarios" component={SingUpUsuarios} />
           <Route
             exact
-            path="/SingUpEmprendedor"
+            path="/SignUpEmprendedor"
             component={SingUpEmprendedor}
           />
-          <Route exact path="/SingUpDriver" component={SingUpDriver} />
+          <Route exact path="/SignUpDriver" component={SingUpDriver} />
           <Route exact path="/test" component={Test} />
         </Switch>
       </Router>
