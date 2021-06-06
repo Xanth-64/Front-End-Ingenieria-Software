@@ -6,6 +6,7 @@ import { SingUpUsuarios } from "./Vistas/SingUpUsuarios";
 import { SingUpEmprendedor } from "./Vistas/SingUpEmprendedor";
 import { SingUpDriver } from "./Vistas/SingUpDriver";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "rsuite/dist/styles/rsuite-default.css";
 import Test from "./Vistas/Test";
 //Base App
 function App() {
