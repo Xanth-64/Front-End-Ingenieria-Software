@@ -9,9 +9,9 @@ export const SingUpBase = () => {
     {
       label: "Tipo de Cliente",
       inputs: [
-        { label: "Usuario" },
-        { label: "Emprendimiento" },
-        { label: "Driver" },
+        { label: "Usuario", value: "Usuario" },
+        { label: "Emprendimiento", value: "Emprendimiento" },
+        { label: "Driver", value: "Driver" },
       ],
       type: "radio",
     },
@@ -42,6 +42,7 @@ export const SingUpBase = () => {
         Inputlabels={labels}
         SubmitFunction={submit}
         buttonText="Siguiente"
+        title={"Selecciona xd"}
       />
     </div>
   );
