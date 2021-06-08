@@ -1,76 +1,72 @@
 import React from "react";
-import { Link, BrowserRouter as Router, useHistory } from "react-router-dom";
-import lupa from "../Assets/lupa.svg";
+import { Link } from "react-router-dom";
+import { Nav, Navbar, Input, InputGroup, Icon, Col, FlexboxGrid } from "rsuite";
 import LogoAvviareSoloBuhito from "../Assets/LogoAvviareSoloBuhito.svg";
 export const NavBar = () => {
   const isLoggedIn = false;
-  const history = useHistory();
   //Redirect fails using Hook
-  const searchQuery = (e) => {
-    console.log(e);
+  const navBarStyles = {};
+  const navInputStyles = {
+    marginTop: "10px",
   };
   return (
-    <Router>
-      <div className="navBar">
-        <div className="Avviare-logo-container">
+    <>
+      <Navbar style={navBarStyles}>
+        <Navbar.Header>
           <Link to="/">
             {" "}
             <img
               src={LogoAvviareSoloBuhito}
               alt="Logo"
               className="Avviare-logo"
-              onClick={() => {
-                history.push("/");
-              }}
             />
           </Link>
-        </div>
-        <div className="searchBar-container">
-          <form onSubmit={searchQuery} className="searchBar-form">
-            <input
-              placeholder="Search"
-              type="text"
-              name="search"
-              className="searchBar searchBar-input"
-            />{" "}
-            <button type="submit" className="searchBar searchBar-lupa">
-              <img src={lupa} alt="lupa" className="searchBar-lupa-img" />
-            </button>
-          </form>
-        </div>
-        {isLoggedIn && (
-          <div className="button-container-nav">
-            <div className="login-btn">
-              <Link to="/login" replace={true} clasname="Link">
-                Profile
-              </Link>
-            </div>
-          </div>
-        )}
-        {!isLoggedIn && (
-          <div className="button-container-nav">
-            <div
-              className="login-btn"
-              onClick={() => {
-                history.push("/login");
-              }}
-            >
-              <Link to="/login"> Log in</Link>
-            </div>
-            <div
-              className="login-btn"
-              onClick={() => {
-                history.push("/SignUpBase");
-              }}
-            >
-              <Link to="/SignUpBase" className="Link">
-                {" "}
-                Sign Up
-              </Link>
-            </div>
-          </div>
-        )}
-      </div>
-    </Router>
+        </Navbar.Header>
+        <Navbar.Body>
+          <FlexboxGrid align="middle" justify="center">
+            <FlexboxGrid.Item componentClass={Col} colspan={24} sm={16}>
+              <FlexboxGrid
+                align="bottom"
+                justify="center"
+                styles={navInputStyles}
+              >
+                <InputGroup>
+                  <Input />
+                  <InputGroup.Button>
+                    <Icon icon="search" />
+                  </InputGroup.Button>
+                </InputGroup>
+              </FlexboxGrid>
+            </FlexboxGrid.Item>
+            <FlexboxGrid.Item componentClass={Col} colspan={24} sm={8}>
+              {isLoggedIn && (
+                <Nav>
+                  <Nav.Item></Nav.Item>
+                  <Nav.Item></Nav.Item>
+                </Nav>
+              )}
+              {!isLoggedIn && (
+                <FlexboxGrid align="middle" justify="end">
+                  <FlexboxGrid.Item>
+                    <Nav>
+                      <Link to="/login">
+                        <Nav.Item>
+                          <h5>Log in</h5>
+                        </Nav.Item>
+                      </Link>
+                      <Link to="/SignUpBase">
+                        <Nav.Item>
+                          <h5>Sign Up</h5>
+                        </Nav.Item>
+                      </Link>
+                    </Nav>
+                  </FlexboxGrid.Item>
+                </FlexboxGrid>
+              )}
+            </FlexboxGrid.Item>
+          </FlexboxGrid>
+        </Navbar.Body>
+      </Navbar>
+    </>
   );
 };

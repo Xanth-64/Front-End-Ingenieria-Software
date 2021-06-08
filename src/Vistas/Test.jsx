@@ -1,7 +1,6 @@
 import React from "react";
-import { Publicidad } from "../Componentes/Publicidad";
-import { Button } from "rsuite";
-import { Navbar } from "rsuite";
+
+import { AdminWorkZone } from "../Componentes/AdminWorkzone";
 function Test() {
   const data = [
     {
@@ -30,15 +29,9 @@ function Test() {
     },
   ];
   return (
-    <div className="form">
-      <Button>Hello World</Button>
-      <Publicidad publicityProducts={data}></Publicidad>
-      <Navbar>
-        <Navbar.Header>
-          <p>Veamos que tal</p>
-        </Navbar.Header>
-      </Navbar>
-    </div>
+    <>
+      <AdminWorkZone></AdminWorkZone>
+    </>
   );
 }
 

@@ -1,4 +1,11 @@
 /* Los Estilos Globales Van Aqui*/
+body {
+  margin: 0;
+  box-sizing: border-box;
+}
+html {
+  margin: 0 !important;
+}
 //Importar las Variables Basicas
 @import "./Stylesheets/Variables.scss";
 @import "./Stylesheets/Mixins.scss";
@@ -10,7 +17,3 @@
 
 //Importar las Hojas de Estilos Pertenecientes a Vistas
 @import "./Stylesheets/Principal.scss";
-body {
-  margin: 0;
-  box-sizing: border-box;
-}
