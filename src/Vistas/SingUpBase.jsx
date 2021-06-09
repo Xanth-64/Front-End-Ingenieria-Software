@@ -13,7 +13,7 @@ export const SingUpBase = () => {
       label: "Tipo de Cliente",
       inputs: [
         { label: "Usuario", value: "Usuario" },
-        { label: "Emprendimiento", value: "Emprendimiento" },
+        { label: "Emprendedor", value: "Emprendedor" },
         { label: "Driver", value: "Driver" },
       ],
       type: "radio",
@@ -27,7 +27,7 @@ export const SingUpBase = () => {
       case "Usuario":
         history.push("/SignUpUsuarios");
         break;
-      case "Emprendimiento":
+      case "Emprendedor":
         history.push("/SignUpEmprendedor");
         break;
       case "Driver":

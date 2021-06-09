@@ -34,16 +34,6 @@ export const SingUpEmprendedor = () => {
       type: "password",
       limits: { required: true },
     },
-    {
-      label: "Descripción del Negocio",
-      type: "text",
-      limits: { required: true },
-    },
-    {
-      label: "Usuario en RRSS del emprendimiento",
-      type: "text",
-      limits: { required: false },
-    },
 
     // Acá falta carga de imágen + Ubicación
   ];
@@ -58,9 +48,8 @@ export const SingUpEmprendedor = () => {
       <FormSesion
         Inputlabels={labels}
         SubmitFunction={submit}
-        buttonText="Crear cuenta"
-        title="Creación emprendimiento avviare"
-        ShowMap={true}
+        buttonText="Siguiente"
+        title="Creación Emprendedor"
       />
     </div>
   );
