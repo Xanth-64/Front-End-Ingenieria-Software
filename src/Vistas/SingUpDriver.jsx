@@ -6,6 +6,9 @@ import { NavBar } from "../Componentes/navBar";
 export const SingUpDriver = () => {
   const labels = [
     {
+      type: "image",
+    },
+    {
       label: "Nombre",
       type: "text",
       limits: { required: true },

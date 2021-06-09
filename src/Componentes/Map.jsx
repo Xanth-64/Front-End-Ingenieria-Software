@@ -3,8 +3,8 @@ import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import { Loader, Alert } from "rsuite";
 
 const containerStyle = {
-  width: "300px",
-  height: "300px",
+  width: "400px",
+  height: "400px",
 };
 
 export const Map = () => {

@@ -6,6 +6,9 @@ import { Alert } from "rsuite";
 export const SingUpEmprendedor = () => {
   const labels = [
     {
+      type: "image",
+    },
+    {
       label: "Nombre dueño",
       type: "text",
       limits: { required: true },

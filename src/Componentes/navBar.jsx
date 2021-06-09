@@ -54,7 +54,7 @@ export const NavBar = () => {
                           <h5>Log in</h5>
                         </Nav.Item>
                       </Link>
-                      <Link to="/SignUpBase">
+                      <Link to="/SignUp">
                         <Nav.Item>
                           <h5>Sign Up</h5>
                         </Nav.Item>

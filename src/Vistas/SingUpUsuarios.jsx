@@ -33,11 +33,7 @@ export const SingUpUsuarios = () => {
       type: "password",
       limits: { required: true },
     },
-    {
-      label: "Confirmar Contraseña",
-      type: "password",
-      limits: { required: true },
-    },
+
     {
       label: "Genero",
       inputs: [{ label: "Masculino" }, { label: "Femenino" }],

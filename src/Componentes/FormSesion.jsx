@@ -7,6 +7,7 @@ import {
   ControlLabel,
   FlexboxGrid,
   Button,
+  ButtonGroup,
   Col,
   RadioGroup,
   Radio,
@@ -18,7 +19,8 @@ export const FormSesion = ({
   Inputlabels, // Descripción de los Input
   buttonText, // Texto del Botón
   title, // TÍtulo del Formulario
-  showMap,
+  showMap, // YUO WANT THE MAP OR NOT???
+  bfunction, // The bestie Function Shishi
 }) => {
   const [formValue, setFormValue] = useState({});
 
@@ -89,12 +91,13 @@ export const FormSesion = ({
                         Foto de Pefil
                       </ControlLabel>
                       <Uploader
-                        className="input-width"
                         onUpload={(File) => {
                           console.log(File);
                         }}
                       >
-                        <Icon icon="avatar" />
+                        <Button className="input-width">
+                          <Icon icon="avatar" size="4x" />
+                        </Button>
                       </Uploader>
                     </FormGroup>
                   </FlexboxGrid.Item>
@@ -122,6 +125,7 @@ export const FormSesion = ({
                 );
             }
           })}
+
           {showMap === "T" && (
             <FlexboxGrid.Item
               componentClass={Col}
@@ -138,9 +142,11 @@ export const FormSesion = ({
             md={24}
             className="form-input"
           >
-            <Button appearance="primary" color="green" type="submit">
-              {buttonText}
-            </Button>
+            <ButtonGroup>
+              <Button appearance="primary" color="green" type="submit">
+                {buttonText}
+              </Button>
+            </ButtonGroup>
           </FlexboxGrid.Item>
         </FlexboxGrid>
       </Form>

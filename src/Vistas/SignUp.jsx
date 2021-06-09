@@ -35,8 +35,6 @@ export const SignUp = () => {
       <Steps current={step}>
         <Steps.Item title="Tipo de Usuario" />
         <Steps.Item title="Registro" />
-        <Steps.Item title="Waiting" />
-        <Steps.Item title="Waiting" />
       </Steps>
       {step === 0 && (
         <SingUpBase
@@ -60,14 +58,14 @@ export const SignUp = () => {
         <SingUpUsuarios />
       )}
 
-      <ButtonGroup>
+      {/* <ButtonGroup>
         <Button onClick={onPrevious} disabled={step === 0}>
           Previous
         </Button>
         <Button onClick={onNext} color="green" disabled={step === 3}>
           Next
         </Button>
-      </ButtonGroup>
+      </ButtonGroup> */}
     </div>
   );
 };
