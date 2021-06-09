@@ -5,7 +5,7 @@ import { FormSesion } from "../Componentes/FormSesion";
 import { NavBar } from "../Componentes/navBar";
 import { Alert, Loader } from "rsuite";
 
-export const SingUpBase = () => {
+export const SingUpBase = ({ submitFunction }) => {
   const history = useHistory();
 
   const labels = [
@@ -20,8 +20,6 @@ export const SingUpBase = () => {
     },
   ];
   function submit(data) {
-    console.log("YEIII :D");
-    console.log("Mary :3");
     console.log(data);
     switch (data["Tipo de Cliente"]) {
       case "Usuario":
@@ -40,12 +38,11 @@ export const SingUpBase = () => {
   }
   return (
     <div>
-      <NavBar />
       <FormSesion
         Inputlabels={labels}
-        SubmitFunction={submit}
+        SubmitFunction={submitFunction}
         buttonText="Siguiente"
-        showMap={false}
+        showMap="D"
       />
     </div>
   );

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FormSesion } from "../Componentes/FormSesion";
 import { NavBar } from "../Componentes/navBar";
 import { Map } from "../Componentes/Map";
+import { Alert } from "rsuite";
 export const SingUpEmprendedor = () => {
   const labels = [
     {
@@ -41,15 +42,16 @@ export const SingUpEmprendedor = () => {
     console.log("YEIII :D");
     console.log("Mary :3");
     console.log(data);
+    Alert.success("Solicitud de Registro enviada");
   }
   return (
     <div>
-      <NavBar />
       <FormSesion
         Inputlabels={labels}
         SubmitFunction={submit}
         buttonText="Siguiente"
         title="Creación Emprendedor"
+        showMap="T"
       />
     </div>
   );
