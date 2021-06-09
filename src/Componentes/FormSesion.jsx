@@ -1,82 +1,155 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useState, useEffect } from "react";
+import { Map } from "./Map";
+import {
+  Form,
+  FormGroup,
+  FormControl,
+  ControlLabel,
+  FlexboxGrid,
+  Button,
+  ButtonGroup,
+  Col,
+  RadioGroup,
+  Radio,
+  Uploader,
+  Icon,
+} from "rsuite";
 export const FormSesion = ({
   SubmitFunction, // Función de enviar
   Inputlabels, // Descripción de los Input
   buttonText, // Texto del Botón
   title, // TÍtulo del Formulario
+  showMap, // YUO WANT THE MAP OR NOT???
+  bfunction, // The bestie Function Shishi
 }) => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+  const [formValue, setFormValue] = useState({});
+
   return (
-    <div className="form">
-      <form onSubmit={handleSubmit(SubmitFunction)}>
-        <div className="form-container-title">
-          <h1 className="form-title">{title}</h1>
-        </div>
-        <div className="form-container-questions">
+    <>
+      <div className="form-container-title">
+        <h1 className="form-title">{title}</h1>
+      </div>
+      <Form
+        onSubmit={(check, e) => {
+          SubmitFunction(formValue);
+        }}
+        onChange={(e) => {
+          setFormValue(e);
+          SubmitFunction(e);
+        }}
+        formValue={formValue}
+      >
+        <FlexboxGrid justify="center">
           {Inputlabels.map((value, index) => {
             let style = `form-container-field-${value.label}`;
             switch (value.type) {
               case "radio":
                 return (
-                  <>
-                    <div className="form-container-select-radio">
-                      <h1 className="radioCheckGroupTitle">{value.label}</h1>
-                      {value.inputs.map((optionValue, index) => {
-                        return (
-                          <div className="radioCheckGroup">
-                            <label
-                              htmlFor={`${value.label}${optionValue.label}`}
-                            >
-                              {optionValue.label}
-                            </label>
-                            <input
-                              type={value.type}
-                              name={value.label}
-                              value={optionValue.label}
-                              id={`${value.label}${optionValue.label}`}
-                              {...register(value.label)}
-                            />
-                          </div>
-                        );
-                      })}
-                    </div>
-                    {errors[value.label] && (
-                      <span>Este campo es obligatorio</span>
-                    )}
-                  </>
+                  <div>
+                    <h1>{value.label}</h1>
+                    <FlexboxGrid.Item
+                      componentClass={Col}
+                      colspan={24}
+                      md={24}
+                      className="form-input"
+                    >
+                      <FormGroup>
+                        <RadioGroup
+                          name={value.label}
+                          onChange={(v) => {
+                            setFormValue({
+                              ...formValue,
+                              [value.label]: v,
+                            });
+                          }}
+                          controlId="radioList"
+                        >
+                          {value.inputs.map((optionValue, index) => {
+                            return (
+                              <>
+                                <Radio value={optionValue.label}>
+                                  {optionValue.label}
+                                </Radio>
+                              </>
+                            );
+                          })}
+                        </RadioGroup>
+                      </FormGroup>
+                    </FlexboxGrid.Item>
+                  </div>
+                );
+              case "image":
+                return (
+                  <FlexboxGrid.Item
+                    componentClass={Col}
+                    colspan={24}
+                    md={12}
+                    className="form-input"
+                  >
+                    <FormGroup>
+                      <ControlLabel className="subtitle">
+                        Foto de Pefil
+                      </ControlLabel>
+                      <Uploader
+                        onUpload={(File) => {
+                          console.log(File);
+                        }}
+                      >
+                        <Button className="input-width">
+                          <Icon icon="avatar" size="4x" />
+                        </Button>
+                      </Uploader>
+                    </FormGroup>
+                  </FlexboxGrid.Item>
                 );
               default:
                 return (
-                  <>
-                    <div className={style}>
-                      <input
+                  <FlexboxGrid.Item
+                    componentClass={Col}
+                    colspan={24}
+                    md={12}
+                    className="form-input"
+                  >
+                    <FormGroup>
+                      <ControlLabel className="subtitle">
+                        {value.label}
+                      </ControlLabel>
+                      <FormControl
                         type={value.type}
+                        className="input-width"
                         name={value.label}
                         placeholder={value.label}
-                        {...register(value.label, value.limits)}
                       />
-                    </div>
-                    {errors[value.label] && (
-                      <span>Este campo es obligatorio</span>
-                    )}
-                  </>
+                    </FormGroup>
+                  </FlexboxGrid.Item>
                 );
             }
           })}
-        </div>
-        <div className="form-container-button">
-          <button type="submit" className="form-button">
-            {" "}
-            <span>{buttonText} </span>
-          </button>
-        </div>
-      </form>
-    </div>
+
+          {showMap === "T" && (
+            <FlexboxGrid.Item
+              componentClass={Col}
+              colspan={24}
+              md={24}
+              className="form-input"
+            >
+              <Map />
+            </FlexboxGrid.Item>
+          )}
+          <FlexboxGrid.Item
+            componentClass={Col}
+            colspan={24}
+            md={24}
+            className="form-input"
+          >
+            <ButtonGroup>
+              <Button appearance="primary" color="green" type="submit">
+                {buttonText}
+              </Button>
+            </ButtonGroup>
+          </FlexboxGrid.Item>
+        </FlexboxGrid>
+      </Form>
+    </>
   );
 };

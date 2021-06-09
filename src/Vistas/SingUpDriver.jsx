@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import { Alert } from "rsuite";
 import { FormSesion } from "../Componentes/FormSesion";
 import { NavBar } from "../Componentes/navBar";
 
 export const SingUpDriver = () => {
   const labels = [
+    {
+      type: "image",
+    },
     {
       label: "Nombre",
       type: "text",
@@ -57,15 +61,16 @@ export const SingUpDriver = () => {
     console.log("YEIII :D");
     console.log("Mary :3");
     console.log(data);
+    Alert.success("Solicitud de Registro enviada");
   }
   return (
     <div>
-      <NavBar />
       <FormSesion
         Inputlabels={labels}
         SubmitFunction={submit}
         buttonText="Crear cuenta"
         title="Creación Driver"
+        showMap="T"
       />
     </div>
   );

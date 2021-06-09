@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import { Alert } from "rsuite";
 import { FormSesion } from "../Componentes/FormSesion";
 import { NavBar } from "../Componentes/navBar";
 
 export const SingUpUsuarios = () => {
   const labels = [
+    {
+      type: "image",
+    },
     {
       label: "Nombre",
       type: "text",
@@ -29,11 +33,7 @@ export const SingUpUsuarios = () => {
       type: "password",
       limits: { required: true },
     },
-    {
-      label: "Confirmar Contraseña",
-      type: "password",
-      limits: { required: true },
-    },
+
     {
       label: "Genero",
       inputs: [{ label: "Masculino" }, { label: "Femenino" }],
@@ -46,15 +46,16 @@ export const SingUpUsuarios = () => {
     console.log("YEIII :D");
     console.log("Mary :3");
     console.log(data);
+    Alert.success("Solicitud de Registro enviada");
   }
   return (
     <div>
-      <NavBar />
       <FormSesion
         Inputlabels={labels}
         SubmitFunction={submit}
         buttonText="Crear cuenta"
         title="Creación usuario avviare"
+        showMap="T"
       />
     </div>
   );

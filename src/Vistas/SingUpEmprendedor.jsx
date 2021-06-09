@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { FormSesion } from "../Componentes/FormSesion";
 import { NavBar } from "../Componentes/navBar";
-
+import { Map } from "../Componentes/Map";
+import { Alert } from "rsuite";
 export const SingUpEmprendedor = () => {
   const labels = [
+    {
+      type: "image",
+    },
     {
       label: "Nombre dueño",
       type: "text",
@@ -34,16 +38,6 @@ export const SingUpEmprendedor = () => {
       type: "password",
       limits: { required: true },
     },
-    {
-      label: "Descripción del Negocio",
-      type: "text",
-      limits: { required: true },
-    },
-    {
-      label: "Usuario en RRSS del emprendimiento",
-      type: "text",
-      limits: { required: false },
-    },
 
     // Acá falta carga de imágen + Ubicación
   ];
@@ -51,15 +45,16 @@ export const SingUpEmprendedor = () => {
     console.log("YEIII :D");
     console.log("Mary :3");
     console.log(data);
+    Alert.success("Solicitud de Registro enviada");
   }
   return (
     <div>
-      <NavBar />
       <FormSesion
         Inputlabels={labels}
         SubmitFunction={submit}
-        buttonText="Crear cuenta"
-        title="Creación emprendimiento avviare"
+        buttonText="Siguiente"
+        title="Creación Emprendedor"
+        showMap="T"
       />
     </div>
   );

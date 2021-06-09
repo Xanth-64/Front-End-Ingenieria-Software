@@ -9,6 +9,11 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import "rsuite/dist/styles/rsuite-default.css";
 import Test from "./Vistas/Test";
+import { NavBar } from "./Componentes/navBar";
+// Mientras tanto
+import { DatosEmprendimiento } from "./Vistas/DatosEmprendimiento";
+import { SignUp } from "./Vistas/SignUp";
+
 //Base App
 function App() {
   return (
@@ -25,6 +30,12 @@ function App() {
             component={SingUpEmprendedor}
           />
           <Route exact path="/SignUpDriver" component={SingUpDriver} />
+          <Route exact path="/SignUp" component={SignUp} />
+          <Route
+            exact
+            path="/DatosEmprendimiento"
+            component={DatosEmprendimiento}
+          />
           <Route exact path="/test" component={Test} />
         </Switch>
       </Router>
