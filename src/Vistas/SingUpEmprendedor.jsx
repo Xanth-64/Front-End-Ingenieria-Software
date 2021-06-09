@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { FormSesion } from "../Componentes/FormSesion";
 import { NavBar } from "../Componentes/navBar";
-
+import { Map } from "../Componentes/Map";
+import { Alert } from "rsuite";
 export const SingUpEmprendedor = () => {
   const labels = [
+    {
+      type: "image",
+    },
     {
       label: "Nombre dueño",
       type: "text",
@@ -33,7 +37,7 @@ export const SingUpEmprendedor = () => {
       label: "Confirmar Contraseña",
       type: "password",
       limits: { required: true },
-    }
+    },
 
     // Acá falta carga de imágen + Ubicación
   ];
@@ -41,19 +45,16 @@ export const SingUpEmprendedor = () => {
     console.log("YEIII :D");
     console.log("Mary :3");
     console.log(data);
+    Alert.success("Solicitud de Registro enviada");
   }
   return (
     <div>
-      <NavBar />
       <FormSesion
         Inputlabels={labels}
         SubmitFunction={submit}
-        buttonText="Creación Emprendedor"
-        title="Creación Emprendedor"
-
         buttonText="Siguiente"
-        title="Creación Emprendedor" 
-
+        title="Creación Emprendedor"
+        showMap="T"
       />
     </div>
   );

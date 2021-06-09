@@ -1,10 +1,13 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router";
+import React, { useState, useEffect, useRef } from "react";
+import { Map } from "../Componentes/Map";
+import { useHistory } from "react-router-dom";
 import { FormSesion } from "../Componentes/FormSesion";
 import { NavBar } from "../Componentes/navBar";
+import { Alert, Loader } from "rsuite";
 
-export const SingUpBase = () => {
+export const SingUpBase = ({ submitFunction }) => {
   const history = useHistory();
+
   const labels = [
     {
       label: "Tipo de Cliente",
@@ -17,8 +20,6 @@ export const SingUpBase = () => {
     },
   ];
   function submit(data) {
-    console.log("YEIII :D");
-    console.log("Mary :3");
     console.log(data);
     switch (data["Tipo de Cliente"]) {
       case "Usuario":
@@ -31,18 +32,17 @@ export const SingUpBase = () => {
         history.push("/SignUpDriver");
         break;
       default:
-        history.push("/SignUpUsuario");
+        history.push("/SignUpUsuarios");
         break;
     }
   }
   return (
     <div>
-      <NavBar />
       <FormSesion
         Inputlabels={labels}
-        SubmitFunction={submit}
+        SubmitFunction={submitFunction}
         buttonText="Siguiente"
-        title={"Selecciona xd"}
+        showMap="D"
       />
     </div>
   );

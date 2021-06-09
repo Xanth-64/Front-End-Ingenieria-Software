@@ -1,25 +1,29 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { useState, useEffect } from "react";
+import { Map } from "./Map";
 import {
   Form,
   FormGroup,
   FormControl,
   ControlLabel,
-  HelpBlock,
   FlexboxGrid,
   Button,
+  ButtonGroup,
   Col,
-  Row,
   RadioGroup,
   Radio,
+  Uploader,
+  Icon,
 } from "rsuite";
 export const FormSesion = ({
   SubmitFunction, // Función de enviar
   Inputlabels, // Descripción de los Input
   buttonText, // Texto del Botón
   title, // TÍtulo del Formulario
+  showMap, // YUO WANT THE MAP OR NOT???
+  bfunction, // The bestie Function Shishi
 }) => {
   const [formValue, setFormValue] = useState({});
+
   return (
     <>
       <div className="form-container-title">
@@ -27,11 +31,11 @@ export const FormSesion = ({
       </div>
       <Form
         onSubmit={(check, e) => {
-          console.log(formValue);
           SubmitFunction(formValue);
         }}
         onChange={(e) => {
           setFormValue(e);
+          SubmitFunction(e);
         }}
         formValue={formValue}
       >
@@ -57,7 +61,6 @@ export const FormSesion = ({
                               ...formValue,
                               [value.label]: v,
                             });
-                            console.log(formValue);
                           }}
                           controlId="radioList"
                         >
@@ -74,6 +77,30 @@ export const FormSesion = ({
                       </FormGroup>
                     </FlexboxGrid.Item>
                   </div>
+                );
+              case "image":
+                return (
+                  <FlexboxGrid.Item
+                    componentClass={Col}
+                    colspan={24}
+                    md={12}
+                    className="form-input"
+                  >
+                    <FormGroup>
+                      <ControlLabel className="subtitle">
+                        Foto de Pefil
+                      </ControlLabel>
+                      <Uploader
+                        onUpload={(File) => {
+                          console.log(File);
+                        }}
+                      >
+                        <Button className="input-width">
+                          <Icon icon="avatar" size="4x" />
+                        </Button>
+                      </Uploader>
+                    </FormGroup>
+                  </FlexboxGrid.Item>
                 );
               default:
                 return (
@@ -98,15 +125,28 @@ export const FormSesion = ({
                 );
             }
           })}
+
+          {showMap === "T" && (
+            <FlexboxGrid.Item
+              componentClass={Col}
+              colspan={24}
+              md={24}
+              className="form-input"
+            >
+              <Map />
+            </FlexboxGrid.Item>
+          )}
           <FlexboxGrid.Item
             componentClass={Col}
             colspan={24}
             md={24}
             className="form-input"
           >
-            <Button appearance="primary" color="green" type="submit">
-              {buttonText}
-            </Button>
+            <ButtonGroup>
+              <Button appearance="primary" color="green" type="submit">
+                {buttonText}
+              </Button>
+            </ButtonGroup>
           </FlexboxGrid.Item>
         </FlexboxGrid>
       </Form>
