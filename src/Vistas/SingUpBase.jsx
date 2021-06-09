@@ -1,10 +1,13 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router";
+import React, { useState, useEffect, useRef } from "react";
+import { Map } from "../Componentes/Map";
+import { useHistory } from "react-router-dom";
 import { FormSesion } from "../Componentes/FormSesion";
 import { NavBar } from "../Componentes/navBar";
+import { Alert, Loader } from "rsuite";
 
 export const SingUpBase = () => {
   const history = useHistory();
+
   const labels = [
     {
       label: "Tipo de Cliente",
@@ -31,7 +34,7 @@ export const SingUpBase = () => {
         history.push("/SignUpDriver");
         break;
       default:
-        history.push("/SignUpUsuario");
+        history.push("/SignUpUsuarios");
         break;
     }
   }
@@ -42,7 +45,7 @@ export const SingUpBase = () => {
         Inputlabels={labels}
         SubmitFunction={submit}
         buttonText="Siguiente"
-        title={"Selecciona xd"}
+        showMap={false}
       />
     </div>
   );

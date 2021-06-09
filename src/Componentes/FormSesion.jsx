@@ -1,25 +1,26 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { useState, useEffect } from "react";
+
 import {
   Form,
   FormGroup,
   FormControl,
   ControlLabel,
-  HelpBlock,
   FlexboxGrid,
   Button,
   Col,
-  Row,
   RadioGroup,
   Radio,
 } from "rsuite";
+import { Map } from "./Map";
 export const FormSesion = ({
   SubmitFunction, // Función de enviar
   Inputlabels, // Descripción de los Input
   buttonText, // Texto del Botón
   title, // TÍtulo del Formulario
+  showMap, //Boolean, tener mapa o no
 }) => {
   const [formValue, setFormValue] = useState({});
+
   return (
     <>
       <div className="form-container-title">
@@ -98,6 +99,16 @@ export const FormSesion = ({
                 );
             }
           })}
+          {true && (
+            <FlexboxGrid.Item
+              componentClass={Col}
+              colspan={24}
+              md={24}
+              className="form-input"
+            >
+              <Map showMap={showMap} />
+            </FlexboxGrid.Item>
+          )}
           <FlexboxGrid.Item
             componentClass={Col}
             colspan={24}

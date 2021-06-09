@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FormSesion } from "../Componentes/FormSesion";
 import { NavBar } from "../Componentes/navBar";
-
+import { Map } from "../Componentes/Map";
 export const SingUpEmprendedor = () => {
   const labels = [
     {
@@ -60,6 +60,7 @@ export const SingUpEmprendedor = () => {
         SubmitFunction={submit}
         buttonText="Crear cuenta"
         title="Creación emprendimiento avviare"
+        ShowMap={true}
       />
     </div>
   );

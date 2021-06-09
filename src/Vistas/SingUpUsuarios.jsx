@@ -55,6 +55,7 @@ export const SingUpUsuarios = () => {
         SubmitFunction={submit}
         buttonText="Crear cuenta"
         title="Creación usuario avviare"
+        howMap={true}
       />
     </div>
   );

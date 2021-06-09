@@ -66,6 +66,7 @@ export const SingUpDriver = () => {
         SubmitFunction={submit}
         buttonText="Crear cuenta"
         title="Creación Driver"
+        howMap={true}
       />
     </div>
   );
