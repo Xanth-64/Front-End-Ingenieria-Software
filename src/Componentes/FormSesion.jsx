@@ -19,8 +19,9 @@ export const FormSesion = ({
   Inputlabels, // Descripción de los Input
   buttonText, // Texto del Botón
   title, // TÍtulo del Formulario
-  showMap, // YUO WANT THE MAP OR NOT???
-  bfunction, // The bestie Function Shishi
+  showMap, // Boolean de si aparece el mapa o no
+  bFunction, // Funcion de ir atrás
+  onChange, //Funcion on Change
 }) => {
   const [formValue, setFormValue] = useState({});
 
@@ -34,8 +35,7 @@ export const FormSesion = ({
           SubmitFunction(formValue);
         }}
         onChange={(e) => {
-          setFormValue(e);
-          SubmitFunction(e);
+          SubmitFunction(formValue);
         }}
         formValue={formValue}
       >
@@ -62,12 +62,14 @@ export const FormSesion = ({
                               [value.label]: v,
                             });
                           }}
-                          controlId="radioList"
                         >
                           {value.inputs.map((optionValue, index) => {
                             return (
                               <>
-                                <Radio value={optionValue.label}>
+                                <Radio
+                                  value={optionValue.label}
+                                  checked={index == 1}
+                                >
                                   {optionValue.label}
                                 </Radio>
                               </>
@@ -143,6 +145,17 @@ export const FormSesion = ({
             className="form-input"
           >
             <ButtonGroup>
+              {bFunction && (
+                <Button
+                  appearance="subtle"
+                  color="green"
+                  type="button"
+                  onClick={bFunction}
+                >
+                  {" "}
+                  Atrás{" "}
+                </Button>
+              )}
               <Button appearance="primary" color="green" type="submit">
                 {buttonText}
               </Button>

@@ -3,7 +3,7 @@ import { Alert } from "rsuite";
 import { FormSesion } from "../Componentes/FormSesion";
 import { NavBar } from "../Componentes/navBar";
 
-export const SingUpDriver = () => {
+export const SingUpDriver = ({ SubmitFunction, bFunction }) => {
   const labels = [
     {
       type: "image",
@@ -67,10 +67,12 @@ export const SingUpDriver = () => {
     <div>
       <FormSesion
         Inputlabels={labels}
-        SubmitFunction={submit}
-        buttonText="Crear cuenta"
+        SubmitFunction={SubmitFunction}
+        onChange={SubmitFunction}
+        buttonText="Siguiente"
         title="Creación Driver"
         showMap="T"
+        bFunction={bFunction}
       />
     </div>
   );

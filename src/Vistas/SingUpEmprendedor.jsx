@@ -3,7 +3,7 @@ import { FormSesion } from "../Componentes/FormSesion";
 import { NavBar } from "../Componentes/navBar";
 import { Map } from "../Componentes/Map";
 import { Alert } from "rsuite";
-export const SingUpEmprendedor = () => {
+export const SingUpEmprendedor = ({ SubmitFunction, bFunction }) => {
   const labels = [
     {
       type: "image",
@@ -51,10 +51,12 @@ export const SingUpEmprendedor = () => {
     <div>
       <FormSesion
         Inputlabels={labels}
-        SubmitFunction={submit}
+        SubmitFunction={SubmitFunction}
+        onChange={SubmitFunction}
         buttonText="Siguiente"
         title="Creación Emprendedor"
         showMap="T"
+        bFunction={bFunction}
       />
     </div>
   );

@@ -3,7 +3,7 @@ import { Alert } from "rsuite";
 import { FormSesion } from "../Componentes/FormSesion";
 import { NavBar } from "../Componentes/navBar";
 
-export const SingUpUsuarios = () => {
+export const SingUpUsuarios = ({ SubmitFunction, bFunction }) => {
   const labels = [
     {
       type: "image",
@@ -52,10 +52,12 @@ export const SingUpUsuarios = () => {
     <div>
       <FormSesion
         Inputlabels={labels}
-        SubmitFunction={submit}
-        buttonText="Crear cuenta"
+        SubmitFunction={SubmitFunction}
+        onChange={SubmitFunction}
+        buttonText="Siguiente"
         title="Creación usuario avviare"
         showMap="T"
+        bFunction={bFunction}
       />
     </div>
   );

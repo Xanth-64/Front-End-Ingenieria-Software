@@ -5,7 +5,7 @@ import { FormSesion } from "../Componentes/FormSesion";
 import { NavBar } from "../Componentes/navBar";
 import { Alert, Loader } from "rsuite";
 
-export const SingUpBase = ({ submitFunction }) => {
+export const SingUpBase = ({ SubmitFunction, bFunction, onChange }) => {
   const history = useHistory();
 
   const labels = [
@@ -40,7 +40,8 @@ export const SingUpBase = ({ submitFunction }) => {
     <div>
       <FormSesion
         Inputlabels={labels}
-        SubmitFunction={submitFunction}
+        SubmitFunction={SubmitFunction}
+        onChange={onChange}
         buttonText="Siguiente"
         showMap="D"
       />
