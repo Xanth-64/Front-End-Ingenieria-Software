@@ -17,55 +17,92 @@ import {
   ControlLabel,
   HelpBlock,
   Alert,
+  Icon,
+  Divider,
+  List,
+  Placeholder,
 } from "rsuite";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import buhitoMalo from "../Assets/LogoAvviareSoloBuhitoAngry.svg";
 
 export const AdminWorkZone = (props) => {
   const [categoryArr, setCategoryArr] = useState([]);
-  let userArr = [];
+  const [currentSubcatArr, setCurrentSubcatArr] = useState([]);
+  const [userArr, setUserArr] = useState([]);
   let entrepeneurArr = [];
   let driverArr = [];
   let [loading, setLoading] = useState(true);
+  let [loadingSubcat, setLoadingSubcat] = useState(false);
+  //Variables para Mostrar modales
+  //Creacion de Nuevas Categorias
   const [showCategoryModal, setShowCategoryModal] = useState(false);
+  //Eliminacion de Categorias ya existentes
+  const [deleteCategoryModal, setDeleteCategoryModal] = useState(false);
+  //Vista de Subcategorias
+  const [subCategoryModal, setSubCategoryModal] = useState(false);
+
+  // Variables de los formularios utilizados
   const [categoryData, setCategoryData] = useState({ categoria: "" });
+  const [subCategoryData, setSubcategoryData] = useState({ subcategoria: "" });
   const [categoryFormCheck, setcategoryFormCheck] = useState({});
   const { StringType } = Schema.Types;
+
+  const [currentCategory, setCurrentCategory] = useState(null);
   //Modelo para la validacion del form de categorias
   const categoryModel = Schema.Model({
-    categoria: StringType().isRequired("No puede dejar este campo en Blanco"),
+    categoria: StringType().isRequired("No puede dejar este campo vacío"),
+  });
+  //Modelo para la validacion del form de Subcategorias
+  const subCategoryModel = Schema.Model({
+    subcategoria: StringType().isRequired("No puede dejar este campo vacío"),
   });
   //Funciones que traen la informacion de cada Campo
   //Obtener todas las categorias
-  const getCategories = async () => {
+
+  //Obtener todos los usuarios
+  const getUsers = async () => {
     try {
-      const answer = await axios.get(
-        "https://avviare.herokuapp.com/api/catalog/all"
+      const doc = await axios.get(
+        "https://avviare.herokuapp.com/api/usuarios/all"
       );
-      setCategoryArr(answer.data.data);
-      if (answer) {
-        setLoading(false);
+      if (doc) {
+        setUserArr(doc.data.data);
       }
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
+  //Obtener todas las categorías
+  const getCategories = () => {
+    const innerFunction = async () => {
+      setLoading(true);
+      try {
+        const answer = await axios.get(
+          "https://avviare.herokuapp.com/api/catalog/all"
+        );
+        setCategoryArr(answer.data.data);
+
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+        return;
+      }
+    };
+    innerFunction();
+  };
+
+  //Obtener todos los emprendedores.
+  const getEntrepeneurs = async () => {
+    try {
+      setLoading(false);
     } catch (err) {
       setLoading(false);
     }
   };
-  //Obtener todos los usuarios
-  const getUsers = () => {
-    axios
-      .get("https://avviare.herokuapp.com/api/usuarios/all")
-      .then((response) => {
-        userArr = response.data;
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
-  };
-  //Obtener todos los emprendedores.
   //Obtener todos los drivers.
 
   //Funciones de los Modales
@@ -100,10 +137,118 @@ export const AdminWorkZone = (props) => {
 
       hideCreateCategoryModal();
     }
-    console.log("Chimbooo");
   };
-  getCategories();
+
+  //Mostrar Listado de Subcategorias
+  const showSubcatModal = async (currentCat) => {
+    try {
+      const doc = await axios.get(
+        `https://avviare.herokuapp.com/api/subCategory/all/byCategory/${currentCat.id_categoria}`
+      );
+      if (doc) {
+        setCurrentSubcatArr(doc.data.data);
+        setCurrentCategory(currentCat);
+        setSubCategoryModal(true);
+      } else {
+        Alert.warning(
+          `Error, no se pudieron mostrar las subcategorias de ${currentCat.nombre}`
+        );
+      }
+    } catch (err) {
+      Alert.warning(
+        `Error, no se pudieron mostrar las subcategorias de ${currentCat.nombre}`
+      );
+    }
+  };
+
+  const hideSubCategoryModal = () => {
+    setSubCategoryModal(false);
+    setCurrentCategory(null);
+  };
+
+  // Eliminar la Subcategoria Elegida
+  const removeSubCat = async (element) => {
+    if (element) {
+      try {
+        const doc = await axios.delete(
+          `https://avviare.herokuapp.com/api/subCategory/one/${element.id_subcat}`
+        );
+        if (doc) {
+          setCurrentSubcatArr(
+            currentSubcatArr.filter((element) => {
+              return element.id_subcat !== doc.data.data[0].id_subcat;
+            })
+          );
+          Alert.info(
+            `La Subcategoría "${doc.data.data[0].nombre}" fue eliminada con éxito`
+          );
+        }
+      } catch (err) {
+        console.log(err);
+        Alert.error("La Subcategoría no pudo ser eliminada");
+      }
+    }
+  };
+  const createSubcat = async () => {
+    try {
+      setLoadingSubcat(true);
+      if (subCategoryData.subcategoria) {
+        const doc = await axios.post(
+          `https://avviare.herokuapp.com/api/subCategory/one/byCategory/${currentCategory.id_categoria}`,
+          {
+            nombre: subCategoryData.subcategoria,
+          }
+        );
+        if (doc) {
+          const temp = currentSubcatArr;
+          temp.push(doc.data.data[0]);
+          setCurrentSubcatArr(temp);
+          console.log(currentSubcatArr);
+          Alert.success(`Subcategoría creada exitosamente`);
+          setLoadingSubcat(false);
+        }
+      }
+    } catch (err) {
+      console.log(err);
+      Alert.error("No se pudo crear la Subcategoria Elegida");
+      setLoadingSubcat(false);
+    }
+  };
+  //Eliminar la categoria elegida.
+  const showDeleteCategoryModal = (currentCat) => {
+    setCurrentCategory(currentCat);
+    setDeleteCategoryModal(true);
+  };
+  const hideDeleteCategoryModal = () => {
+    setDeleteCategoryModal(false);
+    setCurrentCategory(null);
+  };
+
+  const deleteCategory = async () => {
+    if (currentCategory) {
+      try {
+        const doc = await axios.delete(
+          `https://avviare.herokuapp.com/api/catalog/one/${currentCategory.id_categoria}`
+        );
+        if (doc) {
+          setCategoryArr(
+            categoryArr.filter((element) => {
+              return element.id_categoria !== currentCategory.id_categoria;
+            })
+          );
+          Alert.info(
+            `La Categoría "${doc.data.data[0].nombre}" Fue eliminada con éxito.`
+          );
+          hideDeleteCategoryModal();
+        }
+      } catch (err) {
+        Alert.error("La Categoría no pudo ser eliminada.");
+        hideDeleteCategoryModal();
+      }
+    }
+  };
   const [active, setActive] = useState("categorias");
+  useEffect(getCategories, []);
   return (
     <>
       <Container>
@@ -119,6 +264,9 @@ export const AdminWorkZone = (props) => {
               }
               if (activeKey === "clientes") {
                 getUsers();
+              }
+              if (activeKey === "empresarios") {
+                getEntrepeneurs();
               }
             }}
           >
@@ -139,11 +287,31 @@ export const AdminWorkZone = (props) => {
                 {categoryArr.length !== 0 &&
                   categoryArr.map((element) => {
                     return (
-                      <Panel
-                        header={element.nombre}
-                        activeKey={uuidv4()}
-                        key={uuidv4()}
-                      ></Panel>
+                      <Panel header={element.nombre} key={element.nombre}>
+                        <FlexboxGrid justify="start" align="middle">
+                          <FlexboxGrid.Item>
+                            <Button
+                              color="green"
+                              onClick={() => {
+                                showSubcatModal(element);
+                              }}
+                            >
+                              Ver Subcategorías
+                            </Button>
+                          </FlexboxGrid.Item>
+                          <FlexboxGrid.Item>
+                            <Button
+                              color="red"
+                              style={{ marginLeft: "15%" }}
+                              onClick={() => {
+                                showDeleteCategoryModal(element);
+                              }}
+                            >
+                              Eliminar
+                            </Button>
+                          </FlexboxGrid.Item>
+                        </FlexboxGrid>
+                      </Panel>
                     );
                   })}
                 {categoryArr.length === 0 && (
@@ -179,55 +347,230 @@ export const AdminWorkZone = (props) => {
                   </Button>
                 </FlexboxGrid.Item>
               </FlexboxGrid>
-              <Modal show={showCategoryModal} onHide={hideCreateCategoryModal}>
-                <Modal.Header>
-                  <Modal.Title>Crear Categoría</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Form
-                    fluid
-                    model={categoryModel}
-                    onChange={(formVals) => {
-                      setCategoryData(formVals);
-                    }}
-                    onCheck={(formError) => {
-                      setcategoryFormCheck(formError);
-                    }}
-                  >
-                    <FormGroup>
-                      <ControlLabel>Nombre de la Categoría</ControlLabel>
-                      <FormControl name="categoria"></FormControl>
-                      <HelpBlock tooltip>Campo Obligatorio</HelpBlock>
-                    </FormGroup>
-                    <FlexboxGrid justify="space-around">
-                      <FlexboxGrid.Item>
-                        <Button
-                          appearance="primary"
-                          type="submit"
-                          onClick={createCategory}
-                        >
-                          Crear Categoría
-                        </Button>
-                      </FlexboxGrid.Item>
-                      <FlexboxGrid.Item>
-                        <Button
-                          appearance="subtle"
-                          color="yellow"
-                          onClick={hideCreateCategoryModal}
-                        >
-                          Cancelar
-                        </Button>
-                      </FlexboxGrid.Item>
-                    </FlexboxGrid>
-                  </Form>
-                </Modal.Body>
-              </Modal>
             </>
           )}
-          {active === "clientes" && !loading && <>Clientes</>}
+          {active === "clientes" && !loading && (
+            <>
+              <PanelGroup accordion bordered>
+                {userArr.length !== 0 &&
+                  userArr.map((user) => {
+                    return (
+                      <Panel
+                        header={`${user.nombre} ${user.apellido}`}
+                        key={uuidv4()}
+                      >
+                        <FlexboxGrid justify="space-between" align="middle">
+                          <FlexboxGrid.Item componentClass={Col} colspan={12}>
+                            <FlexboxGrid justify="center">
+                              <span>
+                                <b>Nombre:</b> {user.nombre}
+                              </span>
+                            </FlexboxGrid>
+                          </FlexboxGrid.Item>
+                          <FlexboxGrid.Item componentClass={Col} colspan={12}>
+                            <FlexboxGrid justify="center">
+                              <span>
+                                <b>Apellido:</b> {user.apellido}{" "}
+                              </span>
+                            </FlexboxGrid>
+                          </FlexboxGrid.Item>
+                          <FlexboxGrid.Item componentClass={Col} colspan={12}>
+                            <FlexboxGrid justify="center">
+                              <span>
+                                <b>Correo:</b> {user.email}{" "}
+                              </span>
+                            </FlexboxGrid>
+                          </FlexboxGrid.Item>
+                          <FlexboxGrid.Item componentClass={Col} colspan={12}>
+                            <FlexboxGrid justify="center">
+                              <span>
+                                <b>Teléfono:</b> {user.telefono}
+                              </span>
+                            </FlexboxGrid>
+                          </FlexboxGrid.Item>
+                          <FlexboxGrid.Item componentClass={Col} colspan={24}>
+                            <FlexboxGrid justify="center">
+                              {user.imagen_url && (
+                                <img
+                                  alt="Foto de Perfil"
+                                  src={user.imagen_url}
+                                ></img>
+                              )}
+                            </FlexboxGrid>
+                            {!user.imagen_url && (
+                              <Placeholder.Graph active></Placeholder.Graph>
+                            )}
+                          </FlexboxGrid.Item>
+                        </FlexboxGrid>
+                      </Panel>
+                    );
+                  })}
+                {userArr.length === 0 && (
+                  <>
+                    <FlexboxGrid justify="center" align="middle">
+                      <FlexboxGrid.Item componentClass={Col} colspan={24}>
+                        <FlexboxGrid justify="center">
+                          <img
+                            alt="Nothing Found Error"
+                            src={buhitoMalo}
+                            style={{ width: "25%" }}
+                          />
+                        </FlexboxGrid>
+                      </FlexboxGrid.Item>
+                      <FlexboxGrid.Item componentClass={Col} colspan={24}>
+                        <FlexboxGrid justify="center">
+                          <h3>No se encontraron Usuarios</h3>
+                        </FlexboxGrid>
+                      </FlexboxGrid.Item>
+                    </FlexboxGrid>
+                  </>
+                )}
+              </PanelGroup>
+            </>
+          )}
           {active === "empresarios" && !loading && <>Corte Empresario</>}
         </Content>
       </Container>
+
+      {/* Modal Zone */}
+      {/* Modal para la creacion de Nuevas Categorias */}
+      <Modal show={showCategoryModal} onHide={hideCreateCategoryModal}>
+        <Modal.Header>
+          <Modal.Title>Crear Categoría</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form
+            fluid
+            model={categoryModel}
+            onChange={(formVals) => {
+              setCategoryData(formVals);
+            }}
+            onCheck={(formError) => {
+              setcategoryFormCheck(formError);
+            }}
+          >
+            <FormGroup>
+              <ControlLabel>Nombre de la Categoría</ControlLabel>
+              <FormControl name="categoria"></FormControl>
+              <HelpBlock tooltip>Campo Obligatorio</HelpBlock>
+            </FormGroup>
+            <FlexboxGrid justify="space-around">
+              <FlexboxGrid.Item>
+                <Button
+                  appearance="primary"
+                  type="submit"
+                  onClick={createCategory}
+                >
+                  Crear Categoría
+                </Button>
+              </FlexboxGrid.Item>
+              <FlexboxGrid.Item>
+                <Button
+                  appearance="subtle"
+                  color="yellow"
+                  onClick={hideCreateCategoryModal}
+                >
+                  Cancelar
+                </Button>
+              </FlexboxGrid.Item>
+            </FlexboxGrid>
+          </Form>
+        </Modal.Body>
+      </Modal>
+
+      {/* Modal para la Eliminacion de Categorias (Confirmacion) */}
+      <Modal show={deleteCategoryModal} onHide={hideDeleteCategoryModal}>
+        <Modal.Header>
+          <Modal.Title>
+            <Icon icon="warning" /> Eliminar Categoría
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body justify="center" align="center">
+          <FlexboxGrid>
+            <FlexboxGrid.Item componentClass={Col} colspan={24}>
+              <h6>
+                Esta acción no puede deshacerse.
+                <br />
+                Asegúrese de querer eliminar este elemento.
+              </h6>
+            </FlexboxGrid.Item>
+            <Divider />
+            <FlexboxGrid.Item componentClass={Col} colspan={24}>
+              <Button color="yellow" size="lg" onClick={deleteCategory}>
+                Eliminar
+              </Button>
+            </FlexboxGrid.Item>
+          </FlexboxGrid>
+        </Modal.Body>
+      </Modal>
+      {/* Modal para el muestreo de Subcategorias */}
+      <Modal show={subCategoryModal} onHide={hideSubCategoryModal}>
+        {!loadingSubcat && (
+          <>
+            {currentSubcatArr.length !== 0 && (
+              <List bordered hover>
+                {currentSubcatArr.map((element) => {
+                  return (
+                    <List.Item key={uuidv4()}>
+                      <FlexboxGrid justify="space-between" align="middle">
+                        <FlexboxGrid.Item>
+                          <h5>{element.nombre}</h5>
+                        </FlexboxGrid.Item>
+                        <FlexboxGrid.Item>
+                          <Button
+                            color="red"
+                            onClick={() => {
+                              removeSubCat(element);
+                            }}
+                          >
+                            {" "}
+                            <Icon icon="close" /> Eliminar
+                          </Button>
+                        </FlexboxGrid.Item>
+                      </FlexboxGrid>
+                    </List.Item>
+                  );
+                })}
+              </List>
+            )}
+          </>
+        )}
+        {loadingSubcat && (
+          <>
+            <div>
+              <Loader center size="xs" speed="slow"></Loader>
+            </div>
+          </>
+        )}
+        <div>
+          <Divider />
+        </div>
+        <Form
+          fluid
+          model={subCategoryModel}
+          onChange={(formVals) => {
+            setSubcategoryData(formVals);
+          }}
+        >
+          <FlexboxGrid justify="center" align="middle">
+            <FlexboxGrid.Item componentClass={Col} colspan={24}>
+              <FormGroup>
+                <ControlLabel>Nombre de la Subcategoría</ControlLabel>
+                <FormControl name="subcategoria"></FormControl>
+              </FormGroup>
+            </FlexboxGrid.Item>
+            <FlexboxGrid.Item
+              componentClass={Col}
+              colspan={24}
+              style={{ marginTop: "1.2rem" }}
+            >
+              <Button color="green" type="submit" onClick={createSubcat}>
+                <Icon icon="check-circle" /> Crear Subcategoría
+              </Button>
+            </FlexboxGrid.Item>
+          </FlexboxGrid>
+        </Form>
+      </Modal>
     </>
   );
 };

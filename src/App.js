@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import { Principal } from "./Vistas/Principal";
 import { Login } from "./Vistas/Login";
 import { SingUpBase } from "./Vistas/SingUpBase";
@@ -6,6 +6,7 @@ import { SingUpUsuarios } from "./Vistas/SingUpUsuarios";
 import { SingUpEmprendedor } from "./Vistas/SingUpEmprendedor";
 import { SingUpDriver } from "./Vistas/SingUpDriver";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import "rsuite/dist/styles/rsuite-default.css";
 import Test from "./Vistas/Test";
 import { NavBar } from "./Componentes/navBar";
