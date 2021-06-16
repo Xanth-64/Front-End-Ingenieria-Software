@@ -35,11 +35,7 @@ export const FormSesion = ({
           SubmitFunction(formValue);
         }}
         onChange={(e) => {
-<<<<<<< HEAD
-          SubmitFunction(formValue);
-=======
           setFormValue(e);
->>>>>>> 2af3570edbd498af70eb8c39e03f0ac783cc44d0
         }}
         formValue={formValue}
       >
