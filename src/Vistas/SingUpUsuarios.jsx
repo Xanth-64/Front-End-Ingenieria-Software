@@ -33,28 +33,17 @@ export const SingUpUsuarios = () => {
       type: "password",
       limits: { required: true },
     },
-
-    {
-      label: "Genero",
-      inputs: [{ label: "Masculino" }, { label: "Femenino" }],
-      type: "radio",
-    },
-
-    // Acá falta Ubicación (Mapita)
   ];
   function submit(data) {
-    console.log("YEIII :D");
-    console.log("Mary :3");
     console.log(data);
-    Alert.success("Solicitud de Registro enviada");
   }
   return (
     <div>
       <FormSesion
         Inputlabels={labels}
         SubmitFunction={submit}
-        buttonText="Crear cuenta"
-        title="Creación usuario avviare"
+        buttonText="Crear Cuenta"
+        title="Creación usuario Avviare"
         showMap="T"
       />
     </div>

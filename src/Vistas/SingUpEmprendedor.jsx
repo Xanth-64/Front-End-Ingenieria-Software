@@ -42,10 +42,7 @@ export const SingUpEmprendedor = () => {
     // Acá falta carga de imágen + Ubicación
   ];
   function submit(data) {
-    console.log("YEIII :D");
-    console.log("Mary :3");
     console.log(data);
-    Alert.success("Solicitud de Registro enviada");
   }
   return (
     <div>
