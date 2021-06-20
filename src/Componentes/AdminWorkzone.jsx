@@ -21,18 +21,21 @@ import {
   Divider,
   List,
   Placeholder,
+  IconButton,
+  SelectPicker,
 } from "rsuite";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import buhitoMalo from "../Assets/LogoAvviareSoloBuhitoAngry.svg";
-
+import { EntrepeneurShower } from "./EntrepeneurShower";
+import { AngryOwl } from "./AngryOwl";
 export const AdminWorkZone = (props) => {
   const [categoryArr, setCategoryArr] = useState([]);
   const [currentSubcatArr, setCurrentSubcatArr] = useState([]);
   const [userArr, setUserArr] = useState([]);
-  let entrepeneurArr = [];
-  let driverArr = [];
+  const [entrepeneurArr, setEntrepeneurArr] = useState([]);
+  const [driverArr, setDriverArr] = useState([]);
+  const [empSelect, setEmpSelect] = useState("Emprendimientos");
   let [loading, setLoading] = useState(true);
   let [loadingSubcat, setLoadingSubcat] = useState(false);
   //Variables para Mostrar modales
@@ -52,14 +55,19 @@ export const AdminWorkZone = (props) => {
   const [currentCategory, setCurrentCategory] = useState(null);
   //Modelo para la validacion del form de categorias
   const categoryModel = Schema.Model({
-    categoria: StringType().isRequired("No puede dejar este campo vacío"),
+    categoria: StringType()
+      .isRequired("No puede dejar este campo vacío")
+      .minLength(3, "Debe contener por lo menos 3 caracteres")
+      .maxLength(12, "No puede contener más de 12 caracteres"),
   });
   //Modelo para la validacion del form de Subcategorias
   const subCategoryModel = Schema.Model({
-    subcategoria: StringType().isRequired("No puede dejar este campo vacío"),
+    subcategoria: StringType()
+      .isRequired("No puede dejar este campo vacío")
+      .minLength(3, "Debe contener por lo menos 3 caracteres")
+      .maxLength(12, "No puede contener más de 12 caracteres"),
   });
   //Funciones que traen la informacion de cada Campo
-  //Obtener todas las categorias
 
   //Obtener todos los usuarios
   const getUsers = async () => {
@@ -98,12 +106,19 @@ export const AdminWorkZone = (props) => {
   //Obtener todos los emprendedores.
   const getEntrepeneurs = async () => {
     try {
+      const emprendedores = await axios.get(
+        "https://avviare.herokuapp.com/api/empre/all"
+      );
+      const driveEmpre = await axios.get(
+        "https://avviare.herokuapp.com/api/empre_drive/all"
+      );
+      setEntrepeneurArr(emprendedores.data.data);
+      setDriverArr(driveEmpre.data.data);
       setLoading(false);
     } catch (err) {
       setLoading(false);
     }
   };
-  //Obtener todos los drivers.
 
   //Funciones de los Modales
 
@@ -247,6 +262,36 @@ export const AdminWorkZone = (props) => {
       }
     }
   };
+  // Ascender un usuario normal a Admin
+  const ascendUser = async (userData) => {
+    setLoading(true);
+    try {
+      const doc = await axios.put(
+        `https://avviare.herokuapp.com/api/usuarios/one/${userData.id_usuario}`,
+        { tipo: "Administrador" }
+      );
+      console.log(doc);
+      if (doc) {
+        Alert.success("Usuario ascendido a Administrador de manera exitosa");
+      }
+
+      setUserArr(
+        userArr.map((elem) => {
+          if (elem.id_usuario === doc.data.data[0].id_usuario) {
+            return doc.data.data[0];
+          }
+          return elem;
+        })
+      );
+      setLoading(false);
+    } catch (err) {
+      Alert.error("Ascenso a Administrador fallido");
+      console.log(err);
+
+      setLoading(false);
+    }
+  };
+
   const [active, setActive] = useState("categorias");
   useEffect(getCategories, []);
   return (
@@ -315,24 +360,7 @@ export const AdminWorkZone = (props) => {
                     );
                   })}
                 {categoryArr.length === 0 && (
-                  <>
-                    <FlexboxGrid justify="center" align="middle">
-                      <FlexboxGrid.Item componentClass={Col} colspan={24}>
-                        <FlexboxGrid justify="center">
-                          <img
-                            alt="Nothing Found Error"
-                            src={buhitoMalo}
-                            style={{ width: "25%" }}
-                          />
-                        </FlexboxGrid>
-                      </FlexboxGrid.Item>
-                      <FlexboxGrid.Item componentClass={Col} colspan={24}>
-                        <FlexboxGrid justify="center">
-                          <h3>No se encontraron Categorías</h3>
-                        </FlexboxGrid>
-                      </FlexboxGrid.Item>
-                    </FlexboxGrid>
-                  </>
+                  <AngryOwl prompt="No se encontraron Categorías" width="25" />
                 )}
               </PanelGroup>
               <FlexboxGrid justify="center">
@@ -401,34 +429,107 @@ export const AdminWorkZone = (props) => {
                               <Placeholder.Graph active></Placeholder.Graph>
                             )}
                           </FlexboxGrid.Item>
+                          <FlexboxGrid.Item
+                            componentClass={Col}
+                            colspan={24}
+                            style={{ marginTop: "1.5rem" }}
+                          >
+                            <FlexboxGrid justify="center">
+                              {user.tipo === "Administrador" && (
+                                <>
+                                  <Button
+                                    color="violet"
+                                    style={{ cursor: "default" }}
+                                  >
+                                    <Icon icon="diamond" /> Administrador
+                                  </Button>
+                                </>
+                              )}
+                              {user.tipo === "Cliente" && (
+                                <>
+                                  <Button
+                                    color="red"
+                                    style={{ cursor: "default" }}
+                                  >
+                                    <Icon icon="heart" /> Cliente
+                                  </Button>
+                                  <IconButton
+                                    color="violet"
+                                    icon={<Icon icon="arrow-circle-up" />}
+                                    onClick={() => {
+                                      ascendUser(user);
+                                    }}
+                                    style={{ marginLeft: "1.5rem" }}
+                                  />
+                                </>
+                              )}
+                              {user.tipo === "Emprendedor" && (
+                                <>
+                                  <Button
+                                    color="blue"
+                                    style={{ cursor: "default" }}
+                                  >
+                                    <Icon icon="usd" /> Emprendedor
+                                  </Button>
+                                </>
+                              )}
+                              {user.tipo === "Transportista" && (
+                                <>
+                                  <Button
+                                    color="cyan"
+                                    style={{ cursor: "default" }}
+                                  >
+                                    <Icon icon="car" /> Driver
+                                  </Button>
+                                </>
+                              )}
+                            </FlexboxGrid>
+                          </FlexboxGrid.Item>
                         </FlexboxGrid>
                       </Panel>
                     );
                   })}
                 {userArr.length === 0 && (
-                  <>
-                    <FlexboxGrid justify="center" align="middle">
-                      <FlexboxGrid.Item componentClass={Col} colspan={24}>
-                        <FlexboxGrid justify="center">
-                          <img
-                            alt="Nothing Found Error"
-                            src={buhitoMalo}
-                            style={{ width: "25%" }}
-                          />
-                        </FlexboxGrid>
-                      </FlexboxGrid.Item>
-                      <FlexboxGrid.Item componentClass={Col} colspan={24}>
-                        <FlexboxGrid justify="center">
-                          <h3>No se encontraron Usuarios</h3>
-                        </FlexboxGrid>
-                      </FlexboxGrid.Item>
-                    </FlexboxGrid>
-                  </>
+                  <AngryOwl prompt="No se encontraron Usuarios" width="25" />
                 )}
               </PanelGroup>
             </>
           )}
-          {active === "empresarios" && !loading && <>Corte Empresario</>}
+          {active === "empresarios" && !loading && (
+            <>
+              <FlexboxGrid
+                justify="center"
+                align="middle"
+                style={{ marginTop: "1.5rem" }}
+              >
+                <FlexboxGrid.Item componentClass={Col} colspan={12}>
+                  <SelectPicker
+                    cleanable={false}
+                    data={[
+                      { label: "Negocios", value: "Emprendimientos" },
+                      { label: "Drivers", value: "Drivers" },
+                    ]}
+                    defaultValue="Negocios"
+                    appearance="default"
+                    value={empSelect}
+                    onChange={(value) => {
+                      setLoading(true);
+                      setEmpSelect(value);
+                      getEntrepeneurs();
+                    }}
+                    block
+                  ></SelectPicker>
+                </FlexboxGrid.Item>
+              </FlexboxGrid>
+
+              <EntrepeneurShower
+                type={empSelect}
+                dataValues={
+                  empSelect === "Drivers" ? driverArr : entrepeneurArr
+                }
+              />
+            </>
+          )}
         </Content>
       </Container>
 

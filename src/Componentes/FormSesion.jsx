@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Map } from "./Map";
 import {
   Form,
@@ -41,7 +41,6 @@ export const FormSesion = ({
       >
         <FlexboxGrid justify="center">
           {Inputlabels.map((value, index) => {
-            let style = `form-container-field-${value.label}`;
             switch (value.type) {
               case "radio":
                 return (

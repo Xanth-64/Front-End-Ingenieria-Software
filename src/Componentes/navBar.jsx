@@ -4,7 +4,6 @@ import { Nav, Navbar, Input, InputGroup, Icon, Col, FlexboxGrid } from "rsuite";
 import LogoAvviareSoloBuhito from "../Assets/LogoAvviareSoloBuhito.svg";
 export const NavBar = () => {
   const isLoggedIn = false;
-  //Redirect fails using Hook
   const navBarStyles = {};
   const navInputStyles = {
     marginTop: "10px",

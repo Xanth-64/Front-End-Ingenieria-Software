@@ -44,12 +44,12 @@ export const SingUpDriver = ({ SubmitFunction, bFunction }) => {
       limits: { required: true },
     },
     {
-      label: "Tipo de Transporte",
+      label: "Capacidad del Transporte",
       inputs: [
-        { label: "Automóvil grande" },
-        { label: "Automóvil pequeño" },
-        { label: "Motocicleta" },
-        { label: "Bicicleta" },
+        { label: "Ligero" },
+        { label: "Mediano" },
+        { label: "Pesado" },
+        { label: "Muy Pesado" },
       ],
       type: "radio",
       limits: { required: true },
@@ -58,10 +58,7 @@ export const SingUpDriver = ({ SubmitFunction, bFunction }) => {
     // Acá falta carga de imágen + Ubicación
   ];
   function submit(data) {
-    console.log("YEIII :D");
-    console.log("Mary :3");
     console.log(data);
-    Alert.success("Solicitud de Registro enviada");
   }
   return (
     <div>
