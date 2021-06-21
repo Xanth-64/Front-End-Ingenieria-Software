@@ -1,3 +1,5 @@
+import React from "react";
+
 import { EmprendimientoProfileDataShower } from "../Componentes/EmprendimientoProfileDataShower";
 import { AngryOwl } from "../Componentes/AngryOwl";
 import axios from "axios";

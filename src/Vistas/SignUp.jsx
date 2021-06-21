@@ -80,7 +80,6 @@ export const SignUp = () => {
 
   return (
     <>
-      <NavBar />
       <Steps current={step}>
         <Steps.Item title="Tipo de Usuario" />
         <Steps.Item title="Registro" />

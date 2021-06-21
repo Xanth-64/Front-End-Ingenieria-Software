@@ -32,7 +32,6 @@ export const DatosEmprendimiento = () => {
   }
   return (
     <div>
-      <NavBar />
       <FormSesion
         Inputlabels={labels}
         SubmitFunction={submit}

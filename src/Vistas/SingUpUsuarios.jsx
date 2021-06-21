@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Alert } from "rsuite";
 import { FormSesion } from "../Componentes/FormSesion";
-import { NavBar } from "../Componentes/navBar";
-
 export const SingUpUsuarios = () => {
   const labels = [
     {

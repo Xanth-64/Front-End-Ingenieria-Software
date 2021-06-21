@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import { FormSesion } from "../Componentes/FormSesion";
-import { NavBar } from "../Componentes/navBar";
-import { Map } from "../Componentes/Map";
-import { Alert } from "rsuite";
 export const SingUpEmprendedor = () => {
   const labels = [
     {

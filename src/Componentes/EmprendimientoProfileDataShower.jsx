@@ -10,7 +10,6 @@ import {
   Col,
   Button,
   Icon,
-  Avatar,
   Drawer,
   Grid,
   Row,
