@@ -21,7 +21,6 @@ export const Login = () => {
   }
   return (
     <div>
-      <NavBar />
       <FormSesion
         Inputlabels={labels}
         SubmitFunction={submit}

@@ -31,7 +31,6 @@ export const Principal = () => {
   ];
   return (
     <div>
-      <NavBar />
       <div>
         <div className="cardContainer-Title">
           <h1>Combos de la Semana</h1>
