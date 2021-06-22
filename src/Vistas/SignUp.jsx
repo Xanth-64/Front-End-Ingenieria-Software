@@ -20,9 +20,9 @@ import { Map } from "../Componentes/Map";
 import axios from "axios";
 import MaskedInput from "react-text-mask";
 
-// import { SingUpEmprendedor } from "./SingUpEmprendedor";
-// import { SingUpUsuarios } from "./SingUpUsuarios";
-// import { SingUpDriver } from "./SingUpDriver";
+import { SingUpEmprendedor } from "./SingUpEmprendedor";
+import { SingUpUsuarios } from "./SingUpUsuarios";
+import { SingUpDriver } from "./SingUpDriver";
 export const SignUp = () => {
   //Schemas
   const { StringType, NumberType, ObjectType } = Schema.Types;
@@ -53,6 +53,7 @@ export const SignUp = () => {
   const [step, setStep] = useState(0);
   const [data, setData] = useState();
   const [formData, setFormData] = useState();
+  const [dataTemplate, setDataTemplate] = useState([]);
   const [userFormData, setUserFormData] = useState({});
   const [driverFormData, setDriverFormData] = useState({});
   const [empreFormData, setEmpreFormData] = useState({});
