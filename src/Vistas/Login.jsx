@@ -1,32 +1,45 @@
+import axios from "axios";
+import jwt_decode from "jwt-decode";
 import React from "react";
 import { FormSesion } from "../Componentes/FormSesion";
-import { NavBar } from "../Componentes/navBar";
 
 export const Login = () => {
   const labels = [
     {
       label: "Correo",
       type: "email",
-      limits: { required: true },
+      name: "email",
     },
     {
       label: "Contraseña",
       type: "password",
-      limits: { required: true },
+      name: "password",
     },
   ];
-  function submit(data) {
-    console.log("Pruebita Mb");
-    console.log(data);
+  async function submit(data) {
+    try {
+      console.log("data", data);
+      let token = await axios.post(
+        "https://avviare.herokuapp.com/api/auth/login",
+        data
+      );
+      console.log("token data", token.data.data[0].split(".")[1]);
+      let tokenData = jwt_decode(token.data.data[0].split(".")[1], {
+        header: true,
+      });
+      console.log(tokenData);
+    } catch (error) {
+      console.log("This is the error", error);
+    }
   }
   return (
-    <div>
+    <>
       <FormSesion
         Inputlabels={labels}
         SubmitFunction={submit}
         buttonText="Iniciar Sesión"
         title="Login"
       />
-    </div>
+    </>
   );
 };

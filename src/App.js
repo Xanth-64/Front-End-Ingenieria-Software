@@ -1,10 +1,6 @@
 import { React } from "react";
 import { Principal } from "./Vistas/Principal";
 import { Login } from "./Vistas/Login";
-import { SingUpBase } from "./Vistas/SingUpBase";
-import { SingUpUsuarios } from "./Vistas/SingUpUsuarios";
-import { SingUpEmprendedor } from "./Vistas/SingUpEmprendedor";
-import { SingUpDriver } from "./Vistas/SingUpDriver";
 import { ProductoDetailedView } from "./Vistas/ProductoDetailedView";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { CloudinaryContext } from "cloudinary-react";
@@ -28,14 +24,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Principal} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/SignUpBase" component={SingUpBase} />
-            <Route exact path="/SignUpUsuarios" component={SingUpUsuarios} />
-            <Route
-              exact
-              path="/SignUpEmprendedor"
-              component={SingUpEmprendedor}
-            />
-            <Route exact path="/SignUpDriver" component={SingUpDriver} />
+
             <Route exact path="/SignUp" component={SignUp} />
             <Route exact path="/Product/:id" component={ProductoDetailedView} />
             <Route

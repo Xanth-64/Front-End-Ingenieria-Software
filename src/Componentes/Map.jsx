@@ -7,7 +7,7 @@ const containerStyle = {
   height: "400px",
 };
 
-export const Map = () => {
+export const Map = ({ setCoords }) => {
   const [position, setPosition] = useState({
     lat: 10.487267000000001,
     lng: -66.80741499999999,
@@ -15,9 +15,18 @@ export const Map = () => {
   const [zoom, setZoom] = useState(19);
   const showError = (error) => {
     console.log(error);
+    Alert.warning(
+      "Es necesario para la aplicación tener su ubicación para poder completar el proceso de creación de cuenta",
+      2000
+    );
   };
   const displayLocation = (location) => {
     setPosition({
+      lat: location.coords.latitude,
+      lng: location.coords.longitude,
+    });
+    setCoords({
+      enabled: true,
       lat: location.coords.latitude,
       lng: location.coords.longitude,
     });
@@ -40,16 +49,15 @@ export const Map = () => {
   }, []);
   const onLoadMarker = (marker) => {};
   useEffect(() => {
-    Alert.info(
-      "Esta aplicación solicitará su localización, la cual es necesaria para completar el proceso de creación de cuenta",
-      10000
-    );
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(displayLocation, showError, {
         enableHighAccuracy: true,
       });
     } else {
       Alert.warning("Lo lamentamos, su navegador no soporta esta función");
+      setCoords({
+        enable: false,
+      });
     }
   }, []);
 
