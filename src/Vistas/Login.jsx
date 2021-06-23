@@ -29,13 +29,14 @@ export const Login = () => {
       });
       console.log(tokenData);
       handleCookie(tokenData);
+      console.log("Yummy", cookie.user);
     } catch (error) {
       console.log("This is the error", error);
     }
   }
   //Función que genera o actualiza una cookie con los datos del usuario
   function handleCookie(userData) {
-    setCookie("user", userData, { path: "/" });
+    setCookie("user", userData, { path: "/", sameSite: "strict" });
   }
   return (
     <>

@@ -86,7 +86,9 @@ export const SignUp = () => {
           // Creacion del del Usuario
           break;
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

@@ -3,11 +3,12 @@ import { Principal } from "./Vistas/Principal";
 import { Login } from "./Vistas/Login";
 import { ProductoDetailedView } from "./Vistas/ProductoDetailedView";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { CloudinaryContext } from "cloudinary-react";
-import { CookiesProvider } from "react-cookie";
 import { NavBar } from "./Componentes/navBar";
 import "rsuite/dist/styles/rsuite-default.css";
 import Test from "./Vistas/Test";
+//Context providers
+import { CloudinaryContext } from "cloudinary-react";
+import { CookiesProvider } from "react-cookie";
 // Mientras tanto
 import { DatosEmprendimiento } from "./Vistas/DatosEmprendimiento";
 import { SignUp } from "./Vistas/SignUp";
