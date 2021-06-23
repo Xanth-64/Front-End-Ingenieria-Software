@@ -2,8 +2,9 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import React from "react";
 import { FormSesion } from "../Componentes/FormSesion";
-
+import { useCookies } from "react-cookie";
 export const Login = () => {
+  const [cookie, setCookie] = useCookies(["user"]);
   const labels = [
     {
       label: "Correo",
@@ -23,14 +24,18 @@ export const Login = () => {
         "https://avviare.herokuapp.com/api/auth/login",
         data
       );
-      console.log("token data", token.data.data[0].split(".")[1]);
       let tokenData = jwt_decode(token.data.data[0].split(".")[1], {
         header: true,
       });
       console.log(tokenData);
+      handleCookie(tokenData);
     } catch (error) {
       console.log("This is the error", error);
     }
+  }
+  //Función que genera o actualiza una cookie con los datos del usuario
+  function handleCookie(userData) {
+    setCookie("user", userData, { path: "/" });
   }
   return (
     <>
