@@ -15,6 +15,8 @@ import {
   CheckTreePicker,
   ControlLabel,
 } from "rsuite";
+import { useLocation } from "react-router-dom";
+
 import { ProductListShower } from "../Componentes/ProductListShower";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -28,6 +30,9 @@ export const CatalogView = (props) => {
   const [showFilter, setShowFilter] = useState(false);
   const [formData, setFormData] = useState({ subCat: [] });
   const [filterOptions, setFilterOptions] = useState([]);
+
+  let currentQuery = useLocation();
+
   const getAllProducts = () => {
     const innerFunc = async () => {
       try {
@@ -63,6 +68,7 @@ export const CatalogView = (props) => {
           setFilterOptions(temp2);
         });
         setFilteredProducts(currentProducts);
+        filterProducts();
         setLoading(false);
       } catch (err) {
         console.log(err);
@@ -81,22 +87,32 @@ export const CatalogView = (props) => {
   const filterProducts = () => {
     setInnerLoading(true);
     try {
+      let foundProds = [];
       if (formData.subCat.length === 0) {
-        setFilteredProducts(currentProducts);
+        foundProds = currentProducts;
       } else {
         console.log("filtrate");
-        setFilteredProducts(
-          currentProducts.filter((elem) => {
-            const found = formData.subCat.find((cat) => {
-              return cat === elem.categoria || cat === elem.subcategoria;
-            });
-            if (found) {
-              return true;
-            }
-            return false;
-          })
-        );
+        foundProds = currentProducts.filter((elem) => {
+          const found = formData.subCat.find((cat) => {
+            return cat === elem.categoria || cat === elem.subcategoria;
+          });
+          if (found) {
+            return true;
+          }
+          return false;
+        });
       }
+      const query = new URLSearchParams(currentQuery.search);
+      if (query.get("query")) {
+        foundProds = foundProds.filter((elem) => {
+          return (
+            elem.nombre
+              .toLowerCase()
+              .search(query.get("query").toLowerCase()) !== -1
+          );
+        });
+      }
+      setFilteredProducts(foundProds);
     } catch (err) {
       console.log(err);
     }
@@ -105,7 +121,7 @@ export const CatalogView = (props) => {
 
   //useEffect Callbacks
   useEffect(getAllProducts, []);
-  useEffect(filterProducts, [formData]);
+  useEffect(filterProducts, [formData, currentQuery]);
   // Component Return
   return (
     <Container>
