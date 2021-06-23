@@ -16,7 +16,9 @@ import {
   Button,
   Icon,
 } from "rsuite";
-import { useParams } from "react-router-dom";
+import { Image, Transformation } from "cloudinary-react";
+
+import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import { AngryOwl } from "../Componentes/AngryOwl";
 import { NavBar } from "../Componentes/navBar";
@@ -30,6 +32,7 @@ export const ProductoDetailedView = (props) => {
   const [loading, setLoading] = useState(true);
   const [productData, setProductData] = useState({});
   const { id } = useParams();
+  const history = useHistory();
   const getProduct = () => {
     const innerFunc = async () => {
       console.log(id);
@@ -47,7 +50,9 @@ export const ProductoDetailedView = (props) => {
     };
     innerFunc();
   };
+
   useEffect(getProduct, []);
+
   return (
     <>
       {loading && (
@@ -62,9 +67,7 @@ export const ProductoDetailedView = (props) => {
               {productData.isVisible && (
                 <>
                   <Container>
-                    <Header>
-                      <NavBar />
-                    </Header>
+                    <Header></Header>
                     <Content style={{ margin: "5vh 5vw" }}>
                       <Grid fluid gutter={150}>
                         <Row componentClass={FlexboxGrid} align="middle">
@@ -117,6 +120,11 @@ export const ProductoDetailedView = (props) => {
                                         size="lg"
                                         appearance="primary"
                                         color="green"
+                                        onClick={() => {
+                                          history.push(
+                                            `/Buy/Product/${productData.id_producto}`
+                                          );
+                                        }}
                                       >
                                         <Icon icon="shopping-bag" /> Comprar
                                         Ahora
@@ -128,28 +136,36 @@ export const ProductoDetailedView = (props) => {
                             </FlexboxGrid>
                           </Col>
                           <Col xs={24} sm={12} style={{ marginTop: "1.5rem" }}>
-                            <Panel
-                              shaded
-                              bordered
-                              bodyFill
-                              style={{ width: "100%", height: "100%" }}
-                            >
-                              <Carousel
-                                shape="bar"
-                                className="custom-slider"
-                                autoplay
+                            <FlexboxGrid justify="center" align="middle">
+                              <Panel
+                                shaded
+                                bordered
+                                bodyFill
+                                style={{ width: "100%", height: "100%" }}
                               >
-                                {productData.fotos.map((elem) => {
-                                  return (
-                                    <img
-                                      alt="Foto del Producto"
-                                      src={elem}
-                                      key={uuidv4()}
-                                    />
-                                  );
-                                })}
-                              </Carousel>
-                            </Panel>
+                                <Carousel
+                                  shape="bar"
+                                  className="custom-slider"
+                                  autoplay
+                                  style={{ width: "100%", height: "100%" }}
+                                >
+                                  {productData.fotos.map((elem) => {
+                                    return (
+                                      <Image
+                                        publicId={elem}
+                                        alt="Imagen de un Producto"
+                                        key={uuidv4()}
+                                      >
+                                        <Transformation
+                                          fetchFormat="auto"
+                                          crop="fill"
+                                        />
+                                      </Image>
+                                    );
+                                  })}
+                                </Carousel>
+                              </Panel>
+                            </FlexboxGrid>
                           </Col>
                         </Row>
                         <Row

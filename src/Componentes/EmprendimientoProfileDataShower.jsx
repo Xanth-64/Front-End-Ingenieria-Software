@@ -39,9 +39,7 @@ export const EmprendimientoProfileDataShower = (props) => {
   return (
     <>
       <Container>
-        <Header>
-          <NavBar />
-        </Header>
+        <Header></Header>
         <Content>
           <FlexboxGrid justify="center" align="middle">
             <Panel

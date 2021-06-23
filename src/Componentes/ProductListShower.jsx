@@ -9,6 +9,7 @@ import {
   Placeholder,
 } from "rsuite";
 import { Image, Transformation } from "cloudinary-react";
+import { Link } from "react-router-dom";
 
 import { v4 as uuidv4 } from "uuid";
 export const ProductListShower = (props) => {
@@ -26,6 +27,10 @@ export const ProductListShower = (props) => {
     setProductArr(newData);
   };
 
+  const resetPagination = () => {
+    setActivePage(1);
+  };
+
   const handleNav = () => {
     setLoading(true);
     setProductArr(props.productArr.slice(activePage * 5 - 5, activePage * 5));
@@ -33,6 +38,7 @@ export const ProductListShower = (props) => {
   };
 
   useEffect(handleNav, [activePage, props.productArr]);
+  useEffect(resetPagination, [props.productArr]);
   return (
     <>
       <Panel
@@ -46,6 +52,20 @@ export const ProductListShower = (props) => {
           padding: "5% 0",
         }}
       >
+        <Pagination
+          activePage={activePage}
+          boundaryLink
+          first
+          last
+          prev
+          next
+          maxButtons={5}
+          ellipsis
+          pages={Math.ceil(props.productArr.length / 5)}
+          onSelect={(val) => {
+            setActivePage(val);
+          }}
+        />
         {!loading && (
           <List bordered sortable onSort={handleProductListSort}>
             {productArr.map((elem, index) => {
@@ -65,66 +85,71 @@ export const ProductListShower = (props) => {
                       margin: "5%",
                     }}
                   >
-                    <FlexboxGrid justify="space-between" align="middle">
-                      <FlexboxGrid.Item>
-                        <FlexboxGrid justify="center" align="middle">
-                          {elem.fotos.length !== 0 && (
-                            <Carousel
-                              autoplay
-                              placement="left"
-                              shape="bar"
-                              style={{ width: "200px", height: "200px" }}
-                            >
-                              {elem.fotos.map((pic) => {
-                                return (
-                                  <Image
-                                    publicId={pic}
-                                    alt="Imagen de un Producto"
-                                    key={uuidv4()}
-                                  >
-                                    <Transformation
-                                      width="200"
-                                      height="200"
-                                      fetchFormat="auto"
-                                      crop="fill"
-                                    />
-                                  </Image>
-                                );
-                              })}
-                            </Carousel>
-                          )}
-                          {elem.fotos.length === 0 && (
-                            <Placeholder.Graph
-                              width="200"
-                              height="200"
-                              active={false}
-                            />
-                          )}
-                        </FlexboxGrid>
-                      </FlexboxGrid.Item>
-                      <FlexboxGrid.Item>
-                        <h3
-                          style={{
-                            wordBreak: "break-all",
-                            textAlign: "center",
-                            display: "block",
-                          }}
-                        >
-                          {elem.nombre.length > 16
-                            ? elem.nombre.slice(0, 16) + "..."
-                            : elem.nombre}
-                        </h3>
-                      </FlexboxGrid.Item>
-                      <FlexboxGrid.Item>
-                        <h4
-                          style={{
-                            textAlign: "center",
-                          }}
-                        >{`$${(elem.precio + elem.precio * 0.1).toFixed(
-                          2
-                        )}`}</h4>
-                      </FlexboxGrid.Item>
-                    </FlexboxGrid>
+                    <Link
+                      to={`/Product/${elem.id_producto}`}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <FlexboxGrid justify="space-between" align="middle">
+                        <FlexboxGrid.Item>
+                          <FlexboxGrid justify="center" align="middle">
+                            {elem.fotos.length !== 0 && (
+                              <Carousel
+                                autoplay
+                                placement="left"
+                                shape="bar"
+                                style={{ width: "200px", height: "200px" }}
+                              >
+                                {elem.fotos.map((pic) => {
+                                  return (
+                                    <Image
+                                      publicId={pic}
+                                      alt="Imagen de un Producto"
+                                      key={uuidv4()}
+                                    >
+                                      <Transformation
+                                        width="200"
+                                        height="200"
+                                        fetchFormat="auto"
+                                        crop="fill"
+                                      />
+                                    </Image>
+                                  );
+                                })}
+                              </Carousel>
+                            )}
+                            {elem.fotos.length === 0 && (
+                              <Placeholder.Graph
+                                width="200"
+                                height="200"
+                                active={false}
+                              />
+                            )}
+                          </FlexboxGrid>
+                        </FlexboxGrid.Item>
+                        <FlexboxGrid.Item>
+                          <h3
+                            style={{
+                              wordBreak: "break-all",
+                              textAlign: "center",
+                              display: "block",
+                            }}
+                          >
+                            {elem.nombre.length > 16
+                              ? elem.nombre.slice(0, 16) + "..."
+                              : elem.nombre}
+                          </h3>
+                        </FlexboxGrid.Item>
+                        <FlexboxGrid.Item>
+                          <h4
+                            style={{
+                              textAlign: "center",
+                            }}
+                          >{`$${(elem.precio + elem.precio * 0.1).toFixed(
+                            2
+                          )}`}</h4>
+                        </FlexboxGrid.Item>
+                      </FlexboxGrid>
+                    </Link>
                   </Panel>
                 </List.Item>
               );
