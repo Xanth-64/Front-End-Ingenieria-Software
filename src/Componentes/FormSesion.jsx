@@ -15,7 +15,9 @@ import {
   Checkbox,
   Uploader,
   Icon,
+  InputGroup,
 } from "rsuite";
+import InputGroupAddon from "rsuite/lib/InputGroup/InputGroupAddon";
 
 export const FormSesion = ({
   SubmitFunction, // Función de enviar
@@ -132,6 +134,43 @@ export const FormSesion = ({
                     </FormGroup>
                   </FlexboxGrid.Item>
                 );
+              case "picture":
+                return (
+                  <FlexboxGrid.Item
+                    componentClass={Col}
+                    colspan={24}
+                    md={12}
+                    className="form-input"
+                  >
+                    <FormGroup>
+                      <ControlLabel className="subtitle">
+                        {value.label}
+                      </ControlLabel>
+                      <FormControl
+                        name={value.modelName}
+                        className="input-width"
+                        data={{
+                          upload_preset: "ml_default",
+                        }}
+                        accepter={Uploader}
+                        multiple={false}
+                        draggable={true}
+                        action={process.env.REACT_APP_IMGUPLOAD}
+                        listType="picture-text"
+                        accept=".jpg, .png"
+                        onSuccess={(res, file) => {
+                          let newFormValue = formValue;
+                          newFormValue[value.name] = res.url;
+                          setFormValue(newFormValue);
+                        }}
+                      >
+                        <Button className="input-width">
+                          <Icon icon="briefcase" size="4x" />
+                        </Button>
+                      </FormControl>
+                    </FormGroup>
+                  </FlexboxGrid.Item>
+                );
               case "phone":
                 return (
                   <FlexboxGrid.Item
@@ -208,6 +247,30 @@ export const FormSesion = ({
                         name={value.name}
                         placeholder="Descripción"
                       />
+                    </FormGroup>
+                  </FlexboxGrid.Item>
+                );
+              case "money":
+                return (
+                  <FlexboxGrid.Item
+                    componentClass={Col}
+                    colspan={24}
+                    md={12}
+                    className="form-input"
+                  >
+                    <FormGroup>
+                      <ControlLabel className="subtitle">
+                        {value.label}
+                      </ControlLabel>
+                      <InputGroup>
+                        <FormControl
+                          type="number"
+                          className="input-width"
+                          name={value.name}
+                          placeholder={"3.00$"}
+                        />
+                        <InputGroup.Addon> $</InputGroup.Addon>
+                      </InputGroup>
                     </FormGroup>
                   </FlexboxGrid.Item>
                 );

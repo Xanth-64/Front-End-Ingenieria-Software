@@ -27,9 +27,8 @@ export const Login = () => {
       let tokenData = jwt_decode(token.data.data[0].split(".")[1], {
         header: true,
       });
-      console.log(tokenData);
+      //Genera una cookie
       handleCookie(tokenData);
-      console.log("Yummy", cookie.user);
     } catch (error) {
       console.log("This is the error", error);
     }

@@ -78,8 +78,37 @@ export const SignUp = () => {
       switch (data.tipo) {
         case "Emprendedor":
           // Creacion de la empresa del emprendedor
+          let emprendimiento = await axios.post(
+            "https://avviare.herokuapp.com/api/empre",
+            {
+              name_empresa: data.name_empresa,
+              verificado: false,
+              start_date: new Date(),
+              descripcion: data.descripcion,
+              usuarioIdUsuario: tokenData.id,
+            }
+          );
           break;
         case "Driver":
+          let empresa_drivers = await axios.post(
+            "https://avviare.herokuapp.com/api/vehicle",
+            {
+              nombre: data.name_empresa,
+              descripcion: data.descripcion,
+              verificado: false,
+            }
+          );
+          let vehiculo = await axios.post(
+            "https://avviare.herokuapp.com/api/vehicle",
+            {
+              capacidad: data.capacidad,
+              condiciones: data.condiciones,
+              placa: data.placa,
+              modelo: data.modelo,
+              marca: data.marca,
+            }
+          );
+
           //Creacion del vehículo del Driver y su empresa
           break;
         default:

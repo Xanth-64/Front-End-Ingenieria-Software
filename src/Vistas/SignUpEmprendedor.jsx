@@ -85,7 +85,7 @@ export const SignUpEmprendedor = ({ SubmitFunction, bFunction, setMap }) => {
         Inputlabels={labels}
         SubmitFunction={SubmitFunction}
         onChange={SubmitFunction}
-        buttonText="Siguiente"
+        buttonText="Crear Cuenta Emprendedor"
         title="Creación Emprendedor"
         showMap="T"
         bFunction={bFunction}
