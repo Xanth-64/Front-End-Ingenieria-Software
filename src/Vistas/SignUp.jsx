@@ -45,6 +45,7 @@ export const SignUp = () => {
   //Función para crear una cuenta una vez se validó toda la información
   const crearCuenta = async () => {
     console.log("se va a crear cuenta", data);
+    console.log(new Date());
     try {
       // Creación de un Usuario sin importar el tipo
       let token = await axios.post(
@@ -56,7 +57,7 @@ export const SignUp = () => {
           email: data.email,
           password: data.password,
           imagen_url: data.imagen_url,
-          telefono: data.telefono,
+          telefono: parseInt(data.telefono),
         }
       );
       //Decodificar la data obtenida del token
@@ -67,11 +68,11 @@ export const SignUp = () => {
       handleCookie(tokenData);
       //Creación de la dirección del usuario
       let address = await axios.post(
-        "https://avviare.herokuapp.com/api/address",
+        "https://avviare.herokuapp.com/api/address/one",
         {
           usuarioIdUsuario: tokenData.id,
-          latitud: data.lat,
-          longitud: data.lng,
+          latitud: map.lat,
+          longitud: map.lng,
         }
       );
 
@@ -79,7 +80,7 @@ export const SignUp = () => {
         case "Emprendedor":
           // Creacion de la empresa del emprendedor
           let emprendimiento = await axios.post(
-            "https://avviare.herokuapp.com/api/empre",
+            "https://avviare.herokuapp.com/api/empre/one",
             {
               name_empresa: data.name_empresa,
               verificado: false,
@@ -88,10 +89,14 @@ export const SignUp = () => {
               usuarioIdUsuario: tokenData.id,
             }
           );
+          Alert.success(
+            "Cuenta de Emprendedor Creata Exitosamente, ¡Bienvenido!"
+          );
           break;
         case "Driver":
+          //Creacion del vehículo del Driver y su empresa
           let empresa_drivers = await axios.post(
-            "https://avviare.herokuapp.com/api/vehicle",
+            "https://avviare.herokuapp.com/api/empre_driver/one",
             {
               nombre: data.name_empresa,
               descripcion: data.descripcion,
@@ -99,7 +104,7 @@ export const SignUp = () => {
             }
           );
           let vehiculo = await axios.post(
-            "https://avviare.herokuapp.com/api/vehicle",
+            "https://avviare.herokuapp.com/api/vehicle/one",
             {
               capacidad: data.capacidad,
               condiciones: data.condiciones,
@@ -108,11 +113,11 @@ export const SignUp = () => {
               marca: data.marca,
             }
           );
-
-          //Creacion del vehículo del Driver y su empresa
+          Alert.success("Cuenta de Driver Creata Exitosamente, ¡Bienvenido!");
           break;
         default:
           // Creacion del del Usuario
+          Alert.success("Cuenta de Usuario Creata Exitosamente, ¡Bienvenido!");
           break;
       }
     } catch (error) {
@@ -143,7 +148,7 @@ export const SignUp = () => {
           <Button
             onClick={() => {
               setData({
-                tipo: "Usuario",
+                tipo: "Cliente",
               });
               onNext();
             }}
@@ -185,7 +190,7 @@ export const SignUp = () => {
 
       {/* Formulario de Registro de un Usuario */}
 
-      {step === 1 && data && data["tipo"] === "Usuario" && (
+      {step === 1 && data && data["tipo"] === "Cliente" && (
         <SignUpUsuarios
           SubmitFunction={(val) => {
             val["tipo"] = data.tipo;
