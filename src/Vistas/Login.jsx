@@ -10,6 +10,11 @@ export const Login = () => {
       limits: { required: true },
     },
     {
+      label: " ",
+      type: " ",
+      limits: { required: false }, 
+    },
+    {
       label: "Contraseña",
       type: "password",
       limits: { required: true },
