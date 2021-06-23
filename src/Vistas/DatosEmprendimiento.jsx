@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { FormSesion } from "../Componentes/FormSesion";
 import { NavBar } from "../Componentes/navBar";
 
 export const DatosEmprendimiento = () => {
   const labels = [
-
     // Acá falta carga de imágen
     {
-        label: "Cargar logo emprendimiento",
-        type: "text",
-        limits: { required: true },
-      },
+      label: "Cargar logo emprendimiento",
+      type: "text",
+      limits: { required: true },
+    },
     {
       label: "Nombre Emprendimiento",
       type: "text",
@@ -26,8 +25,6 @@ export const DatosEmprendimiento = () => {
       type: "text",
       limits: { required: false },
     },
-
-    
   ];
   function submit(data) {
     console.log("Mary :3");
@@ -35,17 +32,12 @@ export const DatosEmprendimiento = () => {
   }
   return (
     <div>
-      <NavBar />
       <FormSesion
         Inputlabels={labels}
         SubmitFunction={submit}
         buttonText="Crear cuenta"
         title="Creación Emprendimiento en Avviare"
       />
-      
     </div>
   );
-
-
-  
 };

@@ -1,7 +1,5 @@
 import React from "react";
-import { Card } from "../Componentes/Card";
 import { ComboSlider } from "../Componentes/ComboSlider";
-import { FormSesion } from "../Componentes/FormSesion";
 import { Publicidad } from "../Componentes/Publicidad";
 import { NavBar } from "../Componentes/navBar";
 export const Principal = () => {
@@ -33,7 +31,6 @@ export const Principal = () => {
   ];
   return (
     <div>
-      <NavBar />
       <div>
         <div className="cardContainer-Title">
           <h1>Combos de la Semana</h1>

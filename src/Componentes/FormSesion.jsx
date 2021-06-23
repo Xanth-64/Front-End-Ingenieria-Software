@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Map } from "./Map";
 import {
   Form,
@@ -11,19 +11,24 @@ import {
   Col,
   RadioGroup,
   Radio,
+  CheckboxGroup,
+  Checkbox,
   Uploader,
   Icon,
 } from "rsuite";
+
 export const FormSesion = ({
   SubmitFunction, // Función de enviar
   Inputlabels, // Descripción de los Input
   buttonText, // Texto del Botón
   title, // TÍtulo del Formulario
-  showMap, // YUO WANT THE MAP OR NOT???
-  bfunction, // The bestie Function Shishi
+  showMap, // Boolean de si aparece el mapa o no
+  bFunction, // Funcion de ir atrás
+  setMap, //Funcion on Change
+  Schema, //El esquema, pasado como los InputsLabels
 }) => {
   const [formValue, setFormValue] = useState({});
-
+  const [sendable, setSendable] = useState(false);
   return (
     <>
       <div className="form-container-title">
@@ -31,43 +36,55 @@ export const FormSesion = ({
       </div>
       <Form
         onSubmit={(check, e) => {
-          SubmitFunction(formValue);
+          e.preventDefault();
+          if (sendable) {
+            SubmitFunction(formValue);
+          }
+        }}
+        onCheck={(formError) => {
+          if (Object.keys(formError).length !== 0) {
+            setSendable(false);
+          } else {
+            setSendable(true);
+          }
         }}
         onChange={(e) => {
           setFormValue(e);
-          SubmitFunction(e);
         }}
         formValue={formValue}
+        model={Schema}
       >
         <FlexboxGrid justify="center">
           {Inputlabels.map((value, index) => {
-            let style = `form-container-field-${value.label}`;
             switch (value.type) {
               case "radio":
                 return (
-                  <div>
-                    <h1>{value.label}</h1>
+                  <>
                     <FlexboxGrid.Item
                       componentClass={Col}
                       colspan={24}
-                      md={24}
+                      md={12}
+                      sm={24}
                       className="form-input"
                     >
                       <FormGroup>
+                        <ControlLabel>{value.label}</ControlLabel>
                         <RadioGroup
-                          name={value.label}
+                          name={value.name}
                           onChange={(v) => {
                             setFormValue({
                               ...formValue,
-                              [value.label]: v,
+                              [value.name]: v,
                             });
                           }}
-                          controlId="radioList"
                         >
                           {value.inputs.map((optionValue, index) => {
                             return (
                               <>
-                                <Radio value={optionValue.label}>
+                                <Radio
+                                  value={optionValue.name}
+                                  checked={index == 1}
+                                >
                                   {optionValue.label}
                                 </Radio>
                               </>
@@ -76,7 +93,7 @@ export const FormSesion = ({
                         </RadioGroup>
                       </FormGroup>
                     </FlexboxGrid.Item>
-                  </div>
+                  </>
                 );
               case "image":
                 return (
@@ -88,17 +105,109 @@ export const FormSesion = ({
                   >
                     <FormGroup>
                       <ControlLabel className="subtitle">
-                        Foto de Pefil
+                        {value.label}
                       </ControlLabel>
-                      <Uploader
-                        onUpload={(File) => {
-                          console.log(File);
+                      <FormControl
+                        name="file"
+                        className="input-width"
+                        data={{
+                          upload_preset: "ml_default",
+                        }}
+                        accepter={Uploader}
+                        multiple={false}
+                        draggable={true}
+                        action={process.env.REACT_APP_IMGUPLOAD}
+                        listType="picture-text"
+                        accept=".jpg, .png"
+                        onSuccess={(res, file) => {
+                          let value = formValue;
+                          value.image_url = res.url;
+                          setFormValue(value);
                         }}
                       >
                         <Button className="input-width">
                           <Icon icon="avatar" size="4x" />
                         </Button>
-                      </Uploader>
+                      </FormControl>
+                    </FormGroup>
+                  </FlexboxGrid.Item>
+                );
+              case "phone":
+                return (
+                  <FlexboxGrid.Item
+                    componentClass={Col}
+                    colspan={24}
+                    md={12}
+                    sm={24}
+                    className="form-input"
+                  >
+                    <FormGroup>
+                      <ControlLabel className="subtitle">
+                        {value.label}
+                      </ControlLabel>
+                      <FormControl
+                        className="input-width"
+                        name={value.name}
+                        type="text"
+                        placeholder="04143994567"
+                      ></FormControl>
+                    </FormGroup>
+                  </FlexboxGrid.Item>
+                );
+              case "multiple select":
+                return (
+                  <>
+                    <FlexboxGrid.Item
+                      componentClass={Col}
+                      colspan={24}
+                      md={12}
+                      sm={24}
+                      className="form-input"
+                    >
+                      <FormGroup>
+                        <ControlLabel>{value.label}</ControlLabel>
+                        <CheckboxGroup
+                          name={value.name}
+                          onChange={(v) => {
+                            setFormValue({
+                              ...formValue,
+                              [value.name]: v,
+                            });
+                          }}
+                        >
+                          {value.inputs.map((optionValue, index) => {
+                            return (
+                              <>
+                                <Checkbox value={optionValue.name}>
+                                  {optionValue.label}
+                                </Checkbox>
+                              </>
+                            );
+                          })}
+                        </CheckboxGroup>
+                      </FormGroup>
+                    </FlexboxGrid.Item>
+                  </>
+                );
+              case "textarea":
+                return (
+                  <FlexboxGrid.Item
+                    componentClass={Col}
+                    colspan={24}
+                    md={12}
+                    className="form-input"
+                  >
+                    <FormGroup>
+                      <ControlLabel className="subtitle">
+                        {value.label}
+                      </ControlLabel>
+                      <FormControl
+                        componentClass="textarea"
+                        rows={8}
+                        className="input-width"
+                        name={value.name}
+                        placeholder="Descripción"
+                      />
                     </FormGroup>
                   </FlexboxGrid.Item>
                 );
@@ -117,7 +226,7 @@ export const FormSesion = ({
                       <FormControl
                         type={value.type}
                         className="input-width"
-                        name={value.label}
+                        name={value.name}
                         placeholder={value.label}
                       />
                     </FormGroup>
@@ -130,10 +239,14 @@ export const FormSesion = ({
             <FlexboxGrid.Item
               componentClass={Col}
               colspan={24}
-              md={24}
+              md={12}
+              sm={24}
               className="form-input"
             >
-              <Map />
+              <FormGroup>
+                <ControlLabel> Ubicación </ControlLabel>
+                <Map setCoords={setMap} />
+              </FormGroup>
             </FlexboxGrid.Item>
           )}
           <FlexboxGrid.Item
@@ -143,6 +256,17 @@ export const FormSesion = ({
             className="form-input"
           >
             <ButtonGroup>
+              {bFunction && (
+                <Button
+                  appearance="subtle"
+                  color="green"
+                  type="button"
+                  onClick={bFunction}
+                >
+                  {" "}
+                  Atrás{" "}
+                </Button>
+              )}
               <Button appearance="primary" color="green" type="submit">
                 {buttonText}
               </Button>

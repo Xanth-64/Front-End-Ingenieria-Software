@@ -5,12 +5,12 @@ import { FormSesion } from "../Componentes/FormSesion";
 import { NavBar } from "../Componentes/navBar";
 import { Alert, Loader } from "rsuite";
 
-export const SingUpBase = ({ submitFunction }) => {
+export const SignUpBase = ({ SubmitFunction, bFunction, onChange }) => {
   const history = useHistory();
 
   const labels = [
     {
-      label: "Tipo de Cliente",
+      label: "tipo",
       inputs: [
         { label: "Usuario", value: "Usuario" },
         { label: "Emprendedor", value: "Emprendedor" },
@@ -19,28 +19,12 @@ export const SingUpBase = ({ submitFunction }) => {
       type: "radio",
     },
   ];
-  function submit(data) {
-    console.log(data);
-    switch (data["Tipo de Cliente"]) {
-      case "Usuario":
-        history.push("/SignUpUsuarios");
-        break;
-      case "Emprendedor":
-        history.push("/SignUpEmprendedor");
-        break;
-      case "Driver":
-        history.push("/SignUpDriver");
-        break;
-      default:
-        history.push("/SignUpUsuarios");
-        break;
-    }
-  }
+
   return (
     <div>
       <FormSesion
         Inputlabels={labels}
-        SubmitFunction={submitFunction}
+        SubmitFunction={SubmitFunction}
         buttonText="Siguiente"
         showMap="D"
       />

@@ -1,10 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Nav, Navbar, Input, InputGroup, Icon, Col, FlexboxGrid } from "rsuite";
 import LogoAvviareSoloBuhito from "../Assets/LogoAvviareSoloBuhito.svg";
+
 export const NavBar = () => {
+  const history = useHistory();
   const isLoggedIn = false;
-  //Redirect fails using Hook
   const navBarStyles = {};
   const navInputStyles = {
     marginTop: "10px",
@@ -31,7 +32,11 @@ export const NavBar = () => {
                 styles={navInputStyles}
               >
                 <InputGroup>
-                  <Input />
+                  <Input
+                    onChange={(val) => {
+                      history.push(`/Catalog?query=${val}`);
+                    }}
+                  />
                   <InputGroup.Button>
                     <Icon icon="search" />
                   </InputGroup.Button>

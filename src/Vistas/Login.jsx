@@ -1,33 +1,51 @@
-import React, { useState } from "react";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
+import React from "react";
 import { FormSesion } from "../Componentes/FormSesion";
-import { NavBar } from "../Componentes/navBar";
-
+import { useCookies } from "react-cookie";
 export const Login = () => {
+  const [cookie, setCookie] = useCookies(["user"]);
   const labels = [
     {
       label: "Correo",
       type: "email",
-      limits: { required: true },
+      name: "email",
     },
     {
       label: "Contraseña",
       type: "password",
-      limits: { required: true },
+      name: "password",
     },
   ];
-  function submit(data) {
-    console.log("Pruebita Mb");
-    console.log(data);
+  async function submit(data) {
+    try {
+      console.log("data", data);
+      let token = await axios.post(
+        "https://avviare.herokuapp.com/api/auth/login",
+        data
+      );
+      let tokenData = jwt_decode(token.data.data[0].split(".")[1], {
+        header: true,
+      });
+      console.log(tokenData);
+      handleCookie(tokenData);
+      console.log("Yummy", cookie.user);
+    } catch (error) {
+      console.log("This is the error", error);
+    }
+  }
+  //Función que genera o actualiza una cookie con los datos del usuario
+  function handleCookie(userData) {
+    setCookie("user", userData, { path: "/", sameSite: "strict" });
   }
   return (
-    <div>
-      <NavBar />
+    <>
       <FormSesion
         Inputlabels={labels}
         SubmitFunction={submit}
         buttonText="Iniciar Sesión"
         title="Login"
       />
-    </div>
+    </>
   );
 };
