@@ -312,14 +312,14 @@ export const FormSesion = ({
               </FormGroup>
             </FlexboxGrid.Item>
           )}
-          <FlexboxGrid.Item
-            componentClass={Col}
-            colspan={24}
-            md={24}
-            className="form-input"
-          >
-            <ButtonGroup>
-              {bFunction && (
+
+          {/* {bFunction && (
+              <FlexboxGrid.Item
+                componentClass={Col}
+                colspan={24}
+                md={12}
+                className="form-input"
+              >
                 <Button
                   appearance="subtle"
                   color="green"
@@ -329,11 +329,17 @@ export const FormSesion = ({
                   {" "}
                   Atrás{" "}
                 </Button>
-              )}
-              <Button appearance="primary" color="green" type="submit">
-                {buttonText}
-              </Button>
-            </ButtonGroup>
+              </FlexboxGrid.Item>
+            )} */}
+          <FlexboxGrid.Item
+            componentClass={Col}
+            colspan={24}
+            md={24}
+            className="form-input"
+          >
+            <Button appearance="primary" color="green" type="submit">
+              {buttonText}
+            </Button>
           </FlexboxGrid.Item>
         </FlexboxGrid>
       </Form>

@@ -143,7 +143,7 @@ export const SignUp = () => {
           <Button
             onClick={() => {
               setData({
-                tipo: "Cliente",
+                tipo: "Usuario",
               });
               onNext();
             }}
