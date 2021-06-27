@@ -69,8 +69,6 @@ export const SignUp = () => {
       let tokenData = jwt_decode(token.data.data[0].split(".")[1], {
         header: true,
       });
-      //Se genera una cookie con los datos del usuario
-      handleCookie(tokenData);
       //Creación de la dirección del usuario
       let address = await axios.post(
         "https://avviare.herokuapp.com/api/address/one",
@@ -128,6 +126,8 @@ export const SignUp = () => {
           Alert.success("Cuenta de Usuario Creata Exitosamente, ¡Bienvenido!");
           break;
       }
+      //Se genera una cookie con los datos del usuario
+      handleCookie(tokenData);
     } catch (error) {
       console.log(error);
     }
