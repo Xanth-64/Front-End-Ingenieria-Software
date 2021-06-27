@@ -40,7 +40,12 @@ export const SignUp = () => {
   };
   //Función que genera o actualiza una cookie con los datos del usuario
   function handleCookie(userData) {
-    setCookie("user", userData, { path: "/" });
+    console.log("cookie.user", userData);
+    setCookie("user", userData, {
+      path: "/",
+      sameSite: "lax",
+      expires: new Date(userData.exp * 1000),
+    });
   }
   //Función para crear una cuenta una vez se validó toda la información
   const crearCuenta = async () => {
@@ -71,11 +76,11 @@ export const SignUp = () => {
         "https://avviare.herokuapp.com/api/address/one",
         {
           usuarioIdUsuario: tokenData.id,
-          latitud: map.lat,
-          longitud: map.lng,
+          latitud: map.lat.toString(),
+          longitud: map.lng.toString(),
         }
       );
-
+      console.log("address created");
       switch (data.tipo) {
         case "Emprendedor":
           // Creacion de la empresa del emprendedor
@@ -93,16 +98,19 @@ export const SignUp = () => {
             "Cuenta de Emprendedor Creata Exitosamente, ¡Bienvenido!"
           );
           break;
-        case "Driver":
+        case "Transportista":
           //Creacion del vehículo del Driver y su empresa
           let empresa_drivers = await axios.post(
-            "https://avviare.herokuapp.com/api/empre_driver/one",
+            "https://avviare.herokuapp.com/api/empre_drive/one",
             {
               nombre: data.name_empresa,
               descripcion: data.descripcion,
               verificado: false,
             }
           );
+          if (!data.condiciones) {
+            data.condiciones = [];
+          }
           let vehiculo = await axios.post(
             "https://avviare.herokuapp.com/api/vehicle/one",
             {
@@ -130,6 +138,7 @@ export const SignUp = () => {
       <Steps current={step}>
         <Steps.Item title="Tipo de Usuario" />
         <Steps.Item title="Registro" />
+        <Steps.Item title="Envío" />
       </Steps>
       {step === 0 && (
         <ButtonGroup>
@@ -159,12 +168,12 @@ export const SignUp = () => {
           <Button
             onClick={() => {
               setData({
-                tipo: "Driver",
+                tipo: "Transportista",
               });
               onNext();
             }}
           >
-            Driver{" "}
+            Transportista{" "}
           </Button>
         </ButtonGroup>
       )}
@@ -176,11 +185,9 @@ export const SignUp = () => {
             console.log("Submit de signUpEmprendedor", val);
             setData(val);
             if (map.enabled) {
-              console.log("We can send it");
               console.log(map);
               onNext();
             } else {
-              console.log("We cannot send it");
             }
           }}
           bFunction={onPrevious}
@@ -197,11 +204,9 @@ export const SignUp = () => {
             console.log("Submit de signUpUsuarios", val);
             setData(val);
             if (map.enabled) {
-              console.log("We can send it");
               console.log(map);
               onNext();
             } else {
-              console.log("We cannot send it");
             }
           }}
           bFunction={onPrevious}
@@ -211,18 +216,16 @@ export const SignUp = () => {
 
       {/* Formulario de Registro de un Driver */}
 
-      {step === 1 && data && data["tipo"] === "Driver" && (
+      {step === 1 && data && data["tipo"] === "Transportista" && (
         <SignUpDriver
           SubmitFunction={(val) => {
             val["tipo"] = data.tipo;
             console.log("Submit de signUpDriver", val);
             setData(val);
             if (map.enabled) {
-              console.log("We can send it");
               console.log(map);
               onNext();
             } else {
-              console.log("We cannot send it");
             }
           }}
           bFunction={onPrevious}
@@ -233,6 +236,7 @@ export const SignUp = () => {
         <>
           <h1> Está a punto de crear una cuenta de usuario ¿Está seguro?</h1>
           <Button onClick={crearCuenta}> Crear Cuenta</Button>
+          {cookie.user && <h1>Usuario {cookie.user.email} creado</h1>}
         </>
       )}
     </>

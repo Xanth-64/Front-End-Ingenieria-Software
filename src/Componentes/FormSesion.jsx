@@ -122,9 +122,9 @@ export const FormSesion = ({
                         listType="picture-text"
                         accept=".jpg, .png"
                         onSuccess={(res, file) => {
-                          let value = formValue;
-                          value.image_url = res.url;
-                          setFormValue(value);
+                          let newFormValue = formValue;
+                          newFormValue.imagen_url = res.url;
+                          setFormValue(newFormValue);
                         }}
                       >
                         <Button className="input-width">
@@ -147,7 +147,7 @@ export const FormSesion = ({
                         {value.label}
                       </ControlLabel>
                       <FormControl
-                        name={value.modelName}
+                        name="file"
                         className="input-width"
                         data={{
                           upload_preset: "ml_default",

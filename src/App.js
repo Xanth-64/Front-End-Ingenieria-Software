@@ -4,6 +4,7 @@ import { Login } from "./Vistas/Login";
 import { ProductoDetailedView } from "./Vistas/ProductoDetailedView";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { NavBar } from "./Componentes/navBar";
+import { ProtectedRoute } from "./Componentes/ProtectedRoute";
 import "rsuite/dist/styles/rsuite-default.css";
 import Test from "./Vistas/Test";
 //Context providers
@@ -26,9 +27,19 @@ function App() {
             <NavBar />
             <Switch>
               <Route exact path="/" component={Principal} />
-              <Route exact path="/login" component={Login} />
+              <ProtectedRoute
+                exact
+                path="/login"
+                component={Login}
+                AcceptOnly="Unsigned"
+              />
 
-              <Route exact path="/SignUp" component={SignUp} />
+              <ProtectedRoute
+                exact
+                path="/SignUp"
+                component={SignUp}
+                AcceptOnly="Unsigned"
+              />
               <Route
                 exact
                 path="/Product/:id"

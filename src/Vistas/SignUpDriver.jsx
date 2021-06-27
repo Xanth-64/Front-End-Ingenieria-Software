@@ -52,18 +52,33 @@ export const SignUpDriver = ({ SubmitFunction, bFunction, setMap }) => {
       name: "placa",
     },
     {
-      label: "Empresa Asociada",
+      label: "Modelo del Vehículo",
+      type: "text",
+      name: "marca",
+    },
+    {
+      label: "Modelo del Vehículo",
+      type: "text",
+      name: "modelo",
+    },
+    {
+      label: "Nombre de la Empresa",
       type: "text",
       name: "name_empresa",
+    },
+    {
+      label: "Descripcion de la Empresa",
+      type: "textarea",
+      name: "descripcion",
     },
     {
       label: "Capacidad del Transporte",
       name: "capacidad",
       inputs: [
-        { label: "Ligero", name: "ligero" },
-        { label: "Mediano", name: "mediano" },
-        { label: "Pesado", name: "pesado" },
-        { label: "Muy Pesado", name: "muy pesado" },
+        { label: "Ligero", name: "Ligero" },
+        { label: "Mediano", name: "Mediano" },
+        { label: "Pesado", name: "Pesado" },
+        { label: "Muy Pesado", name: "Muy Pesado" },
       ],
       type: "radio",
     },
@@ -71,9 +86,9 @@ export const SignUpDriver = ({ SubmitFunction, bFunction, setMap }) => {
       label: "Tipo de Carga",
       name: "condiciones",
       inputs: [
-        { label: "Fragil", name: "fragile" },
-        { label: "Refrigerado", name: "refrigerado" },
-        { label: "Liquido", name: "liquido" },
+        { label: "Fragil", name: "Fragile" },
+        { label: "Refrigerado", name: "Refrigerado" },
+        { label: "Liquido", name: "Líquido" },
       ],
       type: "multiple select",
     },
@@ -95,6 +110,7 @@ export const SignUpDriver = ({ SubmitFunction, bFunction, setMap }) => {
     placa: StringType()
       .isRequired("Es necesario que se añada una imagen")
       .minLength(4, "El dato intrudcido debe ser una placa"),
+    modelo: StringType().isRequired("No se puede dejar este campo vacio"),
     tarifa: NumberType()
       .isRequired("No puede dejar este campo vacío")
       .min(0, "No puede tener tarifas negativas"),

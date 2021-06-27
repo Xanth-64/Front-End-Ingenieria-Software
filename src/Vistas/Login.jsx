@@ -35,7 +35,11 @@ export const Login = () => {
   }
   //Función que genera o actualiza una cookie con los datos del usuario
   function handleCookie(userData) {
-    setCookie("user", userData, { path: "/", sameSite: "strict" });
+    setCookie("user", userData, {
+      path: "/",
+      sameSite: "lax",
+      expires: new Date(userData.exp * 1000),
+    });
   }
   return (
     <>
