@@ -16,6 +16,8 @@ import { SignUp } from "./Vistas/SignUp";
 import { Empre_Driver_Detailed } from "./Vistas/Empre_Driver_Detailed";
 import { EmprendedorDetailedView } from "./Vistas/EmprendedorDetailedView";
 import { CatalogView } from "./Vistas/CatalogView";
+import { ProductBuyView } from "./Vistas/ProductBuyView";
+import { Test2 } from "./Vistas/Test2";
 
 //Base App
 function App() {
@@ -61,7 +63,9 @@ function App() {
                 component={Empre_Driver_Detailed}
               />
               <Route path="/Catalog" component={CatalogView} />
+              <Route exact path="/Buy/Product/:id" component={ProductBuyView} />
               <Route exact path="/test" component={Test} />
+              <Route exact path="/test2" component={Test2} />
             </Switch>
           </Router>
         </CloudinaryContext>
