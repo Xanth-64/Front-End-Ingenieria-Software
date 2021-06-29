@@ -7,7 +7,6 @@ import {
   ControlLabel,
   FlexboxGrid,
   Button,
-  ButtonGroup,
   Col,
   RadioGroup,
   Radio,
@@ -17,7 +16,6 @@ import {
   Icon,
   InputGroup,
 } from "rsuite";
-import InputGroupAddon from "rsuite/lib/InputGroup/InputGroupAddon";
 
 export const FormSesion = ({
   SubmitFunction, // Función de enviar
@@ -25,7 +23,7 @@ export const FormSesion = ({
   buttonText, // Texto del Botón
   title, // TÍtulo del Formulario
   showMap, // Boolean de si aparece el mapa o no
-  bFunction, // Funcion de ir atrás
+  // Funcion de ir atrás
   setMap, //Funcion on Change
   Schema, //El esquema, pasado como los InputsLabels
 }) => {
@@ -85,7 +83,7 @@ export const FormSesion = ({
                               <>
                                 <Radio
                                   value={optionValue.name}
-                                  checked={index == 1}
+                                  checked={index === 1}
                                 >
                                   {optionValue.label}
                                 </Radio>
@@ -121,7 +119,7 @@ export const FormSesion = ({
                         action={process.env.REACT_APP_IMGUPLOAD}
                         listType="picture-text"
                         accept=".jpg, .png"
-                        onSuccess={(res, file) => {
+                        onSuccess={(res) => {
                           let newFormValue = formValue;
                           newFormValue.imagen_url = res.url;
                           setFormValue(newFormValue);
@@ -158,7 +156,7 @@ export const FormSesion = ({
                         action={process.env.REACT_APP_IMGUPLOAD}
                         listType="picture-text"
                         accept=".jpg, .png"
-                        onSuccess={(res, file) => {
+                        onSuccess={(res) => {
                           let newFormValue = formValue;
                           newFormValue[value.name] = res.url;
                           setFormValue(newFormValue);
@@ -312,25 +310,6 @@ export const FormSesion = ({
               </FormGroup>
             </FlexboxGrid.Item>
           )}
-
-          {/* {bFunction && (
-              <FlexboxGrid.Item
-                componentClass={Col}
-                colspan={24}
-                md={12}
-                className="form-input"
-              >
-                <Button
-                  appearance="subtle"
-                  color="green"
-                  type="button"
-                  onClick={bFunction}
-                >
-                  {" "}
-                  Atrás{" "}
-                </Button>
-              </FlexboxGrid.Item>
-            )} */}
           <FlexboxGrid.Item
             componentClass={Col}
             colspan={24}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Steps, Button, Schema, Alert, ButtonGroup } from "rsuite";
+import { Steps, Button, Alert, ButtonGroup } from "rsuite";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
@@ -9,7 +9,6 @@ import { SignUpUsuarios } from "./SignUpUsuarios";
 import { SignUpDriver } from "./SignUpDriver";
 export const SignUp = () => {
   //Schemas
-  const { StringType, ObjectType } = Schema.Types;
   const [cookie, setCookie] = useCookies(["user"]);
   const [step, setStep] = useState(0);
   const [data, setData] = useState({});
@@ -70,35 +69,29 @@ export const SignUp = () => {
         header: true,
       });
       //Creación de la dirección del usuario
-      let address = await axios.post(
-        "https://avviare.herokuapp.com/api/address/one",
-        {
-          usuarioIdUsuario: tokenData.id,
-          latitud: map.lat.toString(),
-          longitud: map.lng.toString(),
-        }
-      );
+      await axios.post("https://avviare.herokuapp.com/api/address/one", {
+        usuarioIdUsuario: tokenData.id,
+        latitud: map.lat.toString(),
+        longitud: map.lng.toString(),
+      });
       console.log("address created");
       switch (data.tipo) {
         case "Emprendedor":
           // Creacion de la empresa del emprendedor
-          let emprendimiento = await axios.post(
-            "https://avviare.herokuapp.com/api/empre/one",
-            {
-              name_empresa: data.name_empresa,
-              verificado: false,
-              start_date: new Date(),
-              descripcion: data.descripcion,
-              usuarioIdUsuario: tokenData.id,
-            }
-          );
+          await axios.post("https://avviare.herokuapp.com/api/empre/one", {
+            name_empresa: data.name_empresa,
+            verificado: false,
+            start_date: new Date(),
+            descripcion: data.descripcion,
+            usuarioIdUsuario: tokenData.id,
+          });
           Alert.success(
             "Cuenta de Emprendedor Creata Exitosamente, ¡Bienvenido!"
           );
           break;
         case "Transportista":
           //Creacion del vehículo del Driver y su empresa
-          let empresa_drivers = await axios.post(
+          await axios.post(
             "https://avviare.herokuapp.com/api/empre_drive/one",
             {
               nombre: data.name_empresa,
@@ -109,16 +102,13 @@ export const SignUp = () => {
           if (!data.condiciones) {
             data.condiciones = [];
           }
-          let vehiculo = await axios.post(
-            "https://avviare.herokuapp.com/api/vehicle/one",
-            {
-              capacidad: data.capacidad,
-              condiciones: data.condiciones,
-              placa: data.placa,
-              modelo: data.modelo,
-              marca: data.marca,
-            }
-          );
+          await axios.post("https://avviare.herokuapp.com/api/vehicle/one", {
+            capacidad: data.capacidad,
+            condiciones: data.condiciones,
+            placa: data.placa,
+            modelo: data.modelo,
+            marca: data.marca,
+          });
           Alert.success("Cuenta de Driver Creata Exitosamente, ¡Bienvenido!");
           break;
         default:

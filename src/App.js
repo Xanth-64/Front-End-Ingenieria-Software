@@ -16,9 +16,13 @@ import { SignUp } from "./Vistas/SignUp";
 import { Empre_Driver_Detailed } from "./Vistas/Empre_Driver_Detailed";
 import { EmprendedorDetailedView } from "./Vistas/EmprendedorDetailedView";
 import { CatalogView } from "./Vistas/CatalogView";
+<<<<<<< HEAD
 import { ProductBuyView } from "./Vistas/ProductBuyView";
 import { Test2 } from "./Vistas/Test2";
 import { Test3 } from "./Vistas/Test3";
+=======
+import { PedidoDriverDetailedView } from "./Vistas/PedidoDriverDetailedView";
+>>>>>>> becb098eee09f9e349537332a287116137083559
 
 //Base App
 function App() {
@@ -37,12 +41,7 @@ function App() {
                 AcceptOnly="Unsigned"
               />
 
-              <ProtectedRoute
-                exact
-                path="/SignUp"
-                component={SignUp}
-                AcceptOnly="Unsigned"
-              />
+              <Route exact path="/SignUp" component={SignUp} />
               <Route
                 exact
                 path="/Product/:id"
@@ -66,8 +65,17 @@ function App() {
               <Route path="/Catalog" component={CatalogView} />
               <Route exact path="/Buy/Product/:id" component={ProductBuyView} />
               <Route exact path="/test" component={Test} />
+<<<<<<< HEAD
               <Route exact path="/test2" component={Test2} />
               <Route exact path="/test3" component={Test3}/>
+=======
+              <ProtectedRoute
+                exact
+                path="/Drivers/:id/Pedidos"
+                component={PedidoDriverDetailedView}
+                AcceptOnly="Transportista"
+              />
+>>>>>>> becb098eee09f9e349537332a287116137083559
             </Switch>
           </Router>
         </CloudinaryContext>
