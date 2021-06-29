@@ -1,7 +1,6 @@
 import React from "react";
 import { ComboSlider } from "../Componentes/ComboSlider";
 import { Publicidad } from "../Componentes/Publicidad";
-import { NavBar } from "../Componentes/navBar";
 export const Principal = () => {
   const data = [
     {
