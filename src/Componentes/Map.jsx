@@ -12,7 +12,7 @@ export const Map = ({ setCoords }) => {
     lat: 10.487267000000001,
     lng: -66.80741499999999,
   });
-  const [zoom, setZoom] = useState(19);
+  const [zoom, setZoom] = useState(30);
   const showError = (error) => {
     console.log(error);
     Alert.warning(
@@ -64,7 +64,10 @@ export const Map = ({ setCoords }) => {
   return isLoaded ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
-      center={position}
+      center={{
+        lat: 10.487267000000001,
+        lng: -66.80741499999999,
+      }}
       zoom={zoom}
       onLoad={onLoad}
       onUnmount={onUnmount}

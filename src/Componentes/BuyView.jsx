@@ -453,7 +453,7 @@ export const BuyView = (props) => {
                                       disabled
                                       style={{ width: "100%" }}
                                     >
-                                      Paypal
+                                      <Icon icon="paypal" /> Paypal
                                     </Button>
                                   )}
                                 </FlexboxGrid>

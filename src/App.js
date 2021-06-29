@@ -18,6 +18,7 @@ import { EmprendedorDetailedView } from "./Vistas/EmprendedorDetailedView";
 import { CatalogView } from "./Vistas/CatalogView";
 import { ProductBuyView } from "./Vistas/ProductBuyView";
 import { Test2 } from "./Vistas/Test2";
+import { Test3 } from "./Vistas/Test3";
 
 //Base App
 function App() {
@@ -66,6 +67,7 @@ function App() {
               <Route exact path="/Buy/Product/:id" component={ProductBuyView} />
               <Route exact path="/test" component={Test} />
               <Route exact path="/test2" component={Test2} />
+              <Route exact path="/test3" component={Test3}/>
             </Switch>
           </Router>
         </CloudinaryContext>
