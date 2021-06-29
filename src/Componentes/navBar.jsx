@@ -3,12 +3,14 @@ import { Link, useHistory } from "react-router-dom";
 import { Nav, Navbar, Input, InputGroup, Icon, Col, FlexboxGrid } from "rsuite";
 import LogoAvviareSoloBuhito from "../Assets/LogoAvviareSoloBuhito.svg";
 import {useState} from 'react';
+import { useCookies } from "react-cookie";
 
 
 export const NavBar = () => {
   const history = useHistory();
   const isLoggedIn = false;
   const navBarStyles = {};
+  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
   const navInputStyles = {
     marginTop: "10px",
   };
@@ -49,13 +51,13 @@ export const NavBar = () => {
               </FlexboxGrid>
             </FlexboxGrid.Item>
             <FlexboxGrid.Item componentClass={Col} colspan={24} sm={8}>
-              {isLoggedIn && (
+              {cookie.user && (
                 <Nav>
                   <Nav.Item></Nav.Item>
-                  <Nav.Item></Nav.Item>
+                  <Nav.Item onClick={() => {removeCookie("user")}}>Sign Out</Nav.Item>
                 </Nav>
               )}
-              {!isLoggedIn && (
+              {!cookie.user && (
                 <FlexboxGrid align="middle" justify="end">
                   <FlexboxGrid.Item>
                     <Nav>
