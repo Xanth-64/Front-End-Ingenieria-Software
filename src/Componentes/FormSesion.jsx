@@ -7,7 +7,6 @@ import {
   ControlLabel,
   FlexboxGrid,
   Button,
-  ButtonGroup,
   Col,
   RadioGroup,
   Radio,
@@ -15,6 +14,7 @@ import {
   Checkbox,
   Uploader,
   Icon,
+  InputGroup,
 } from "rsuite";
 
 export const FormSesion = ({
@@ -23,7 +23,7 @@ export const FormSesion = ({
   buttonText, // Texto del Botón
   title, // TÍtulo del Formulario
   showMap, // Boolean de si aparece el mapa o no
-  bFunction, // Funcion de ir atrás
+  // Funcion de ir atrás
   setMap, //Funcion on Change
   Schema, //El esquema, pasado como los InputsLabels
 }) => {
@@ -83,7 +83,7 @@ export const FormSesion = ({
                               <>
                                 <Radio
                                   value={optionValue.name}
-                                  checked={index == 1}
+                                  checked={index === 1}
                                 >
                                   {optionValue.label}
                                 </Radio>
@@ -119,14 +119,51 @@ export const FormSesion = ({
                         action={process.env.REACT_APP_IMGUPLOAD}
                         listType="picture-text"
                         accept=".jpg, .png"
-                        onSuccess={(res, file) => {
-                          let value = formValue;
-                          value.image_url = res.url;
-                          setFormValue(value);
+                        onSuccess={(res) => {
+                          let newFormValue = formValue;
+                          newFormValue.imagen_url = res.url;
+                          setFormValue(newFormValue);
                         }}
                       >
                         <Button className="input-width">
                           <Icon icon="avatar" size="4x" />
+                        </Button>
+                      </FormControl>
+                    </FormGroup>
+                  </FlexboxGrid.Item>
+                );
+              case "picture":
+                return (
+                  <FlexboxGrid.Item
+                    componentClass={Col}
+                    colspan={24}
+                    md={12}
+                    className="form-input"
+                  >
+                    <FormGroup>
+                      <ControlLabel className="subtitle">
+                        {value.label}
+                      </ControlLabel>
+                      <FormControl
+                        name="file"
+                        className="input-width"
+                        data={{
+                          upload_preset: "ml_default",
+                        }}
+                        accepter={Uploader}
+                        multiple={false}
+                        draggable={true}
+                        action={process.env.REACT_APP_IMGUPLOAD}
+                        listType="picture-text"
+                        accept=".jpg, .png"
+                        onSuccess={(res) => {
+                          let newFormValue = formValue;
+                          newFormValue[value.name] = res.url;
+                          setFormValue(newFormValue);
+                        }}
+                      >
+                        <Button className="input-width">
+                          <Icon icon="briefcase" size="4x" />
                         </Button>
                       </FormControl>
                     </FormGroup>
@@ -211,6 +248,30 @@ export const FormSesion = ({
                     </FormGroup>
                   </FlexboxGrid.Item>
                 );
+              case "money":
+                return (
+                  <FlexboxGrid.Item
+                    componentClass={Col}
+                    colspan={24}
+                    md={12}
+                    className="form-input"
+                  >
+                    <FormGroup>
+                      <ControlLabel className="subtitle">
+                        {value.label}
+                      </ControlLabel>
+                      <InputGroup>
+                        <FormControl
+                          type="number"
+                          className="input-width"
+                          name={value.name}
+                          placeholder={"3.00$"}
+                        />
+                        <InputGroup.Addon> $</InputGroup.Addon>
+                      </InputGroup>
+                    </FormGroup>
+                  </FlexboxGrid.Item>
+                );
               default:
                 return (
                   <FlexboxGrid.Item
@@ -255,22 +316,9 @@ export const FormSesion = ({
             md={24}
             className="form-input"
           >
-            <ButtonGroup>
-              {bFunction && (
-                <Button
-                  appearance="subtle"
-                  color="green"
-                  type="button"
-                  onClick={bFunction}
-                >
-                  {" "}
-                  Atrás{" "}
-                </Button>
-              )}
-              <Button appearance="primary" color="green" type="submit">
-                {buttonText}
-              </Button>
-            </ButtonGroup>
+            <Button appearance="primary" color="green" type="submit">
+              {buttonText}
+            </Button>
           </FlexboxGrid.Item>
         </FlexboxGrid>
       </Form>

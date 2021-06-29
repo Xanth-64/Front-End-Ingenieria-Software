@@ -32,6 +32,11 @@ export const SignUpDriver = ({ SubmitFunction, bFunction, setMap }) => {
       name: "telefono",
     },
     {
+      label: "Tarifa",
+      type: "money",
+      name: "tarifa",
+    },
+    {
       label: "Contraseña",
       type: "password",
       name: "password",
@@ -42,18 +47,38 @@ export const SignUpDriver = ({ SubmitFunction, bFunction, setMap }) => {
       name: "confirm password",
     },
     {
-      label: "Empresa Asociada",
+      label: "placa del Vehículo",
+      type: "text",
+      name: "placa",
+    },
+    {
+      label: "Modelo del Vehículo",
+      type: "text",
+      name: "marca",
+    },
+    {
+      label: "Modelo del Vehículo",
+      type: "text",
+      name: "modelo",
+    },
+    {
+      label: "Nombre de la Empresa",
       type: "text",
       name: "name_empresa",
+    },
+    {
+      label: "Descripcion de la Empresa",
+      type: "textarea",
+      name: "descripcion",
     },
     {
       label: "Capacidad del Transporte",
       name: "capacidad",
       inputs: [
-        { label: "Ligero", name: "ligero" },
-        { label: "Mediano", name: "mediano" },
-        { label: "Pesado", name: "pesado" },
-        { label: "Muy Pesado", name: "muy pesado" },
+        { label: "Ligero", name: "Ligero" },
+        { label: "Mediano", name: "Mediano" },
+        { label: "Pesado", name: "Pesado" },
+        { label: "Muy Pesado", name: "Muy Pesado" },
       ],
       type: "radio",
     },
@@ -61,16 +86,34 @@ export const SignUpDriver = ({ SubmitFunction, bFunction, setMap }) => {
       label: "Tipo de Carga",
       name: "condiciones",
       inputs: [
-        { label: "Fragil", name: "fragile" },
-        { label: "Refrigerado", name: "refrigerado" },
-        { label: "Liquido", name: "liquido" },
+        { label: "Fragil", name: "Fragile" },
+        { label: "Refrigerado", name: "Refrigerado" },
+        { label: "Liquido", name: "Líquido" },
       ],
       type: "multiple select",
     },
-    // Acá falta carga de imágen + Ubicación
+    {
+      label: "Foto de Licencia",
+      type: "picture",
+      name: "licencia_picture",
+      modelName: "fliePLaca",
+    },
+    {
+      label: "Foto de Certificado de Salud",
+      type: "picture",
+      name: "certi_salud",
+      modelName: "fileCertificado",
+    },
   ];
   const driverSchema = Schema.Model({
     file: ObjectType().isRequired("Es necesario que se añada una imagen"),
+    placa: StringType()
+      .isRequired("Es necesario que se añada una imagen")
+      .minLength(4, "El dato intrudcido debe ser una placa"),
+    modelo: StringType().isRequired("No se puede dejar este campo vacio"),
+    tarifa: NumberType()
+      .isRequired("No puede dejar este campo vacío")
+      .min(0, "No puede tener tarifas negativas"),
     nombre: StringType()
       .isRequired("No puede dejar este campo vacio")
       .maxLength(20, "Su nombre no puede exceder los 20 caracteres"),
@@ -96,6 +139,10 @@ export const SignUpDriver = ({ SubmitFunction, bFunction, setMap }) => {
         20,
         "El nombre de su emprendimiento no puede exceder los 20 caracteres"
       ),
+    filePlaca: ObjectType().isRequired("Es necesario que se añada una imagen"),
+    fileCertificado: ObjectType().isRequired(
+      "Es necesario que se añada una imagen"
+    ),
   });
   return (
     <div>
@@ -103,7 +150,7 @@ export const SignUpDriver = ({ SubmitFunction, bFunction, setMap }) => {
         Inputlabels={labels}
         SubmitFunction={SubmitFunction}
         onChange={SubmitFunction}
-        buttonText="Siguiente"
+        buttonText="Crear Driver"
         title="Creación Driver"
         showMap="T"
         bFunction={bFunction}

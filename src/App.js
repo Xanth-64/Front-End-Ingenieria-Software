@@ -4,6 +4,7 @@ import { Login } from "./Vistas/Login";
 import { ProductoDetailedView } from "./Vistas/ProductoDetailedView";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { NavBar } from "./Componentes/navBar";
+import { ProtectedRoute } from "./Componentes/ProtectedRoute";
 import "rsuite/dist/styles/rsuite-default.css";
 import Test from "./Vistas/Test";
 //Context providers
@@ -15,6 +16,7 @@ import { SignUp } from "./Vistas/SignUp";
 import { Empre_Driver_Detailed } from "./Vistas/Empre_Driver_Detailed";
 import { EmprendedorDetailedView } from "./Vistas/EmprendedorDetailedView";
 import { CatalogView } from "./Vistas/CatalogView";
+import { PedidoDriverDetailedView } from "./Vistas/PedidoDriverDetailedView";
 
 //Base App
 function App() {
@@ -26,7 +28,12 @@ function App() {
             <NavBar />
             <Switch>
               <Route exact path="/" component={Principal} />
-              <Route exact path="/login" component={Login} />
+              <ProtectedRoute
+                exact
+                path="/login"
+                component={Login}
+                AcceptOnly="Unsigned"
+              />
 
               <Route exact path="/SignUp" component={SignUp} />
               <Route
@@ -51,6 +58,12 @@ function App() {
               />
               <Route path="/Catalog" component={CatalogView} />
               <Route exact path="/test" component={Test} />
+              <ProtectedRoute
+                exact
+                path="/Drivers/:id/Pedidos"
+                component={PedidoDriverDetailedView}
+                AcceptOnly="Transportista"
+              />
             </Switch>
           </Router>
         </CloudinaryContext>

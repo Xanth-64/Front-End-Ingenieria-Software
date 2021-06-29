@@ -2,6 +2,8 @@ import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Nav, Navbar, Input, InputGroup, Icon, Col, FlexboxGrid } from "rsuite";
 import LogoAvviareSoloBuhito from "../Assets/LogoAvviareSoloBuhito.svg";
+import {useState} from 'react';
+
 
 export const NavBar = () => {
   const history = useHistory();
@@ -10,6 +12,7 @@ export const NavBar = () => {
   const navInputStyles = {
     marginTop: "10px",
   };
+  const [query, setQuery] = useState('')
   return (
     <>
       <Navbar style={navBarStyles}>
@@ -34,10 +37,12 @@ export const NavBar = () => {
                 <InputGroup>
                   <Input
                     onChange={(val) => {
-                      history.push(`/Catalog?query=${val}`);
+                      setQuery(val);
                     }}
                   />
-                  <InputGroup.Button>
+                  <InputGroup.Button onClick = {() => {
+                    history.push(`/Catalog?query=${query}`)
+                  }}>
                     <Icon icon="search" />
                   </InputGroup.Button>
                 </InputGroup>
