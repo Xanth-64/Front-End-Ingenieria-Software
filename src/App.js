@@ -21,6 +21,7 @@ import { Test2 } from "./Vistas/Test2";
 import { Test3 } from "./Vistas/Test3";
 import { PedidoDriverDetailedView } from "./Vistas/PedidoDriverDetailedView";
 import { AdministrativeWorkspace } from "./Vistas/AdministrativeWorkspace";
+import { EmpreWorkspace } from "./Vistas/EmpreWorkspace";
 
 //Base App
 function App() {
@@ -75,6 +76,12 @@ function App() {
               />
               <Route exact path="/test2" component={Test2} />
               <Route exact path="/test3" component={Test3} />
+              <ProtectedRoute
+                exact
+                path="/Manage/Emprendimiento"
+                component={EmpreWorkspace}
+                AcceptOnly="Emprendedor"
+              />
               <ProtectedRoute
                 exact
                 path="/Drivers/:id/Pedidos"

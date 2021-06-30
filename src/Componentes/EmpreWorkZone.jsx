@@ -34,7 +34,7 @@ export const EmpreWorkZone = (props) => {
             {navSelect === "productList" && <></>}
             {navSelect === "profile" && (
               <>
-                <EmprendimientoProfileModifier empreData={{ id: 1 }} />
+                <EmprendimientoProfileModifier empreData={props.empreData} />
               </>
             )}
             {navSelect === "pedidos" && <></>}

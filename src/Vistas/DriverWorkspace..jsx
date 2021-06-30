@@ -1,6 +1,6 @@
 import { FlexboxGrid, Panel } from "rsuite";
-import { AdminWorkZone } from "../Componentes/AdminWorkzone";
-export const AdministrativeWorkspace = () => {
+import { DriverWorkZone } from "../Componentes/DriverWorkZone";
+export const DriverWorkspace = () => {
   return (
     <>
       <FlexboxGrid
@@ -30,7 +30,7 @@ export const AdministrativeWorkspace = () => {
               padding: "0 5% 5% 5%",
             }}
           >
-            <AdminWorkZone />
+            <DriverWorkZone />
           </Panel>
         </Panel>
       </FlexboxGrid>
