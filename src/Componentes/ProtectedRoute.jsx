@@ -30,11 +30,14 @@ export const ProtectedRoute = ({
           <Route
             {...rest}
             render={(props) => {
-              return userInfo.tipo === "Emprendedor" ? (
-                <Component props />
-              ) : (
-                <Redirect to="/" />
-              );
+              if (userInfo) {
+                return userInfo.tipo === "Emprendedor" ? (
+                  <Component props />
+                ) : (
+                  <Redirect to="/" />
+                );
+              }
+              return <Redirect to="/" />;
             }}
           ></Route>
         );
@@ -43,11 +46,14 @@ export const ProtectedRoute = ({
           <Route
             {...rest}
             render={(props) => {
-              return userInfo.tipo === "Cliente" ? (
-                <Component props />
-              ) : (
-                <Redirect to="/" />
-              );
+              if (userInfo) {
+                return userInfo.tipo === "Cliente" ? (
+                  <Component props />
+                ) : (
+                  <Redirect to="/" />
+                );
+              }
+              return <Redirect to="/" />;
             }}
           ></Route>
         );
@@ -56,11 +62,30 @@ export const ProtectedRoute = ({
           <Route
             {...rest}
             render={(props) => {
-              return userInfo.tipo === "Transportista" ? (
-                <Component props />
-              ) : (
-                <Redirect to="/" />
-              );
+              if (userInfo) {
+                return userInfo.tipo === "Transportista" ? (
+                  <Component props />
+                ) : (
+                  <Redirect to="/" />
+                );
+              }
+              return <Redirect to="/" />;
+            }}
+          ></Route>
+        );
+      case "Administrador":
+        return (
+          <Route
+            {...rest}
+            render={(props) => {
+              if (userInfo) {
+                return userInfo.tipo === "Administrador" ? (
+                  <Component props />
+                ) : (
+                  <Redirect to="/" />
+                );
+              }
+              return <Redirect to="/" />;
             }}
           ></Route>
         );
@@ -69,12 +94,15 @@ export const ProtectedRoute = ({
           <Route
             {...rest}
             render={(props) => {
-              return userInfo.tipo === "Emprendedor" ||
-                userInfo.tipo === "Transportista" ? (
-                <Component props />
-              ) : (
-                <Redirect to="/" />
-              );
+              if (userInfo) {
+                return userInfo.tipo === "Emprendedor" ||
+                  userInfo.tipo === "Transportista" ? (
+                  <Component props />
+                ) : (
+                  <Redirect to="/" />
+                );
+              }
+              return <Redirect to="/" />;
             }}
           ></Route>
         );

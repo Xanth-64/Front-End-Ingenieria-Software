@@ -20,6 +20,7 @@ import { ProductBuyView } from "./Vistas/ProductBuyView";
 import { Test2 } from "./Vistas/Test2";
 import { Test3 } from "./Vistas/Test3";
 import { PedidoDriverDetailedView } from "./Vistas/PedidoDriverDetailedView";
+import { AdministrativeWorkspace } from "./Vistas/AdministrativeWorkspace";
 
 //Base App
 function App() {
@@ -60,8 +61,18 @@ function App() {
                 component={Empre_Driver_Detailed}
               />
               <Route path="/Catalog" component={CatalogView} />
-              <Route exact path="/Buy/Product/:id" component={ProductBuyView} />
-              <Route exact path="/test" component={Test} />
+              <ProtectedRoute
+                exact
+                path="/Buy/Product/:id"
+                component={ProductBuyView}
+                AcceptOnly="SignedIn"
+              />
+              <ProtectedRoute
+                exact
+                path="/Manage/Administrator"
+                component={AdministrativeWorkspace}
+                AcceptOnly="SignedIn"
+              />
               <Route exact path="/test2" component={Test2} />
               <Route exact path="/test3" component={Test3} />
               <ProtectedRoute
