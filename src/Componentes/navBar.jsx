@@ -1,9 +1,9 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
+import { useCookies } from "react-cookie";
 import { Nav, Navbar, Input, InputGroup, Icon, Col, FlexboxGrid } from "rsuite";
 import LogoAvviareSoloBuhito from "../Assets/LogoAvviareSoloBuhito.svg";
-import {useState} from 'react';
-
+import { useState, useEffect } from "react";
 
 export const NavBar = () => {
   const history = useHistory();
@@ -12,7 +12,9 @@ export const NavBar = () => {
   const navInputStyles = {
     marginTop: "10px",
   };
-  const [query, setQuery] = useState('')
+  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
+  const [query, setQuery] = useState("");
+
   return (
     <>
       <Navbar style={navBarStyles}>
@@ -40,22 +42,30 @@ export const NavBar = () => {
                       setQuery(val);
                     }}
                   />
-                  <InputGroup.Button onClick = {() => {
-                    history.push(`/Catalog?query=${query}`)
-                  }}>
+                  <InputGroup.Button
+                    onClick={() => {
+                      history.push(`/Catalog?query=${query}`);
+                    }}
+                  >
                     <Icon icon="search" />
                   </InputGroup.Button>
                 </InputGroup>
               </FlexboxGrid>
             </FlexboxGrid.Item>
             <FlexboxGrid.Item componentClass={Col} colspan={24} sm={8}>
-              {isLoggedIn && (
+              {cookie.user && (
                 <Nav>
                   <Nav.Item></Nav.Item>
-                  <Nav.Item></Nav.Item>
+                  <Nav.Item
+                    onClick={() => {
+                      removeCookie("user");
+                    }}
+                  >
+                    Sign Out
+                  </Nav.Item>
                 </Nav>
               )}
-              {!isLoggedIn && (
+              {!cookie.user && (
                 <FlexboxGrid align="middle" justify="end">
                   <FlexboxGrid.Item>
                     <Nav>

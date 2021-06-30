@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Steps, Button, Alert, ButtonGroup } from "rsuite";
+import { Steps, Button, Alert, ButtonGroup, Modal, FlexboxGrid } from "rsuite";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import { useHistory } from "react-router-dom";
 
 import { SignUpEmprendedor } from "./SignUpEmprendedor";
 import { SignUpUsuarios } from "./SignUpUsuarios";
 import { SignUpDriver } from "./SignUpDriver";
 export const SignUp = () => {
+  const history = useHistory();
   //Schemas
   const [cookie, setCookie] = useCookies(["user"]);
   const [step, setStep] = useState(0);
@@ -50,6 +52,7 @@ export const SignUp = () => {
   const crearCuenta = async () => {
     console.log("se va a crear cuenta", data);
     console.log(new Date());
+    let tokenId;
     try {
       // Creación de un Usuario sin importar el tipo
       let token = await axios.post(
@@ -64,10 +67,12 @@ export const SignUp = () => {
           telefono: parseInt(data.telefono),
         }
       );
+
       //Decodificar la data obtenida del token
       let tokenData = jwt_decode(token.data.data[0].split(".")[1], {
         header: true,
       });
+      tokenId = tokenData.id;
       //Creación de la dirección del usuario
       await axios.post("https://avviare.herokuapp.com/api/address/one", {
         usuarioIdUsuario: tokenData.id,
@@ -88,37 +93,82 @@ export const SignUp = () => {
           Alert.success(
             "Cuenta de Emprendedor Creata Exitosamente, ¡Bienvenido!"
           );
+          history.push("/");
           break;
         case "Transportista":
           //Creacion del vehículo del Driver y su empresa
-          await axios.post(
-            "https://avviare.herokuapp.com/api/empre_drive/one",
-            {
-              nombre: data.name_empresa,
-              descripcion: data.descripcion,
-              verificado: false,
-            }
-          );
+          let docUpdate;
+          try {
+            docUpdate = await axios.put(
+              "https://avviare.herokuapp.com/api/empre_drive/some",
+              {
+                changes: { nombre: data.name_empresa },
+                where: { nombre: data.name_empresa },
+              }
+            );
+          } catch (err) {
+            docUpdate = { data: { data: [] } };
+          }
+
+          let empreId;
+          if (docUpdate.data.data.length) {
+            empreId = docUpdate.data.data[0].id_empre;
+          } else {
+            const doc1 = await axios.post(
+              "https://avviare.herokuapp.com/api/empre_drive/one",
+              {
+                nombre: data.name_empresa,
+                descripcion: data.descripcion,
+                verificado: false,
+              }
+            );
+            empreId = doc1.data.data[0].id_empre;
+          }
           if (!data.condiciones) {
             data.condiciones = [];
           }
-          await axios.post("https://avviare.herokuapp.com/api/vehicle/one", {
-            capacidad: data.capacidad,
-            condiciones: data.condiciones,
-            placa: data.placa,
-            modelo: data.modelo,
-            marca: data.marca,
+          const doc2 = await axios.post(
+            "https://avviare.herokuapp.com/api/vehicle/one",
+            {
+              capacidad: data.capacidad,
+              condiciones: data.condiciones,
+              placa: data.placa,
+              modelo: data.modelo,
+              marca: data.marca,
+            }
+          );
+          const carroId = doc2.data.data[0].id_vehiculo;
+          await axios.post("https://avviare.herokuapp.com/api/drivers/one", {
+            tarifa: data.tarifa,
+            licencia_picture: data.licencia_picture,
+            certi_salud: data.certi_salud,
+            usuarioIdUsuario: tokenData.id,
+            vehiculoIdVehiculo: carroId,
+            empreDriveIdEmpre: empreId,
+            active: true,
           });
+
           Alert.success("Cuenta de Driver Creata Exitosamente, ¡Bienvenido!");
+          history.push("/");
           break;
         default:
           // Creacion del del Usuario
           Alert.success("Cuenta de Usuario Creata Exitosamente, ¡Bienvenido!");
+          history.push("/");
           break;
       }
       //Se genera una cookie con los datos del usuario
       handleCookie(tokenData);
     } catch (error) {
+      Alert.error("Creación de Usuario Fallida");
+      if (tokenId) {
+        try {
+          await axios.delete(
+            `https://avviare.herokuapp.com/api/usuarios/one/${tokenId}`
+          );
+        } catch (err) {}
+      }
+      setStep(1);
       console.log(error);
     }
   };
@@ -224,9 +274,40 @@ export const SignUp = () => {
       )}
       {step === 2 && (
         <>
-          <h1> Está a punto de crear una cuenta de usuario ¿Está seguro?</h1>
-          <Button onClick={crearCuenta}> Crear Cuenta</Button>
-          {cookie.user && <h1>Usuario {cookie.user.email} creado</h1>}
+          <Modal
+            show={step === 2}
+            onHide={() => {
+              setStep(1);
+            }}
+          >
+            <FlexboxGrid justify="center" align="middle">
+              <FlexboxGrid
+                justify="center"
+                align="middle"
+                style={{ width: "100%" }}
+              >
+                <h6>
+                  {" "}
+                  Está a punto de crear una cuenta de usuario ¿Está seguro?
+                </h6>
+              </FlexboxGrid>
+              <FlexboxGrid
+                justify="center"
+                align="middle"
+                style={{ width: "100%" }}
+              >
+                <Button
+                  style={{ margin: "1.5rem 0" }}
+                  onClick={crearCuenta}
+                  appearance="primary"
+                  color="green"
+                >
+                  {" "}
+                  Crear Cuenta
+                </Button>
+              </FlexboxGrid>
+            </FlexboxGrid>
+          </Modal>
         </>
       )}
     </>

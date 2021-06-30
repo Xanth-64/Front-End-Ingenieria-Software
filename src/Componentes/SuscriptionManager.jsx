@@ -10,9 +10,9 @@ import {
 } from "rsuite";
 import { useState } from "react";
 import { PayPalButton } from "react-paypal-button-v2";
-
+import axios from "axios";
 export const SuscriptionManager = (props) => {
-  const [driverData, setDriverData] = useState(props.driverData);
+  const [empreData, setEmpreData] = useState(props.empreData);
   const [loading, setLoading] = useState(false);
 
   //Funciones para el Manejo de Pagos

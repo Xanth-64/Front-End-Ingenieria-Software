@@ -1,5 +1,5 @@
 import { FlexboxGrid, Container, Header, Content, Panel } from "rsuite";
-
+import { SuscriptionManager } from "./SuscriptionManager";
 import { useState } from "react";
 
 export const EmprendimientoProfileModifier = (props) => {
@@ -25,7 +25,9 @@ export const EmprendimientoProfileModifier = (props) => {
               <FlexboxGrid style={{ margin: "1.5rem 0" }}>
                 {/* TODO Añadir el Perfil*/}
               </FlexboxGrid>
-              <FlexboxGrid style={{ margin: "1.5rem 0" }}></FlexboxGrid>
+              <FlexboxGrid style={{ margin: "1.5rem 0" }}>
+                <SuscriptionManager empreData={props.empreData} />
+              </FlexboxGrid>
             </Content>
           </Container>
         </Panel>

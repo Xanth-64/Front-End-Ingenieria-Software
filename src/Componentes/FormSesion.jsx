@@ -121,7 +121,7 @@ export const FormSesion = ({
                         accept=".jpg, .png"
                         onSuccess={(res) => {
                           let newFormValue = formValue;
-                          newFormValue.imagen_url = res.url;
+                          newFormValue.imagen_url = res.public_id;
                           setFormValue(newFormValue);
                         }}
                       >
@@ -158,7 +158,7 @@ export const FormSesion = ({
                         accept=".jpg, .png"
                         onSuccess={(res) => {
                           let newFormValue = formValue;
-                          newFormValue[value.name] = res.url;
+                          newFormValue[value.name] = res.public_id;
                           setFormValue(newFormValue);
                         }}
                       >
