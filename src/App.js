@@ -20,6 +20,7 @@ import { ProductBuyView } from "./Vistas/ProductBuyView";
 import { Test2 } from "./Vistas/Test2";
 import { Test3 } from "./Vistas/Test3";
 import { PedidoDriverDetailedView } from "./Vistas/PedidoDriverDetailedView";
+import { PerfilPropio } from "./Vistas/PerfilPropio";
 
 //Base App
 function App() {
@@ -70,6 +71,12 @@ function App() {
                 component={PedidoDriverDetailedView}
                 AcceptOnly="Transportista"
               />
+              <ProtectedRoute
+                exact
+                path="/PerfilPropio"
+                component={PerfilPropio}
+                AcceptOnly="SignedIn"
+              />              
             </Switch>
           </Router>
         </CloudinaryContext>

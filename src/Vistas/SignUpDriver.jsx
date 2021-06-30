@@ -52,7 +52,7 @@ export const SignUpDriver = ({ SubmitFunction, bFunction, setMap }) => {
       name: "placa",
     },
     {
-      label: "Modelo del Vehículo",
+      label: "Marca del Vehículo",
       type: "text",
       name: "marca",
     },

@@ -52,10 +52,12 @@ export const NavBar = () => {
             </FlexboxGrid.Item>
             <FlexboxGrid.Item componentClass={Col} colspan={24} sm={8}>
               {cookie.user && (
-                <Nav>
-                  <Nav.Item></Nav.Item>
-                  <Nav.Item onClick={() => {removeCookie("user")}}>Sign Out</Nav.Item>
-                </Nav>
+                <FlexboxGrid align="middle" justify="end">
+                  <Nav>
+                    <Link to="/PerfilPropio"><Nav.Item> <h5>My Profile</h5></Nav.Item></Link>
+                    <Nav.Item onClick={() => {removeCookie("user")}}> <h5>Sign Out</h5></Nav.Item>
+                  </Nav>
+              </FlexboxGrid>
               )}
               {!cookie.user && (
                 <FlexboxGrid align="middle" justify="end">

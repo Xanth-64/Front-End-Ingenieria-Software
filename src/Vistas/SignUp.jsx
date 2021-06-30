@@ -86,7 +86,7 @@ export const SignUp = () => {
             usuarioIdUsuario: tokenData.id,
           });
           Alert.success(
-            "Cuenta de Emprendedor Creata Exitosamente, ¡Bienvenido!"
+            "Cuenta de Emprendedor Creada Exitosamente, ¡Bienvenido!"
           );
           break;
         case "Transportista":
@@ -109,11 +109,11 @@ export const SignUp = () => {
             modelo: data.modelo,
             marca: data.marca,
           });
-          Alert.success("Cuenta de Driver Creata Exitosamente, ¡Bienvenido!");
+          Alert.success("Cuenta de Driver Creada Exitosamente, ¡Bienvenido!");
           break;
         default:
           // Creacion del del Usuario
-          Alert.success("Cuenta de Usuario Creata Exitosamente, ¡Bienvenido!");
+          Alert.success("Cuenta de Usuario Creada Exitosamente, ¡Bienvenido!");
           break;
       }
       //Se genera una cookie con los datos del usuario

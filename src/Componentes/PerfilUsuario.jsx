@@ -1,3 +1,9 @@
-const PerfilUsuario = (props) => {
-    return (<>  </>)
-}
+
+export const PerfilUsuario = (props) => {
+    return (<> 
+        {props.dataUsuario.nombre} 
+    
+    
+    </>)
+};
+
