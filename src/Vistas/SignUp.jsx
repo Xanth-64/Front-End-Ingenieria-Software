@@ -91,7 +91,7 @@ export const SignUp = () => {
             usuarioIdUsuario: tokenData.id,
           });
           Alert.success(
-            "Cuenta de Emprendedor Creata Exitosamente, ¡Bienvenido!"
+            "Cuenta de Emprendedor Creada Exitosamente, ¡Bienvenido!"
           );
           history.push("/");
           break;
