@@ -1,18 +1,18 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useCookies } from "react-cookie";
 import { Nav, Navbar, Input, InputGroup, Icon, Col, FlexboxGrid } from "rsuite";
 import LogoAvviareSoloBuhito from "../Assets/LogoAvviareSoloBuhito.svg";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useCookies } from "react-cookie";
 
 export const NavBar = () => {
   const history = useHistory();
   const isLoggedIn = false;
   const navBarStyles = {};
+  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
   const navInputStyles = {
     marginTop: "10px",
   };
-  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
   const [query, setQuery] = useState("");
 
   return (
