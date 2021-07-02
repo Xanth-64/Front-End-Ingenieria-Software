@@ -7,7 +7,7 @@ export const PerfilUsuario = (props) => {
 const [cookie, setCookie] = useCookies(["user"]); 
 const history = useHistory();  
     return (<>    
-    <FlexboxGrid justify="center" align="middle" style={{ margin: "2rem 0"}}>
+    <FlexboxGrid justify="center" align="middle" style={{ margin: "2rem 0"}} data-testid="PruebitaPerfil">
         <Panel bordered shaded style={{ width: "80%", padding: "3% 2%"}}>   
 
         <div className="cardContainer space-around wh-290vw" style={{color: "#277276"}}>
