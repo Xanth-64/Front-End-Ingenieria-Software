@@ -24,6 +24,7 @@ import { AdministrativeWorkspace } from "./Vistas/AdministrativeWorkspace";
 import { EmpreWorkspace } from "./Vistas/EmpreWorkspace";
 import { PerfilPropio } from "./Vistas/PerfilPropio";
 import { Compras } from "./Vistas/Compras";
+import { CompraDetail } from "./Vistas/CompraDetail";
 
 //Base App
 function App() {
@@ -100,6 +101,12 @@ function App() {
                 exact
                 path="/Compras"
                 component={Compras}
+                AcceptOnly="SignedIn"
+              />
+              <ProtectedRoute
+                exact
+                path="/CompraDetail/:qr"
+                component={CompraDetail}
                 AcceptOnly="SignedIn"
               />
             </Switch>

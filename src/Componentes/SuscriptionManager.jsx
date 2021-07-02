@@ -24,6 +24,7 @@ export const SuscriptionManager = (props) => {
 
   //Funciones para el Manejo de Pagos
   const manageStripe = async (amount) => {
+    setLoading(true);
     const stripe = await stripePromise;
 
     console.log({
@@ -44,16 +45,43 @@ export const SuscriptionManager = (props) => {
         },
       }
     );
-    console.log(session);
+
     const result = await stripe.redirectToCheckout({
       sessionId: session.data.id,
     });
-
+    setLoading(false);
     if (result.error) {
       Alert.error("Error de Conexion a Stripe");
+      setLoading(false);
     }
   };
-  const handlePaypal = async (amount) => {};
+  const handlePaypal = async (amount) => {
+    setLoading(true);
+    try {
+      let time = 1;
+      if (amount === 10) {
+        time = 1;
+      }
+      if (amount === 60) {
+        time = 7;
+      }
+      if (amount === 120) {
+        time = 14;
+      }
+      await axios.post(
+        `https://avviare.herokuapp.com/api/suscription/createSuscripcion/${props.empreData.id_negocio}`,
+        {
+          time: time,
+        }
+      );
+      Alert.success("Pago Registrado Exitosamente");
+    } catch (err) {
+      Alert.error("Pago Fallido");
+
+      console.log(err);
+    }
+    setLoading(false);
+  };
   return (
     <>
       <FlexboxGrid justify="space-around" align="middle">
