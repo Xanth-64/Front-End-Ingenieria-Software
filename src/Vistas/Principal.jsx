@@ -31,8 +31,6 @@ export const Principal = () => {
   return (
     <div>
       <div>
-        {process.env.REACT_APP_MAPKEY}
-        {process.env.REACT_APP_IMGUPLOAD}
         <div className="cardContainer-Title">
           <h1>Combos de la Semana</h1>
         </div>
