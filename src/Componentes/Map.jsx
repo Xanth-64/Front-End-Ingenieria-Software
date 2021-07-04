@@ -63,6 +63,7 @@ export const Map = ({ setCoords }) => {
 
   return isLoaded ? (
     <GoogleMap
+      data-testid="map-id"
       mapContainerStyle={containerStyle}
       center={{
         lat: 10.487267000000001,

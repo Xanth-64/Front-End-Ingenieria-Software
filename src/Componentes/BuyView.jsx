@@ -108,7 +108,6 @@ export const BuyView = (props) => {
               }
             );
             if (doc1.data.data.length !== 0) {
-              console.log(doc1.data.data.length);
               await axios.post(
                 `https://avviare.herokuapp.com/api/pedido/linkProds/${doc1.data.data[0].id_pedido}`,
                 {
@@ -118,6 +117,7 @@ export const BuyView = (props) => {
                 }
               );
               Alert.success("Pago con Stripe Registrado Exitosamente");
+              history.push(`/CompraDetail/${query.get("qr")}`);
             } else {
               Alert.error("Error Registrando su Pago.");
             }
@@ -171,6 +171,7 @@ export const BuyView = (props) => {
       }
       Alert.success("Pago con Paypal Registrado Exitosamente");
       setLoading(false);
+      history.push(`/CompraDetail/${qrCode}`);
     } catch (err) {
       console.log(err);
       Alert.error("Error Registrando su Pago.");

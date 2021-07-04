@@ -12,6 +12,7 @@ export const StarShower = (props) => {
   return (
     <>
       <Panel
+        data-testid="star-shower"
         shaded
         bordered
         bodyFill

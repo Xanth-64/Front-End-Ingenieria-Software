@@ -1,5 +1,6 @@
 import { Nav, Container, Header, Content, FlexboxGrid, Icon } from "rsuite";
 import { EmprendimientoProfileModifier } from "../Componentes/EmprendimientoProfileModifier";
+import { ManageProducts } from "../Componentes/ManageProducts";
 import { useState } from "react";
 
 export const EmpreWorkZone = (props) => {
@@ -31,7 +32,11 @@ export const EmpreWorkZone = (props) => {
         </Header>
         <Content>
           <FlexboxGrid justify="center" align="middle">
-            {navSelect === "productList" && <></>}
+            {navSelect === "productList" && (
+              <>
+                <ManageProducts empreData={props.empreData} />
+              </>
+            )}
             {navSelect === "profile" && (
               <>
                 <EmprendimientoProfileModifier empreData={props.empreData} />

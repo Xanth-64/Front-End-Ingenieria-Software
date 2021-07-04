@@ -58,7 +58,7 @@ export const EmpreWorkspace = () => {
               width: "100%",
               backgroundColor: "#FFFFFF",
               height: "100%",
-              padding: "0 5% 5% 5%",
+              padding: "0 0 5% 0",
             }}
           >
             {!loading && (

@@ -1,6 +1,6 @@
 import { FlexboxGrid, Panel, Col } from "rsuite";
 import QRCode from "qrcode.react";
-
+import { ProductListShower } from "./ProductListShower";
 export const PedidoDetailShower = (props) => {
   return (
     <>
@@ -55,7 +55,7 @@ export const PedidoDetailShower = (props) => {
                   >
                     <h2
                       style={{ textAlign: "center" }}
-                    >{`${props.pedido.monto_total}$`}</h2>
+                    >{`${props.pedidoData.monto_total}$`}</h2>
                   </FlexboxGrid.Item>
                   <FlexboxGrid.Item
                     componentClass={Col}
@@ -67,9 +67,9 @@ export const PedidoDetailShower = (props) => {
                       <QRCode
                         value={
                           "http://localhost:4000/Compra/Confirm/" +
-                          props.pedido.qr
+                          props.pedidoData.qr
                         }
-                        size={350}
+                        size={250}
                       />
                     </FlexboxGrid>
                   </FlexboxGrid.Item>
@@ -94,41 +94,8 @@ export const PedidoDetailShower = (props) => {
                   padding: "5% 0",
                 }}
               >
-                <FlexboxGrid>
-                  <FlexboxGrid.Item
-                    componentClass={Col}
-                    xs={24}
-                    sm={24}
-                    style={{ marginTop: "1.5rem" }}
-                  >
-                    <h1 style={{ textAlign: "center" }}>Mi Pedido</h1>
-                  </FlexboxGrid.Item>
-                  <FlexboxGrid.Item
-                    componentClass={Col}
-                    xs={24}
-                    sm={24}
-                    style={{ marginTop: "1.5rem" }}
-                  >
-                    <h3
-                      style={{ textAlign: "center" }}
-                    >{`${props.pedido.monto_total}$`}</h3>
-                  </FlexboxGrid.Item>
-                  <FlexboxGrid.Item
-                    componentClass={Col}
-                    xs={24}
-                    sm={24}
-                    style={{ marginTop: "1.5rem" }}
-                  >
-                    <FlexboxGrid justify="center" align="middle">
-                      <QRCode
-                        value={
-                          "http://localhost:4000/Compra/Confirm/" +
-                          props.pedido.qr
-                        }
-                        size={350}
-                      />
-                    </FlexboxGrid>
-                  </FlexboxGrid.Item>
+                <FlexboxGrid justify="center" align="middle">
+                  <ProductListShower productArr={props.productoArr} />
                 </FlexboxGrid>
               </Panel>
             </FlexboxGrid.Item>

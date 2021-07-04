@@ -9,7 +9,7 @@ export const NavBar = () => {
   const history = useHistory();
   const isLoggedIn = false;
   const navBarStyles = {};
-  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
+  const [cookie, setCookie, removeCookie] = useCookies();
   const navInputStyles = {
     marginTop: "10px",
   };
@@ -56,12 +56,10 @@ export const NavBar = () => {
               {cookie.user && (
                 <FlexboxGrid align="middle" justify="end">
                   <Nav>
-                    <Link to="/PerfilPropio">
-                      <Nav.Item>
-                        {" "}
-                        <h5>My Profile</h5>
-                      </Nav.Item>
-                    </Link>
+                    <Nav.Item href="/PerfilPropio">
+                      {" "}
+                      <h5>Mi Perfil</h5>
+                    </Nav.Item>
                     <Nav.Item
                       onClick={() => {
                         removeCookie("user");
@@ -77,16 +75,12 @@ export const NavBar = () => {
                 <FlexboxGrid align="middle" justify="end">
                   <FlexboxGrid.Item>
                     <Nav>
-                      <Link to="/login">
-                        <Nav.Item>
-                          <h5>Log in</h5>
-                        </Nav.Item>
-                      </Link>
-                      <Link to="/SignUp">
-                        <Nav.Item>
-                          <h5>Sign Up</h5>
-                        </Nav.Item>
-                      </Link>
+                      <Nav.Item href="/login">
+                        <h5>Log in</h5>
+                      </Nav.Item>
+                      <Nav.Item href="/SignUp">
+                        <h5>Sign Up</h5>
+                      </Nav.Item>
                     </Nav>
                   </FlexboxGrid.Item>
                 </FlexboxGrid>

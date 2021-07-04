@@ -15,13 +15,13 @@ import {
   Divider,
   Button,
   Icon,
+  Placeholder,
 } from "rsuite";
 import { Image, Transformation } from "cloudinary-react";
-
+import { useCookies } from "react-cookie";
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import { AngryOwl } from "../Componentes/AngryOwl";
-import { NavBar } from "../Componentes/navBar";
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { StarShower } from "../Componentes/StarShower";
@@ -29,19 +29,25 @@ import { CommentShower } from "../Componentes/CommentShower";
 //Función que busca el producto a mostrar.
 
 export const ProductoDetailedView = (props) => {
+  const [cookie] = useCookies(["user"]);
   const [loading, setLoading] = useState(true);
   const [productData, setProductData] = useState({});
+  const [subcatData, setSubcatData] = useState(null);
   const { id } = useParams();
   const history = useHistory();
   const getProduct = () => {
     const innerFunc = async () => {
-      console.log(id);
       try {
         const doc = await axios.get(
           `https://avviare.herokuapp.com/api/productos/one/${id}`
         );
         setProductData(doc.data.data[0]);
-        console.log(productData);
+        if (doc) {
+          const doc2 = await axios.get(
+            `https://avviare.herokuapp.com/api/subCategory/one/${doc.data.data[0].subcategoriumIdSubcat}`
+          );
+          setSubcatData(doc2.data.data[0]);
+        }
         setLoading(false);
       } catch (err) {
         console.log(err);
@@ -107,10 +113,20 @@ export const ProductoDetailedView = (props) => {
                                     }}
                                   >
                                     <h5>Descripción</h5>
-                                    <p>{productData.descripcion}</p>
+                                    <p style={{ marginTop: "1rem" }}>
+                                      {productData.descripcion}
+                                    </p>
                                     <Divider />
                                     <h5>Subcategoría</h5>
-
+                                    <Button
+                                      color={subcatData ? "blue" : "cyan"}
+                                      style={{ marginTop: "1rem" }}
+                                    >
+                                      {" "}
+                                      {subcatData
+                                        ? subcatData.nombre
+                                        : "Ninguna"}
+                                    </Button>
                                     <Divider />
                                     <FlexboxGrid
                                       justify="center"
@@ -120,6 +136,7 @@ export const ProductoDetailedView = (props) => {
                                         size="lg"
                                         appearance="primary"
                                         color="green"
+                                        disabled={cookie.user ? false : true}
                                         onClick={() => {
                                           history.push(
                                             `/Buy/Product/${productData.id_producto}`
@@ -149,11 +166,19 @@ export const ProductoDetailedView = (props) => {
                                   autoplay
                                   style={{ width: "100%", height: "100%" }}
                                 >
+                                  {productData.fotos.length === 0 && (
+                                    <Placeholder.Graph
+                                      width={300}
+                                      height={300}
+                                    />
+                                  )}
                                   {productData.fotos.map((elem) => {
                                     return (
                                       <Image
                                         publicId={elem}
                                         alt="Imagen de un Producto"
+                                        width="300"
+                                        height="300"
                                         key={uuidv4()}
                                       >
                                         <Transformation

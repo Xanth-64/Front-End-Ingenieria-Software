@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { NavBar } from "./Componentes/navBar";
 import { ProtectedRoute } from "./Componentes/ProtectedRoute";
 import "rsuite/dist/styles/rsuite-default.css";
-import Test from "./Vistas/Test";
 //Context providers
 import { CloudinaryContext } from "cloudinary-react";
 import { CookiesProvider } from "react-cookie";
@@ -17,11 +16,10 @@ import { Empre_Driver_Detailed } from "./Vistas/Empre_Driver_Detailed";
 import { EmprendedorDetailedView } from "./Vistas/EmprendedorDetailedView";
 import { CatalogView } from "./Vistas/CatalogView";
 import { ProductBuyView } from "./Vistas/ProductBuyView";
-import { Test2 } from "./Vistas/Test2";
-import { Test3 } from "./Vistas/Test3";
 import { PedidoDriverDetailedView } from "./Vistas/PedidoDriverDetailedView";
 import { AdministrativeWorkspace } from "./Vistas/AdministrativeWorkspace";
 import { EmpreWorkspace } from "./Vistas/EmpreWorkspace";
+import { DriverWorkspace } from "./Vistas/DriverWorkspace";
 import { PerfilPropio } from "./Vistas/PerfilPropio";
 import { Compras } from "./Vistas/Compras";
 import { CompraDetail } from "./Vistas/CompraDetail";
@@ -77,13 +75,17 @@ function App() {
                 component={AdministrativeWorkspace}
                 AcceptOnly="SignedIn"
               />
-              <Route exact path="/test2" component={Test2} />
-              <Route exact path="/test3" component={Test3} />
               <ProtectedRoute
                 exact
                 path="/Manage/Emprendimiento"
                 component={EmpreWorkspace}
                 AcceptOnly="Emprendedor"
+              />
+              <ProtectedRoute
+                exact
+                path="/Manage/Driver"
+                component={DriverWorkspace}
+                AcceptOnly="Transportista"
               />
               <ProtectedRoute
                 exact

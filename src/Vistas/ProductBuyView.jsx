@@ -1,6 +1,72 @@
-import { FlexboxGrid } from "rsuite";
+import { FlexboxGrid, Loader } from "rsuite";
 import { BuyView } from "../Componentes/BuyView";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useCookies } from "react-cookie";
+import { useParams } from "react-router-dom";
 export const ProductBuyView = (props) => {
+  const [loading, setLoading] = useState(true);
+  const [userData, setUserData] = useState({});
+  const [productArr, setProductArr] = useState([]);
+  const [driverLocationArr, setDriverLocationArr] = useState([]);
+  const [cookie] = useCookies();
+  let { id } = useParams();
+
+  const getData = () => {
+    const innerFunc = async () => {
+      try {
+        const doc1 = await axios.post(
+          "https://avviare.herokuapp.com/api/address/some",
+          {
+            usuarioIdUsuario: cookie.user.id,
+          }
+        );
+        const doc2 = await axios.get(
+          `https://avviare.herokuapp.com/api/productos/one/${id}`
+        );
+        const doc3 = await axios.get(
+          "https://avviare.herokuapp.com/api/drivers/all/withAddress"
+        );
+        setUserData({
+          address: {
+            lat: Number(doc1.data.data[0].latitud),
+            lng: Number(doc1.data.data[0].longitud),
+          },
+          id_usuario: cookie.user.id,
+        });
+        console.log(doc3);
+        setProductArr([
+          {
+            ...doc2.data.data[0],
+            price: doc2.data.data[0].precio,
+            product_id: doc2.data.data[0].id_producto,
+          },
+        ]);
+        setDriverLocationArr(
+          doc3.data.data.map((elem, index) => {
+            return {
+              nombre: `${elem.usuario.nombre} ${elem.usuario.apellido}`,
+              value: index,
+              tarifa: elem.tarifa,
+              id_transportista: elem.id_transportista,
+              address: {
+                lat: Number(elem.usuario.direccion.latitud),
+                lng: Number(elem.usuario.direccion.longitud),
+              },
+            };
+          })
+        );
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+        setLoading(false);
+      }
+    };
+    setLoading(true);
+    innerFunc();
+    console.log(driverLocationArr);
+  };
+  useEffect(getData, []);
   return (
     <>
       <FlexboxGrid
@@ -9,33 +75,18 @@ export const ProductBuyView = (props) => {
         style={{ marginTop: "2rem" }}
       >
         <FlexboxGrid justify="center" align="middle" style={{ width: "95%" }}>
-          <BuyView
-            userData={{
-              address: { lat: 10.487267000000001, lng: -66.80741499999999 },
-              id_usuario: 2,
-            }}
-            driverLocationArr={[
-              {
-                nombre: "Andres",
-                value: 0,
-                address: { lat: 10.487267000000001, lng: -66.90741499999999 },
-                tarifa: 5,
-                id_transportista: 1,
-              },
-              {
-                nombre: "Pedro",
-                value: 1,
-                address: { lat: 10.487267000000001, lng: -66.70741499999999 },
-                tarifa: 3,
-                id_transportista: 2,
-              },
-            ]}
-            productArr={[
-              { product_id: 20, nombre: "Producto 1", price: 3.57 },
-              { product_id: 22, nombre: "Producto 2", price: 2.4 },
-              { product_id: 21, nombre: "Producto 3", price: 10 },
-            ]}
-          />
+          {!loading && (
+            <BuyView
+              userData={userData}
+              driverLocationArr={driverLocationArr}
+              productArr={productArr}
+            />
+          )}
+          {loading && (
+            <FlexboxGrid justify="center" align="middle">
+              <Loader speed="fast" />
+            </FlexboxGrid>
+          )}
         </FlexboxGrid>
       </FlexboxGrid>
     </>
