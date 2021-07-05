@@ -65,10 +65,7 @@ export const PedidoDetailShower = (props) => {
                   >
                     <FlexboxGrid justify="center" align="middle">
                       <QRCode
-                        value={
-                          "http://localhost:4000/Compra/Confirm/" +
-                          props.pedidoData.qr
-                        }
+                        value={"/Compra/Confirm/" + props.pedidoData.qr}
                         size={250}
                       />
                     </FlexboxGrid>

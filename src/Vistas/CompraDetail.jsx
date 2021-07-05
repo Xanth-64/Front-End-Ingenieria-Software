@@ -19,7 +19,7 @@ export const CompraDetail = () => {
             qr: qr,
           }
         );
-        console.log(doc1);
+
         if (doc1.data.data.length !== 0) {
           setPedidoData(doc1.data.data[0]);
           const doc2 = await axios.get(

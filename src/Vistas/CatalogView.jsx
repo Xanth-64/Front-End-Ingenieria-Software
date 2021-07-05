@@ -91,7 +91,6 @@ export const CatalogView = (props) => {
       if (formData.subCat.length === 0) {
         foundProds = currentProducts;
       } else {
-        console.log("filtrate");
         foundProds = currentProducts.filter((elem) => {
           const found = formData.subCat.find((cat) => {
             return cat === elem.categoria || cat === elem.subcategoria;

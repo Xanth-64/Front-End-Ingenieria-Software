@@ -20,7 +20,7 @@ export const EmprendedorDetailedView = (props) => {
         const doc2 = await axios.get(
           `https://avviare.herokuapp.com/api/empre/empre_usuario/${id}`
         );
-        console.log(doc2);
+
         setCurrentEmpre(doc1.data.data[0]);
         setCurrentUser(doc2.data.data[0]);
         setLoading(false);

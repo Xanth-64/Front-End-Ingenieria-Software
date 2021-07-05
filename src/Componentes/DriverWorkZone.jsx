@@ -55,12 +55,12 @@ export const DriverWorkZone = (props) => {
             <Nav.Item eventKey="pedidos" icon={<Icon icon="order-form" />}>
               Pedidos
             </Nav.Item>
-            <Nav.Item eventKey="perfil" icon={<Icon icon="user" />}>
+            {/* <Nav.Item eventKey="perfil" icon={<Icon icon="user" />}>
               Perfil
             </Nav.Item>
             <Nav.Item eventKey="graficos" icon={<Icon icon="charts" />}>
               Estadística
-            </Nav.Item>
+            </Nav.Item> */}
           </Nav>
         </Header>
         <Content>
@@ -75,8 +75,8 @@ export const DriverWorkZone = (props) => {
               {navSelect === "pedidos" && (
                 <PedidoDriverDetailedView driverData={driverData} />
               )}
-              {navSelect === "perfil" && <></>}
-              {navSelect === "graficos" && <></>}
+              {/* {navSelect === "perfil" && <></>}
+              {navSelect === "graficos" && <></>} */}
             </FlexboxGrid>
           )}
         </Content>

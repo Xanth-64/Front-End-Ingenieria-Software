@@ -24,6 +24,8 @@ import {
   IconButton,
   SelectPicker,
 } from "rsuite";
+import { Image, Transformation } from "cloudinary-react";
+
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
@@ -218,7 +220,6 @@ export const AdminWorkZone = (props) => {
           const temp = currentSubcatArr;
           temp.push(doc.data.data[0]);
           setCurrentSubcatArr(temp);
-          console.log(currentSubcatArr);
           Alert.success(`Subcategoría creada exitosamente`);
           setLoadingSubcat(false);
         }
@@ -270,7 +271,6 @@ export const AdminWorkZone = (props) => {
         `https://avviare.herokuapp.com/api/usuarios/one/${userData.id_usuario}`,
         { tipo: "Administrador" }
       );
-      console.log(doc);
       if (doc) {
         Alert.success("Usuario ascendido a Administrador de manera exitosa");
       }
@@ -419,10 +419,17 @@ export const AdminWorkZone = (props) => {
                           <FlexboxGrid.Item componentClass={Col} colspan={24}>
                             <FlexboxGrid justify="center">
                               {user.imagen_url && (
-                                <img
-                                  alt="Foto de Perfil"
-                                  src={user.imagen_url}
-                                ></img>
+                                <Image
+                                  alt="Imagen del Usuario"
+                                  publicId={user.imagen_url}
+                                >
+                                  <Transformation
+                                    width="300"
+                                    crop="fill"
+                                    gravity="faces"
+                                    fetchFormat="auto"
+                                  />
+                                </Image>
                               )}
                             </FlexboxGrid>
                             {!user.imagen_url && (

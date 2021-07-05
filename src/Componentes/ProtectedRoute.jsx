@@ -14,7 +14,6 @@ export const ProtectedRoute = ({
   }, []);
   let userInfo = cookie.user;
   if (!cargando) {
-    console.log("userInfoo", userInfo);
     switch (AcceptOnly) {
       case "SignedIn":
         return (

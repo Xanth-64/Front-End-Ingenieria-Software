@@ -26,9 +26,9 @@ export const EmpreWorkZone = (props) => {
             <Nav.Item eventKey="pedidos" icon={<Icon icon="order-form" />}>
               Pedidos
             </Nav.Item>
-            <Nav.Item eventKey="graficos" icon={<Icon icon="charts" />}>
+            {/* <Nav.Item eventKey="graficos" icon={<Icon icon="charts" />}>
               Estadística
-            </Nav.Item>
+            </Nav.Item> */}
           </Nav>
         </Header>
         <Content>
@@ -48,7 +48,7 @@ export const EmpreWorkZone = (props) => {
                 <PedidoViewEmpre empreData={props.empreData} />
               </>
             )}
-            {navSelect === "graficos" && <></>}
+            {/* {navSelect === "graficos" && <></>} */}
           </FlexboxGrid>
         </Content>
       </Container>

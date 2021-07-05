@@ -65,7 +65,6 @@ export const BuyView = (props) => {
         driveId: props.driverLocationArr[formData.driverIndex].id_transportista,
       }
     );
-    console.log(session);
     const result = await stripe.redirectToCheckout({
       sessionId: session.data.id,
     });
@@ -243,7 +242,6 @@ export const BuyView = (props) => {
                             <Form
                               formValue={formData}
                               onChange={(val) => {
-                                console.log(val);
                                 setFormData(val);
                               }}
                             >

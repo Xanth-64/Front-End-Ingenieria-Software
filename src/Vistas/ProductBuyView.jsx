@@ -34,7 +34,6 @@ export const ProductBuyView = (props) => {
           },
           id_usuario: cookie.user.id,
         });
-        console.log(doc3);
         setProductArr([
           {
             ...doc2.data.data[0],
@@ -64,7 +63,6 @@ export const ProductBuyView = (props) => {
     };
     setLoading(true);
     innerFunc();
-    console.log(driverLocationArr);
   };
   useEffect(getData, []);
   return (

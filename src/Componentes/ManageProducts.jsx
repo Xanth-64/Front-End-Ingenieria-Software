@@ -399,8 +399,6 @@ export const ManageProducts = (props) => {
               }
             }}
             onChange={(e) => {
-              console.log(e);
-
               setFormValue(e);
             }}
             formValue={formValue}
@@ -523,7 +521,6 @@ export const ManageProducts = (props) => {
                     listType="picture-text"
                     accept=".jpg, .png"
                     onSuccess={(res) => {
-                      console.log(res);
                       let newFormValue = formValue;
                       if (newFormValue["fotos"]) {
                         newFormValue["fotos"] = [

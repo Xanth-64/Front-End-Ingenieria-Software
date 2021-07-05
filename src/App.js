@@ -22,6 +22,7 @@ import { DriverWorkspace } from "./Vistas/DriverWorkspace";
 import { PerfilPropio } from "./Vistas/PerfilPropio";
 import { Compras } from "./Vistas/Compras";
 import { CompraDetail } from "./Vistas/CompraDetail";
+import { CompraConfirm } from "./Vistas/CompraConfirm";
 
 //Base App
 function App() {
@@ -103,6 +104,12 @@ function App() {
                 path="/CompraDetail/:qr"
                 component={CompraDetail}
                 AcceptOnly="SignedIn"
+              />
+              <ProtectedRoute
+                exact
+                path="/Compra/Confirm/:qr"
+                component={CompraConfirm}
+                AcceptOnly="Transportista"
               />
             </Switch>
           </Router>

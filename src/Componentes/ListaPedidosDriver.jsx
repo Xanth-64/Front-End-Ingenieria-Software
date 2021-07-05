@@ -11,11 +11,10 @@ import { useHistory } from "react-router-dom";
 export const ListaPedidosDriver = (props) => {
   const [pedidosArr, setPedidosArr] = useState(props.pedidosData);
   const history = useHistory();
-  console.log(props.pedidosData);
   const descripcion = "";
   const handleScan = (data) => {
     if (data) {
-      history.replace(data);
+      history.push(data.text);
     }
   };
   const handleError = (err) => {
@@ -97,7 +96,7 @@ export const ListaPedidosDriver = (props) => {
                 style={{ width: "300px", height: "300px" }}
                 onError={handleError}
                 onScan={handleScan}
-                facingMode="rear"
+                facingMode="front"
               />
             </FlexboxGrid>
           </Panel>

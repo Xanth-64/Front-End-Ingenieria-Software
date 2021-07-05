@@ -31,7 +31,6 @@ export const SuscriptionManager = (props) => {
           }
         );
         setSuscriptionData(doc1.data.data);
-        console.log(doc1);
       } catch (err) {
         console.log(err);
         Alert.error("Error al Recuperar sus Suscripciones");
@@ -94,7 +93,6 @@ export const SuscriptionManager = (props) => {
   };
   useEffect(getSuscriptionData, []);
   const renderCell = (date) => {
-    console.log(suscriptionData);
     const sus = suscriptionData.find((elem) => {
       const current = new Date(elem.fecha_fin);
       return (

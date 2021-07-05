@@ -25,9 +25,7 @@ export const SignUp = () => {
   };
   //retroceder un step
   const onPrevious = () => onChange(step - 1);
-  useEffect(() => {
-    console.log("Map changed");
-  }, [map, setMap]);
+  useEffect(() => {}, [map, setMap]);
   //useEffect que alerta al usuario en cuanto entra que se le pedirá su localización actual
   useEffect(() => {
     Alert.info(
@@ -41,7 +39,6 @@ export const SignUp = () => {
   };
   //Función que genera o actualiza una cookie con los datos del usuario
   function handleCookie(userData) {
-    console.log("cookie.user", userData);
     setCookie("user", userData, {
       path: "/",
       sameSite: "lax",
@@ -50,8 +47,6 @@ export const SignUp = () => {
   }
   //Función para crear una cuenta una vez se validó toda la información
   const crearCuenta = async () => {
-    console.log("se va a crear cuenta", data);
-    console.log(new Date());
     let tokenId;
     try {
       // Creación de un Usuario sin importar el tipo
@@ -79,7 +74,6 @@ export const SignUp = () => {
         latitud: map.lat.toString(),
         longitud: map.lng.toString(),
       });
-      console.log("address created");
       switch (data.tipo) {
         case "Emprendedor":
           // Creacion de la empresa del emprendedor
@@ -222,10 +216,9 @@ export const SignUp = () => {
         <SignUpEmprendedor
           SubmitFunction={(val) => {
             val["tipo"] = data.tipo;
-            console.log("Submit de signUpEmprendedor", val);
+
             setData(val);
             if (map.enabled) {
-              console.log(map);
               onNext();
             } else {
             }
@@ -241,10 +234,9 @@ export const SignUp = () => {
         <SignUpUsuarios
           SubmitFunction={(val) => {
             val["tipo"] = data.tipo;
-            console.log("Submit de signUpUsuarios", val);
+
             setData(val);
             if (map.enabled) {
-              console.log(map);
               onNext();
             } else {
             }
@@ -260,10 +252,9 @@ export const SignUp = () => {
         <SignUpDriver
           SubmitFunction={(val) => {
             val["tipo"] = data.tipo;
-            console.log("Submit de signUpDriver", val);
+
             setData(val);
             if (map.enabled) {
-              console.log(map);
               onNext();
             } else {
             }

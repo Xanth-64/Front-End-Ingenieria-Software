@@ -26,10 +26,7 @@ export const DatosEmprendimiento = () => {
       limits: { required: false },
     },
   ];
-  function submit(data) {
-    console.log("Mary :3");
-    console.log(data);
-  }
+  function submit(data) {}
   return (
     <div>
       <FormSesion
