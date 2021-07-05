@@ -3,13 +3,43 @@ import {
   Nav,
   Content,
   Header,
-  Footer,
   FlexboxGrid,
   Icon,
+  Loader,
+  Alert,
 } from "rsuite";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import { PedidoDriverDetailedView } from "../Componentes/PedidoDriverDetailedView";
+import axios from "axios";
+import { useCookies } from "react-cookie";
 export const DriverWorkZone = (props) => {
+  const [cookie] = useCookies(["user"]);
+  const [driverData, setDriverData] = useState({});
+  const [loading, setLoading] = useState(true);
+  const getDriverData = () => {
+    const innerFunc = async () => {
+      try {
+        setLoading(true);
+        const doc1 = await axios.post(
+          "https://avviare.herokuapp.com/api/drivers/some",
+          {
+            usuarioIdUsuario: cookie.user.id,
+          }
+        );
+
+        if (doc1.data.data.length !== 0) {
+          setDriverData(doc1.data.data[0]);
+        }
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+        Alert.error("Error obteniendo sus Datos");
+        setLoading(false);
+      }
+    };
+    innerFunc();
+  };
+  useEffect(getDriverData, []);
   const [navSelect, setNavSelect] = useState("pedidos");
   return (
     <>
@@ -34,11 +64,21 @@ export const DriverWorkZone = (props) => {
           </Nav>
         </Header>
         <Content>
-          <FlexboxGrid justify="center" align="middle">
-            {navSelect === "pedidos" && <></>}
-            {navSelect === "perfil" && <></>}
-            {navSelect === "graficos" && <></>}
-          </FlexboxGrid>
+          {loading ? (
+            <Loader speed="slow" center />
+          ) : (
+            <FlexboxGrid
+              justify="center"
+              align="middle"
+              style={{ width: "100%" }}
+            >
+              {navSelect === "pedidos" && (
+                <PedidoDriverDetailedView driverData={driverData} />
+              )}
+              {navSelect === "perfil" && <></>}
+              {navSelect === "graficos" && <></>}
+            </FlexboxGrid>
+          )}
         </Content>
       </Container>
     </>

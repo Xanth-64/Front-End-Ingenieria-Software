@@ -16,7 +16,6 @@ import { Empre_Driver_Detailed } from "./Vistas/Empre_Driver_Detailed";
 import { EmprendedorDetailedView } from "./Vistas/EmprendedorDetailedView";
 import { CatalogView } from "./Vistas/CatalogView";
 import { ProductBuyView } from "./Vistas/ProductBuyView";
-import { PedidoDriverDetailedView } from "./Vistas/PedidoDriverDetailedView";
 import { AdministrativeWorkspace } from "./Vistas/AdministrativeWorkspace";
 import { EmpreWorkspace } from "./Vistas/EmpreWorkspace";
 import { DriverWorkspace } from "./Vistas/DriverWorkspace";
@@ -89,19 +88,13 @@ function App() {
               />
               <ProtectedRoute
                 exact
-                path="/Drivers/:id/Pedidos"
-                component={PedidoDriverDetailedView}
-                AcceptOnly="Transportista"
-              />
-              <ProtectedRoute
-                exact
                 path="/PerfilPropio"
                 component={PerfilPropio}
                 AcceptOnly="SignedIn"
               />
               <ProtectedRoute
                 exact
-                path="/Compras"
+                path="/Compras/All"
                 component={Compras}
                 AcceptOnly="SignedIn"
               />

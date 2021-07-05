@@ -1,6 +1,6 @@
 import { Image, Transformation } from "cloudinary-react";
 import { useCookies } from "react-cookie";
-import { Panel, FlexboxGrid, Button, Icon } from "rsuite";
+import { Panel, FlexboxGrid, Button, Icon, Col } from "rsuite";
 import { useHistory } from "react-router-dom";
 
 export const PerfilUsuario = (props) => {
@@ -16,21 +16,37 @@ export const PerfilUsuario = (props) => {
       >
         <Panel bordered shaded style={{ width: "80%", padding: "3% 2%" }}>
           <div className="cardContainer space-around wh-290vw">
-            <h6 style={{ width: "20%", textAlign: "center" }}>
-              {props.dataUsuario.nombre}
-            </h6>
-            <h6 style={{ width: "20%", textAlign: "center" }}>
-              {props.dataUsuario.apellido}
-            </h6>
-            <h6 style={{ width: "20%", textAlign: "center" }}>
-              {props.dataUsuario.email}
-            </h6>
-            <h6 style={{ width: "20%", textAlign: "center" }}>
-              {props.dataUsuario.telefono}
-            </h6>
-            <h6 style={{ width: "20%", textAlign: "center" }}>
-              {props.dataUsuario.tipo}
-            </h6>
+            <FlexboxGrid
+              justify="space-around"
+              align="middle"
+              style={{ width: "100%" }}
+            >
+              <FlexboxGrid.Item classComponent={Col} xs={8} sm={4}>
+                <h6 style={{ textAlign: "center" }}>
+                  {props.dataUsuario.nombre}
+                </h6>
+              </FlexboxGrid.Item>
+              <FlexboxGrid.Item classComponent={Col} xs={8} sm={4}>
+                <h6 style={{ textAlign: "center" }}>
+                  {props.dataUsuario.apellido}
+                </h6>
+              </FlexboxGrid.Item>
+              <FlexboxGrid.Item classComponent={Col} xs={8} sm={4}>
+                <h6 style={{ textAlign: "center" }}>
+                  {props.dataUsuario.email}
+                </h6>
+              </FlexboxGrid.Item>
+              <FlexboxGrid.Item classComponent={Col} xs={8} sm={4}>
+                <h6 style={{ textAlign: "center" }}>
+                  {props.dataUsuario.telefono}
+                </h6>
+              </FlexboxGrid.Item>
+              <FlexboxGrid.Item classComponent={Col} xs={8} sm={4}>
+                <h6 style={{ textAlign: "center" }}>
+                  {props.dataUsuario.tipo}
+                </h6>
+              </FlexboxGrid.Item>
+            </FlexboxGrid>
           </div>
 
           <div

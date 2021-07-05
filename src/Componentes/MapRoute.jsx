@@ -43,7 +43,7 @@ export const MapRoute = (props) => {
               fontFamily: "Roboto",
             }}
             onClick={() => {
-              Alert.info("Su Driver Está Aquí");
+              Alert.info("Posición del Driver");
             }}
           ></Marker>
           <Marker
@@ -55,9 +55,23 @@ export const MapRoute = (props) => {
               fontFamily: "Roboto",
             }}
             onClick={() => {
-              Alert.info("Usted Está Aquí");
+              Alert.info("Posición del Cliente");
             }}
           ></Marker>
+          {props.emprePosition && (
+            <Marker
+              position={props.emprePosition}
+              label={{
+                text: "E",
+                color: "#ffffff",
+                fontsize: "20px",
+                fontFamily: "Roboto",
+              }}
+              onClick={() => {
+                Alert.info("Posición del Emprendedor");
+              }}
+            ></Marker>
+          )}
         </GoogleMap>
       ) : (
         <Loader speed="fast" center />
