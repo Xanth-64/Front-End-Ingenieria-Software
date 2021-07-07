@@ -17,7 +17,7 @@ export const NavBar = () => {
 
   return (
     <>
-      <Navbar style={navBarStyles}>
+      <Navbar style={navBarStyles} data-testid="NavBar">
         <Navbar.Header>
           <Link to="/">
             {" "}

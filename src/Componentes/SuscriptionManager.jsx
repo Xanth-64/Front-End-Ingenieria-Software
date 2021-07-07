@@ -109,7 +109,11 @@ export const SuscriptionManager = (props) => {
   };
   return (
     <>
-      <FlexboxGrid justify="space-around" align="middle">
+      <FlexboxGrid
+        justify="space-around"
+        align="middle"
+        data-testid="suscriptionWrapper"
+      >
         <FlexboxGrid.Item
           componentClass={Col}
           xs={24}
@@ -160,6 +164,7 @@ export const SuscriptionManager = (props) => {
                       }}
                       style={{ width: "200px" }}
                       role="link"
+                      data-testid="stripeButton"
                     >
                       <Icon icon="cc-stripe" /> Stripe
                     </Button>
